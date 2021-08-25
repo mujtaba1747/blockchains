@@ -1,4 +1,46 @@
 # blog
+
+## Instructions ( By Syed )
+
+* Ensure Go is installed
+
+* Ensure Starport is installed
+
+* cd into blog
+
+* Make sure the env variable GOPATH is set. Can be checked by running :
+  
+```bash
+echo $GOPATH
+```
+
+In case this env variable is not set, it can be set using :
+
+```bash
+export GOPATH="/home/go"
+```
+
+
+* Run
+```bash
+starport chain serve
+```
+
+* Run
+```bash
+make
+```
+
+* Run or cd into your GOPATH
+```bash
+cd $GOPATH
+```
+
+* Run
+```bash
+./blogd tx blog create-post "My first post" "This is a post\!" --from=alice --chain-id="blog"
+```
+
 **blog** is a blockchain built using Cosmos SDK and Tendermint and created with [Starport](https://github.com/tendermint/starport).
 
 ## Get started
