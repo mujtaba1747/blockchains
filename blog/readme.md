@@ -1,6 +1,6 @@
 # blog
 
-## Instructions to build project and add a blog-post ( By Syed )
+## Instructions to build project and add a blog-post
 
 * Ensure Go is installed
 
