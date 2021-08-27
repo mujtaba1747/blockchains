@@ -11,25 +11,27 @@ message Auction {
     string id = 2;
     string title = 3;
     string body = 4;
-    int deadline = 5;
+    int64 deadline = 5;
+    int64 blockHeight = 6;
 }
 
 message MsgCreateAuction {
   string creator = 1;
   string title = 2; 
   string body = 3;
-  int deadline = 4; 
+  int64 deadline = 4;
+  int64 blockHeight = 5;
 }
-
+//protoc -I=. -I=$GOPATH/src -I=$GOPATH/src/github.com/gogo/protobuf/protobuf --{binary}_out=. myproto.proto
 message Bid {
     string creator = 1;
     string id = 2;
     string auctionId = 3;
-    int amt = 4;
+    int64 amt = 4;
 }
 
 message MsgCreateBid {
     string creator = 1;
     string auctionId = 2;
-    int amt = 3;
+    int64 amt = 3;
 }

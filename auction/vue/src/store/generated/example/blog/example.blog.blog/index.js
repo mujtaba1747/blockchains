@@ -1,8 +1,11 @@
 import { txClient, queryClient, MissingWalletError } from './module';
 // @ts-ignore
 import { SpVuexError } from '@starport/vuex';
+import { Auction } from "./module/types/blog/auction";
+import { Bid } from "./module/types/blog/auction";
+import { MsgCreateBid } from "./module/types/blog/auction";
 import { Post } from "./module/types/blog/post";
-export { Post };
+export { Auction, Bid, MsgCreateBid, Post };
 async function initTxClient(vuexGetters) {
     return await txClient(vuexGetters['common/wallet/signer'], {
         addr: vuexGetters['common/env/apiTendermint']
@@ -37,6 +40,9 @@ function getStructure(template) {
 const getDefaultState = () => {
     return {
         _Structure: {
+            Auction: getStructure(Auction.fromPartial({})),
+            Bid: getStructure(Bid.fromPartial({})),
+            MsgCreateBid: getStructure(MsgCreateBid.fromPartial({})),
             Post: getStructure(Post.fromPartial({})),
         },
         _Subscriptions: new Set(),
@@ -108,6 +114,23 @@ export default {
                 }
             }
         },
+        async sendMsgCreateAuction({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgCreateAuction(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgCreateAuction:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgCreateAuction:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
         async MsgCreatePost({ rootGetters }, { value }) {
             try {
                 const txClient = await initTxClient(rootGetters);
@@ -120,6 +143,21 @@ export default {
                 }
                 else {
                     throw new SpVuexError('TxClient:MsgCreatePost:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgCreateAuction({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgCreateAuction(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgCreateAuction:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgCreateAuction:Create', 'Could not create message: ' + e.message);
                 }
             }
         },

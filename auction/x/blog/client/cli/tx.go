@@ -2,6 +2,7 @@ package cli
 
 import (
 	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/spf13/cobra"
@@ -31,11 +32,38 @@ func GetTxCmd() *cobra.Command {
 	}
 
 	// this line is used by starport scaffolding # 1
-	cmd.AddCommand( CmdCreatePost() )
+	cmd.AddCommand(CmdCreatePost())
+	cmd.AddCommand(CmdCreateAuction())
+	return cmd
+}
+func CmdCreateAuction() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "create-auction [title] [body] [duration]",
+		Short: "Creates a new auction",
+		Args:  cobra.ExactArgs(3),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			argsTitle := string(args[0])
+			argsBody := string(args[1])
+			argsDuration, err := strconv.Atoi(string(args[2]))
+			if err != nil {
+				return err
+			}
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+			msg := types.NewMsgCreateAuction(clientCtx.GetFromAddress().String(), string(argsTitle), string(argsBody), clientCtx.Height, clientCtx.Height+int64(argsDuration))
+			if err := msg.ValidateBasic(); err != nil {
+				return err
+			}
+			return nil
+		},
+	}
+
+	flags.AddTxFlagsToCmd(cmd)
 
 	return cmd
 }
-
 func CmdCreatePost() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "create-post [title] [body]",
@@ -44,12 +72,11 @@ func CmdCreatePost() *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			argsTitle := string(args[0])
 			argsBody := string(args[1])
-      
+
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
-
 			msg := types.NewMsgCreatePost(clientCtx.GetFromAddress().String(), string(argsTitle), string(argsBody))
 			if err := msg.ValidateBasic(); err != nil {
 				return err
@@ -60,6 +87,5 @@ func CmdCreatePost() *cobra.Command {
 
 	flags.AddTxFlagsToCmd(cmd)
 
-    return cmd
+	return cmd
 }
-

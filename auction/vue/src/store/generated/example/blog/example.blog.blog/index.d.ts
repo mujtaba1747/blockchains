@@ -1,4 +1,7 @@
+import { Auction } from "./module/types/blog/auction";
+import { Bid } from "./module/types/blog/auction";
+import { MsgCreateBid } from "./module/types/blog/auction";
 import { Post } from "./module/types/blog/post";
-export { Post };
+export { Auction, Bid, MsgCreateBid, Post };
 declare const _default;
 export default _default;
