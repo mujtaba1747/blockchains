@@ -21,3 +21,15 @@ message MsgCreateAuction {
   int deadline = 4; 
 }
 
+message Bid {
+    string creator = 1;
+    string id = 2;
+    string auctionId = 3;
+    int amt = 4;
+}
+
+message MsgCreateBid {
+    string creator = 1;
+    string auctionId = 2;
+    int amt = 3;
+}
