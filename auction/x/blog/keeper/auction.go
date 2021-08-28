@@ -55,6 +55,18 @@ func (k Keeper) CreateAuction(ctx sdk.Context, msg types.MsgCreateAuction) {
 
 	// Update Auction count
 	k.SetAuctionCount(ctx, count+1)
+
+	// TODO : Remove this, getAll was meant for debugging
+
+	/*
+		msgs := k.GetAllAuction(ctx)
+		fil, _ := os.Create("/home/syed/go/tempfile")
+		defer fil.Close()
+		for _, m := range msgs {
+			// fmt.Println(m.String())
+			fil.WriteString(m.String())
+		}
+	*/
 }
 
 func (k Keeper) GetAuction(ctx sdk.Context, key string) types.Auction {

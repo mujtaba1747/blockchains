@@ -56,7 +56,7 @@ func CmdCreateAuction() *cobra.Command {
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
-			return nil
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
 		},
 	}
 
@@ -64,6 +64,27 @@ func CmdCreateAuction() *cobra.Command {
 
 	return cmd
 }
+
+/*
+func CmdGetAllAuctions() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "list-auctions",
+		Short: "lists options in sdout, used for debugging",
+		RunE: func(cmd *cobra.Command, args []string) error {
+
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+
+		},
+	}
+
+	flags.AddTxFlagsToCmd(cmd)
+
+	return cmd
+}*/
+
 func CmdCreatePost() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "create-post [title] [body]",
@@ -89,3 +110,5 @@ func CmdCreatePost() *cobra.Command {
 
 	return cmd
 }
+
+// blogd tx blog create-post "My first post" "This is a post\!" --from=alice --chain-id="blog"
