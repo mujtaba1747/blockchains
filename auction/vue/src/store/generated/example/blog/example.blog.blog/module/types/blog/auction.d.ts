@@ -16,7 +16,6 @@ export interface MsgCreateAuction {
     deadline: number;
     blockHeight: number;
 }
-/** protoc -I=. -I=$GOPATH/src -I=$GOPATH/src/github.com/gogo/protobuf/protobuf --{binary}_out=. myproto.proto */
 export interface Bid {
     creator: string;
     id: string;

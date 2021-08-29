@@ -1,4 +1,4 @@
-// x/blog/handler_auction.go
+// x/blog/handler_bid.go
 package blog
 
 import (
@@ -7,8 +7,8 @@ import (
 	"github.com/example/blog/x/blog/types"
 )
 
-func handleAuctionCreatePost(ctx sdk.Context, k keeper.Keeper, msg *types.MsgCreateAuction) (*sdk.Result, error) {
-	k.CreateAuction(ctx, *msg)
+func handleAuctionCreateBid(ctx sdk.Context, k keeper.Keeper, msg *types.MsgCreateBid) (*sdk.Result, error) {
+	k.CreateBid(ctx, *msg)
 
 	return &sdk.Result{Events: ctx.EventManager().ABCIEvents()}, nil
 }

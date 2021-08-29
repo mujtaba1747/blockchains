@@ -183,7 +183,6 @@ func (m *MsgCreateAuction) GetBlockHeight() int64 {
 	return 0
 }
 
-//protoc -I=. -I=$GOPATH/src -I=$GOPATH/src/github.com/gogo/protobuf/protobuf --{binary}_out=. myproto.proto
 type Bid struct {
 	Creator   string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 	Id        string `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`

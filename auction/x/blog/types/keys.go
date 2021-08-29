@@ -25,6 +25,10 @@ const (
 	AuctionKey = "Auction-value-"
 
 	AuctionCountKey = "Auction-count-"
+
+	BidKey = "Bid-value-"
+
+	BidCountKey = "Bid-count-"
 )
 
 // this line is used by starport scaffolding # ibc/keys/port

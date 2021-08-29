@@ -4,11 +4,10 @@ import { SpVuexError } from '@starport/vuex'
 
 import { Auction } from "./module/types/blog/auction"
 import { Bid } from "./module/types/blog/auction"
-import { MsgCreateBid } from "./module/types/blog/auction"
 import { Post } from "./module/types/blog/post"
 
 
-export { Auction, Bid, MsgCreateBid, Post };
+export { Auction, Bid, Post };
 
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
@@ -50,7 +49,6 @@ const getDefaultState = () => {
 				_Structure: {
 						Auction: getStructure(Auction.fromPartial({})),
 						Bid: getStructure(Bid.fromPartial({})),
-						MsgCreateBid: getStructure(MsgCreateBid.fromPartial({})),
 						Post: getStructure(Post.fromPartial({})),
 						
 		},
@@ -109,6 +107,21 @@ export default {
 			})
 		},
 		
+		async sendMsgCreateBid({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateBid(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgCreateBid:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgCreateBid:Send', 'Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
 		async sendMsgCreatePost({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -140,6 +153,20 @@ export default {
 			}
 		},
 		
+		async MsgCreateBid({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateBid(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgCreateBid:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgCreateBid:Create', 'Could not create message: ' + e.message)
+					
+				}
+			}
+		},
 		async MsgCreatePost({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)

@@ -34,6 +34,7 @@ func GetTxCmd() *cobra.Command {
 	// this line is used by starport scaffolding # 1
 	cmd.AddCommand(CmdCreatePost())
 	cmd.AddCommand(CmdCreateAuction())
+	cmd.AddCommand(CmdCreateBid())
 	return cmd
 }
 func CmdCreateAuction() *cobra.Command {
@@ -44,7 +45,7 @@ func CmdCreateAuction() *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			argsTitle := string(args[0])
 			argsBody := string(args[1])
-			argsDuration, err := strconv.Atoi(string(args[2]))
+			argsDuration, err := strconv.ParseInt(string(args[2]), 10, 64)
 			if err != nil {
 				return err
 			}
@@ -52,7 +53,7 @@ func CmdCreateAuction() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			msg := types.NewMsgCreateAuction(clientCtx.GetFromAddress().String(), string(argsTitle), string(argsBody), clientCtx.Height, clientCtx.Height+int64(argsDuration))
+			msg := types.NewMsgCreateAuction(clientCtx.GetFromAddress().String(), string(argsTitle), string(argsBody), clientCtx.Height, clientCtx.Height+argsDuration)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -64,6 +65,8 @@ func CmdCreateAuction() *cobra.Command {
 
 	return cmd
 }
+
+// TODO : Remove this
 
 /*
 func CmdGetAllAuctions() *cobra.Command {
@@ -99,6 +102,36 @@ func CmdCreatePost() *cobra.Command {
 				return err
 			}
 			msg := types.NewMsgCreatePost(clientCtx.GetFromAddress().String(), string(argsTitle), string(argsBody))
+			if err := msg.ValidateBasic(); err != nil {
+				return err
+			}
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
+		},
+	}
+
+	flags.AddTxFlagsToCmd(cmd)
+
+	return cmd
+}
+
+func CmdCreateBid() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "create-bid [auction-id] [amount]",
+		Short: "Creates a new bid on a specified auction",
+		Args:  cobra.ExactArgs(2),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			argsAuctionId := string(args[0])
+			argsAmt, err := strconv.ParseInt(string(args[1]), 10, 64)
+
+			if err != nil {
+				return err
+			}
+
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+			msg := types.NewMsgCreateBid(clientCtx.GetFromAddress().String(), string(argsAuctionId), argsAmt)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

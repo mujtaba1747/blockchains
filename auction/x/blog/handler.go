@@ -22,6 +22,8 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return handleMsgCreatePost(ctx, k, msg)
 		case *types.MsgCreateAuction:
 			return handleAuctionCreatePost(ctx, k, msg)
+		case *types.MsgCreateBid:
+			return handleAuctionCreateBid(ctx, k, msg)
 		default:
 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)

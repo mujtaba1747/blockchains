@@ -22,7 +22,7 @@ message MsgCreateAuction {
   int64 deadline = 4;
   int64 blockHeight = 5;
 }
-//protoc -I=. -I=$GOPATH/src -I=$GOPATH/src/github.com/gogo/protobuf/protobuf --{binary}_out=. myproto.proto
+
 message Bid {
     string creator = 1;
     string id = 2;
