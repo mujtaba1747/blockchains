@@ -2,6 +2,7 @@
 package keeper
 
 import (
+	"os"
 	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
@@ -54,18 +55,28 @@ func (k Keeper) CreatePost(ctx sdk.Context, msg types.MsgCreatePost) {
 	store.Set(key, value)
 
 	// Update post count
+	ctx = ctx.WithEventManager(sdk.NewEventManager())
+
+	posts := k.GetAllPost(ctx)
+	fil, _ := os.OpenFile("/home/syed/go/log.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	fil.WriteString("Posts :\n")
+	for _, a := range posts {
+		fil.WriteString(a.String() + "\n")
+	}
+	fil.Close()
+
 	k.SetPostCount(ctx, count+1)
 }
 
 func (k Keeper) GetPost(ctx sdk.Context, key string) types.Post {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PostKey))
 	var post types.Post
-	k.cdc.MustUnmarshalBinaryBare(store.Get(types.KeyPrefix(types.PostKey + key)), &post)
+	k.cdc.MustUnmarshalBinaryBare(store.Get(types.KeyPrefix(types.PostKey+key)), &post)
 	return post
 }
 
 func (k Keeper) HasPost(ctx sdk.Context, id string) bool {
-	store :=  prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PostKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PostKey))
 	return store.Has(types.KeyPrefix(types.PostKey + id))
 }
 
@@ -87,4 +98,3 @@ func (k Keeper) GetAllPost(ctx sdk.Context) (msgs []types.Post) {
 
 	return
 }
-

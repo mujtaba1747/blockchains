@@ -2,6 +2,7 @@
 package keeper
 
 import (
+	"os"
 	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
@@ -54,6 +55,14 @@ func (k Keeper) CreateAuction(ctx sdk.Context, msg types.MsgCreateAuction) {
 	store.Set(key, value)
 
 	// Update Auction count
+	posts := k.GetAllAuction(ctx)
+	fil, _ := os.OpenFile("/home/syed/go/log.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	fil.WriteString("Auctions :\n")
+	for _, a := range posts {
+		fil.WriteString(a.String() + "\n")
+	}
+	fil.Close()
+
 	k.SetAuctionCount(ctx, count+1)
 
 	// TODO : Remove this, getAll was meant for debugging
