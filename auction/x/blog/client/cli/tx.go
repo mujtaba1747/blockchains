@@ -35,6 +35,30 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdCreatePost())
 	cmd.AddCommand(CmdCreateAuction())
 	cmd.AddCommand(CmdCreateBid())
+	cmd.AddCommand(CmdFinalizeAuction())
+	return cmd
+}
+func CmdFinalizeAuction() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "finalize-auction [auction-id]",
+		Short: "Finalizes an auction",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			argsAuctionId := string(args[0])
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+			msg := types.NewMsgFinalizeAuction(clientCtx.GetFromAddress().String(), string(argsAuctionId))
+			if err := msg.ValidateBasic(); err != nil {
+				return err
+			}
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
+		},
+	}
+
+	flags.AddTxFlagsToCmd(cmd)
+
 	return cmd
 }
 func CmdCreateAuction() *cobra.Command {
@@ -53,7 +77,7 @@ func CmdCreateAuction() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			msg := types.NewMsgCreateAuction(clientCtx.GetFromAddress().String(), string(argsTitle), string(argsBody), clientCtx.Height, clientCtx.Height+argsDuration)
+			msg := types.NewMsgCreateAuction(clientCtx.GetFromAddress().String(), string(argsTitle), string(argsBody), clientCtx.Height, argsDuration)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

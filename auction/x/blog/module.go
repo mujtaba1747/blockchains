@@ -3,6 +3,7 @@ package blog
 import (
 	"encoding/json"
 	"fmt"
+
 	// this line is used by starport scaffolding # 1
 
 	"github.com/gorilla/mux"
@@ -161,5 +162,11 @@ func (am AppModule) BeginBlock(_ sdk.Context, _ abci.RequestBeginBlock) {}
 // EndBlock executes all ABCI EndBlock logic respective to the capability module. It
 // returns no validator updates.
 func (am AppModule) EndBlock(_ sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
+	// fil, err := os.Create("./t2")
+	// if err != nil {
+	// 	log.Fatalln(err)
+	// }
+	// fil.WriteString("Done with a block\n")
+	// fil.Close()
 	return []abci.ValidatorUpdate{}
 }

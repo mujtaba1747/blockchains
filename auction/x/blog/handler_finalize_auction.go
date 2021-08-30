@@ -7,8 +7,8 @@ import (
 	"github.com/example/blog/x/blog/types"
 )
 
-func handleAuctionCreateBid(ctx sdk.Context, k keeper.Keeper, msg *types.MsgCreateBid) (*sdk.Result, error) {
-	if err := k.CreateBid(ctx, *msg); err != nil {
+func handleFinalizeAuction(ctx sdk.Context, k keeper.Keeper, msg *types.MsgFinalizeAuction) (*sdk.Result, error) {
+	if err := k.CreateFinalizeAuction(ctx, *msg); err != nil {
 		return nil, err
 	}
 

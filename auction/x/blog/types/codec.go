@@ -16,6 +16,8 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgCreateAuction{}, "blog/CreateAuction", nil)
 
 	cdc.RegisterConcrete(&MsgCreateBid{}, "blog/CreateBid", nil)
+
+	cdc.RegisterConcrete(&MsgFinalizeAuction{}, "blog/FinalizeAuction", nil)
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
@@ -30,6 +32,10 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateBid{},
+	)
+
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgFinalizeAuction{},
 	)
 }
 

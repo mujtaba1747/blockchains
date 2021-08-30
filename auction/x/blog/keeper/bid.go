@@ -2,6 +2,7 @@
 package keeper
 
 import (
+	"errors"
 	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
@@ -38,7 +39,16 @@ func (k Keeper) SetBidCount(ctx sdk.Context, count int64) {
 	store.Set(byteKey, bz)
 }
 
-func (k Keeper) CreateBid(ctx sdk.Context, msg types.MsgCreateBid) {
+func (k Keeper) CreateBid(ctx sdk.Context, msg types.MsgCreateBid) (err error) {
+
+	if !k.HasAuction(ctx, msg.AuctionId) {
+		return errors.New("No Auction found with id : " + msg.AuctionId + " found")
+	}
+
+	auction := k.GetAuction(ctx, msg.AuctionId)
+	if ctx.BlockHeight() >= auction.GetBlockHeight()+auction.GetDeadline() {
+		return errors.New("Late bid : Auction already ended")
+	}
 	// Create the Bid
 	count := k.GetBidCount(ctx)
 	var Bid = types.Bid{
@@ -55,6 +65,7 @@ func (k Keeper) CreateBid(ctx sdk.Context, msg types.MsgCreateBid) {
 
 	// Update Bid count
 	k.SetBidCount(ctx, count+1)
+	return nil
 }
 
 func (k Keeper) GetBid(ctx sdk.Context, key string) types.Bid {

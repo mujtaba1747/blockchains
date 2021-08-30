@@ -35,3 +35,15 @@ message MsgCreateBid {
     string auctionId = 2;
     int64 amt = 3;
 }
+
+message FinalizeAuction {
+    string creator = 1;
+    string id = 2;
+    string auctionId = 3;
+    string winner = 4;
+}
+
+message MsgFinalizeAuction {
+    string creator = 1;
+    string auctionId = 2;
+}

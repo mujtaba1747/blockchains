@@ -27,6 +27,16 @@ export interface MsgCreateBid {
     auctionId: string;
     amt: number;
 }
+export interface FinalizeAuction {
+    creator: string;
+    id: string;
+    auctionId: string;
+    winner: string;
+}
+export interface MsgFinalizeAuction {
+    creator: string;
+    auctionId: string;
+}
 export declare const Auction: {
     encode(message: Auction, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): Auction;
@@ -54,6 +64,20 @@ export declare const MsgCreateBid: {
     fromJSON(object: any): MsgCreateBid;
     toJSON(message: MsgCreateBid): unknown;
     fromPartial(object: DeepPartial<MsgCreateBid>): MsgCreateBid;
+};
+export declare const FinalizeAuction: {
+    encode(message: FinalizeAuction, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): FinalizeAuction;
+    fromJSON(object: any): FinalizeAuction;
+    toJSON(message: FinalizeAuction): unknown;
+    fromPartial(object: DeepPartial<FinalizeAuction>): FinalizeAuction;
+};
+export declare const MsgFinalizeAuction: {
+    encode(message: MsgFinalizeAuction, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgFinalizeAuction;
+    fromJSON(object: any): MsgFinalizeAuction;
+    toJSON(message: MsgFinalizeAuction): unknown;
+    fromPartial(object: DeepPartial<MsgFinalizeAuction>): MsgFinalizeAuction;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

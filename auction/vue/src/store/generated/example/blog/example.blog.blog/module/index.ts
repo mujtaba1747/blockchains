@@ -4,15 +4,17 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgCreateBid } from "./types/blog/auction";
-import { MsgCreatePost } from "./types/blog/post";
 import { MsgCreateAuction } from "./types/blog/auction";
+import { MsgCreateBid } from "./types/blog/auction";
+import { MsgFinalizeAuction } from "./types/blog/auction";
+import { MsgCreatePost } from "./types/blog/post";
 
 
 const types = [
-  ["/example.blog.blog.MsgCreateBid", MsgCreateBid],
-  ["/example.blog.blog.MsgCreatePost", MsgCreatePost],
   ["/example.blog.blog.MsgCreateAuction", MsgCreateAuction],
+  ["/example.blog.blog.MsgCreateBid", MsgCreateBid],
+  ["/example.blog.blog.MsgFinalizeAuction", MsgFinalizeAuction],
+  ["/example.blog.blog.MsgCreatePost", MsgCreatePost],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -41,9 +43,10 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgCreateBid: (data: MsgCreateBid): EncodeObject => ({ typeUrl: "/example.blog.blog.MsgCreateBid", value: data }),
-    msgCreatePost: (data: MsgCreatePost): EncodeObject => ({ typeUrl: "/example.blog.blog.MsgCreatePost", value: data }),
     msgCreateAuction: (data: MsgCreateAuction): EncodeObject => ({ typeUrl: "/example.blog.blog.MsgCreateAuction", value: data }),
+    msgCreateBid: (data: MsgCreateBid): EncodeObject => ({ typeUrl: "/example.blog.blog.MsgCreateBid", value: data }),
+    msgFinalizeAuction: (data: MsgFinalizeAuction): EncodeObject => ({ typeUrl: "/example.blog.blog.MsgFinalizeAuction", value: data }),
+    msgCreatePost: (data: MsgCreatePost): EncodeObject => ({ typeUrl: "/example.blog.blog.MsgCreatePost", value: data }),
     
   };
 };
