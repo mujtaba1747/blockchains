@@ -3,6 +3,7 @@ package keeper
 
 import (
 	"errors"
+	"log"
 	"os"
 	"strconv"
 
@@ -42,16 +43,26 @@ func (k Keeper) SetBidCount(ctx sdk.Context, count int64) {
 
 func (k Keeper) CreateBid(ctx sdk.Context, msg types.MsgCreateBid) (err error) {
 
-	fil, _ := os.OpenFile("/home/syed/go/log.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	fil, err := os.OpenFile(os.Getenv("HOME")+"/starport_log.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	if err != nil {
+		log.Println("File open for logging failed", err)
+	}
 	defer fil.Close()
+	log.SetOutput(fil)
+
 	if !k.HasAuction(ctx, msg.AuctionId) {
-		fil.WriteString("biderror, no such auctionid " + msg.AuctionId + "\n")
-		return errors.New("No Auction found with id : " + msg.AuctionId + " found")
+		log.Println("Bid Error : No auction with id =", msg.AuctionId, "found")
+		return errors.New("Bid Error : No auction with id =" + msg.AuctionId + "found")
 	}
 
 	auction := k.GetAuction(ctx, msg.AuctionId)
 	if ctx.BlockHeight() >= auction.GetBlockHeight()+auction.GetDeadline() {
-		fil.WriteString("biderror, too late bh=" + strconv.Itoa(int(ctx.BlockHeight())) + " " + strconv.Itoa(int(auction.BlockHeight+auction.Deadline)) + "\n")
+		log.Println(
+			"Bid Error : Bid too late, current blockheight =",
+			strconv.Itoa(int(ctx.BlockHeight())),
+			", Auction Ended at previous blockheight =",
+			strconv.Itoa(int(auction.BlockHeight+auction.Deadline)),
+		)
 		return errors.New("Late bid : Auction already ended")
 	}
 	// Create the Bid
@@ -68,14 +79,9 @@ func (k Keeper) CreateBid(ctx sdk.Context, msg types.MsgCreateBid) (err error) {
 	value := k.cdc.MustMarshalBinaryBare(&Bid)
 	store.Set(key, value)
 
+	log.Println("Bid Created :", Bid.String())
+
 	// Update Bid count
-	posts := k.GetAllBid(ctx)
-	// fil, _ := os.OpenFile("/home/syed/go/log.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
-	fil.WriteString("Bids :\n")
-	for _, a := range posts {
-		fil.WriteString(a.String() + "\n")
-	}
-	// fil.Close()
 	k.SetBidCount(ctx, count+1)
 	return nil
 }

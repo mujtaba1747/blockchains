@@ -2,7 +2,6 @@
 package keeper
 
 import (
-	"os"
 	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
@@ -56,14 +55,6 @@ func (k Keeper) CreatePost(ctx sdk.Context, msg types.MsgCreatePost) {
 
 	// Update post count
 	ctx = ctx.WithEventManager(sdk.NewEventManager())
-
-	posts := k.GetAllPost(ctx)
-	fil, _ := os.OpenFile("/home/syed/go/log.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
-	fil.WriteString("Posts :\n")
-	for _, a := range posts {
-		fil.WriteString(a.String() + "\n")
-	}
-	fil.Close()
 
 	k.SetPostCount(ctx, count+1)
 }

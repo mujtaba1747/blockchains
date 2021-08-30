@@ -2,6 +2,7 @@
 package keeper
 
 import (
+	"log"
 	"os"
 	"strconv"
 
@@ -57,28 +58,16 @@ func (k Keeper) CreateAuction(ctx sdk.Context, msg types.MsgCreateAuction) {
 	value := k.cdc.MustMarshalBinaryBare(&Auction)
 	store.Set(key, value)
 
-	// Update Auction count
-	posts := k.GetAllAuction(ctx)
-	fil, _ := os.OpenFile("/home/syed/go/log.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
-	fil.WriteString("Auctions :\n")
-	for _, a := range posts {
-		fil.WriteString(a.String() + "\n")
+	fil, err := os.OpenFile(os.Getenv("HOME")+"/starport_log.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	if err != nil {
+		log.Println("File open for logging failed", err)
 	}
-	fil.Close()
+	defer fil.Close()
+	log.SetOutput(fil)
+	log.Println("Auction Created :", Auction.String())
 
+	// Update Auction count
 	k.SetAuctionCount(ctx, count+1)
-
-	// TODO : Remove this, getAll was meant for debugging
-
-	/*
-		msgs := k.GetAllAuction(ctx)
-		fil, _ := os.Create("/home/syed/go/tempfile")
-		defer fil.Close()
-		for _, m := range msgs {
-			// fmt.Println(m.String())
-			fil.WriteString(m.String())
-		}
-	*/
 }
 
 func (k Keeper) GetAuction(ctx sdk.Context, key string) types.Auction {

@@ -3,6 +3,7 @@ package keeper
 
 import (
 	"errors"
+	"log"
 	"os"
 	"strconv"
 
@@ -42,12 +43,25 @@ func (k Keeper) SetFinalizeAuctionCount(ctx sdk.Context, count int64) {
 
 func (k Keeper) CreateFinalizeAuction(ctx sdk.Context, msg types.MsgFinalizeAuction) (err error) {
 
+	fil, err := os.OpenFile(os.Getenv("HOME")+"/starport_log.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	if err != nil {
+		log.Println("File open for logging failed", err)
+	}
+	defer fil.Close()
+	log.SetOutput(fil)
+
 	if !k.HasAuction(ctx, msg.GetAuctionId()) {
-		return errors.New("No Auction found with id : " + msg.AuctionId + " found")
+		log.Println("Finalize Auction Error : No Auction found with id =", msg.AuctionId, "found")
+		return errors.New("Finalize Auction Error : No Auction found with id =" + msg.AuctionId + " found")
 	}
 
 	auction := k.GetAuction(ctx, msg.GetAuctionId())
 	if ctx.BlockHeight() < auction.GetBlockHeight()+auction.GetDeadline() {
+		log.Println(
+			"Finalize Auction Error : Auction not over, try again after",
+			strconv.Itoa(int(auction.GetBlockHeight()+auction.GetDeadline()-ctx.BlockHeight())),
+			"blocks",
+		)
 		return errors.New("Auction not over, try later")
 	}
 
@@ -76,13 +90,7 @@ func (k Keeper) CreateFinalizeAuction(ctx sdk.Context, msg types.MsgFinalizeAuct
 	value := k.cdc.MustMarshalBinaryBare(&FinalizeAuction)
 	store.Set(key, value)
 
-	posts := k.GetAllFinalizeAuction(ctx)
-	fil, _ := os.OpenFile("/home/syed/go/log.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
-	fil.WriteString("Fin Auction :\n")
-	for _, a := range posts {
-		fil.WriteString(a.String() + "\n")
-	}
-	fil.Close()
+	log.Println("Auction Finalized :", FinalizeAuction.String())
 
 	// Update FinalizeAuction count
 	k.SetFinalizeAuctionCount(ctx, count+1)
