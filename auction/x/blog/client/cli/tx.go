@@ -77,7 +77,7 @@ func CmdCreateAuction() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			msg := types.NewMsgCreateAuction(clientCtx.GetFromAddress().String(), string(argsTitle), string(argsBody), clientCtx.Height, argsDuration)
+			msg := types.NewMsgCreateAuction(clientCtx.GetFromAddress().String(), string(argsTitle), string(argsBody), argsDuration)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

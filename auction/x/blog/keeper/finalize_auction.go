@@ -2,6 +2,7 @@
 package keeper
 
 import (
+	"errors"
 	"os"
 	"strconv"
 
@@ -41,14 +42,14 @@ func (k Keeper) SetFinalizeAuctionCount(ctx sdk.Context, count int64) {
 
 func (k Keeper) CreateFinalizeAuction(ctx sdk.Context, msg types.MsgFinalizeAuction) (err error) {
 
-	// if !k.HasAuction(ctx, msg.GetAuctionId()) {
-	// 	return errors.New("No Auction found with id : " + msg.AuctionId + " found")
-	// }
+	if !k.HasAuction(ctx, msg.GetAuctionId()) {
+		return errors.New("No Auction found with id : " + msg.AuctionId + " found")
+	}
 
-	// auction := k.GetAuction(ctx, msg.GetAuctionId())
-	// if ctx.BlockHeight() < auction.GetBlockHeight()+auction.GetDeadline() {
-	// 	return errors.New("Auction not over, try later")
-	// }
+	auction := k.GetAuction(ctx, msg.GetAuctionId())
+	if ctx.BlockHeight() < auction.GetBlockHeight()+auction.GetDeadline() {
+		return errors.New("Auction not over, try later")
+	}
 
 	bids := k.GetAllBid(ctx)
 	var maxAmt int64 = 0

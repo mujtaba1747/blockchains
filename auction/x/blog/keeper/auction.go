@@ -42,11 +42,14 @@ func (k Keeper) SetAuctionCount(ctx sdk.Context, count int64) {
 func (k Keeper) CreateAuction(ctx sdk.Context, msg types.MsgCreateAuction) {
 	// Create the Auction
 	count := k.GetAuctionCount(ctx)
+
 	var Auction = types.Auction{
-		Creator: msg.Creator,
-		Id:      strconv.FormatInt(count, 10),
-		Title:   msg.Title,
-		Body:    msg.Body,
+		Creator:     msg.Creator,
+		Id:          strconv.FormatInt(count, 10),
+		Title:       msg.Title,
+		Body:        msg.Body,
+		Deadline:    msg.Deadline,
+		BlockHeight: ctx.BlockHeight(),
 	}
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.AuctionKey))

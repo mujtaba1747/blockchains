@@ -10,13 +10,12 @@ import (
 
 var _ sdk.Msg = &MsgCreateAuction{}
 
-func NewMsgCreateAuction(creator string, title string, body string, blockHeight, deadline int64) *MsgCreateAuction {
+func NewMsgCreateAuction(creator string, title string, body string, deadline int64) *MsgCreateAuction {
 	return &MsgCreateAuction{
-		Creator:     creator,
-		Title:       title,
-		Body:        body,
-		Deadline:    deadline,
-		BlockHeight: blockHeight,
+		Creator:  creator,
+		Title:    title,
+		Body:     body,
+		Deadline: deadline,
 	}
 }
 

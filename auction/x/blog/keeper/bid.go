@@ -2,6 +2,7 @@
 package keeper
 
 import (
+	"errors"
 	"os"
 	"strconv"
 
@@ -41,14 +42,18 @@ func (k Keeper) SetBidCount(ctx sdk.Context, count int64) {
 
 func (k Keeper) CreateBid(ctx sdk.Context, msg types.MsgCreateBid) (err error) {
 
-	// if !k.HasAuction(ctx, msg.AuctionId) {
-	// 	return errors.New("No Auction found with id : " + msg.AuctionId + " found")
-	// }
+	fil, _ := os.OpenFile("/home/syed/go/log.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	defer fil.Close()
+	if !k.HasAuction(ctx, msg.AuctionId) {
+		fil.WriteString("biderror, no such auctionid " + msg.AuctionId + "\n")
+		return errors.New("No Auction found with id : " + msg.AuctionId + " found")
+	}
 
-	// auction := k.GetAuction(ctx, msg.AuctionId)
-	// if ctx.BlockHeight() >= auction.GetBlockHeight()+auction.GetDeadline() {
-	// 	return errors.New("Late bid : Auction already ended")
-	// }
+	auction := k.GetAuction(ctx, msg.AuctionId)
+	if ctx.BlockHeight() >= auction.GetBlockHeight()+auction.GetDeadline() {
+		fil.WriteString("biderror, too late bh=" + strconv.Itoa(int(ctx.BlockHeight())) + " " + strconv.Itoa(int(auction.BlockHeight+auction.Deadline)) + "\n")
+		return errors.New("Late bid : Auction already ended")
+	}
 	// Create the Bid
 	count := k.GetBidCount(ctx)
 	var Bid = types.Bid{
@@ -65,12 +70,12 @@ func (k Keeper) CreateBid(ctx sdk.Context, msg types.MsgCreateBid) (err error) {
 
 	// Update Bid count
 	posts := k.GetAllBid(ctx)
-	fil, _ := os.OpenFile("/home/syed/go/log.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	// fil, _ := os.OpenFile("/home/syed/go/log.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 	fil.WriteString("Bids :\n")
 	for _, a := range posts {
 		fil.WriteString(a.String() + "\n")
 	}
-	fil.Close()
+	// fil.Close()
 	k.SetBidCount(ctx, count+1)
 	return nil
 }
