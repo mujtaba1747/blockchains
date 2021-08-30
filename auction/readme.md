@@ -1,6 +1,6 @@
 # blog
 
-## Instructions to build project and add a blog-post
+## Instructions to build project and add an auction
 
 * Ensure Go is installed
 
@@ -17,28 +17,28 @@ echo $GOPATH
 In case this env variable is not set, it can be set using :
 
 ```bash
-export GOPATH="/home/go"
+export GOPATH="/home/{your_username}/go"
 ```
 
-
-* Run
-```bash
-starport chain serve
-```
-
-* Run
+* Run this in the project root folder
 ```bash
 make
 ```
 
-* Run or cd into your GOPATH
+* Run or cd into your GOPATH/bin
 ```bash
-cd $GOPATH
+cd $GOPATH/bin
 ```
 
 * Run
 ```bash
-./blogd tx blog create-post "My first post" "This is a post\!" --from=alice --chain-id="blog"
+./blogd start
+```
+
+Followed by this
+
+```bash
+./blogd tx blog create-auction "Auction - 0" "I'm selling Nyan Cat" "120" --from=alice --chain-id="blog"
 ```
 
 **blog** is a blockchain built using Cosmos SDK and Tendermint and created with [Starport](https://github.com/tendermint/starport).
