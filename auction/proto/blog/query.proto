@@ -10,6 +10,19 @@ option go_package = "github.com/example/blog/x/blog/types";
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+
+	// Queries a list of details items.
+	rpc Details(QueryDetailsRequest) returns (QueryDetailsResponse) {
+		option (google.api.http).get = "/example/blog/blog/details";
+	}
+
 }
 
 // this line is used by starport scaffolding # 3
+message QueryDetailsRequest {
+}
+
+message QueryDetailsResponse {
+  string body = 1;
+}
+

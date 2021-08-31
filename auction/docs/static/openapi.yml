@@ -10562,6 +10562,40 @@ paths:
           type: boolean
       tags:
         - Query
+  /example/blog/blog/details:
+    get:
+      summary: Queries a list of details items.
+      operationId: ExampleBlogBlogDetails
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              body:
+                type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      tags:
+        - Query
   /ibc/applications/transfer/v1beta1/denom_traces:
     get:
       summary: DenomTraces queries all denomination traces.
@@ -25848,6 +25882,11 @@ definitions:
     description: >-
       MsgCreateVestingAccountResponse defines the Msg/CreateVestingAccount
       response type.
+  example.blog.blog.QueryDetailsResponse:
+    type: object
+    properties:
+      body:
+        type: string
   ibc.applications.transfer.v1.DenomTrace:
     type: object
     properties:

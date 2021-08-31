@@ -12,4 +12,3 @@ func handleMsgCreatePost(ctx sdk.Context, k keeper.Keeper, msg *types.MsgCreateP
 
 	return &sdk.Result{Events: ctx.EventManager().ABCIEvents()}, nil
 }
-

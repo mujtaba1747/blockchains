@@ -1,3 +1,6 @@
+export interface BlogQueryDetailsResponse {
+    body?: string;
+}
 export interface ProtobufAny {
     typeUrl?: string;
     /** @format byte */
@@ -67,5 +70,14 @@ export declare class HttpClient<SecurityDataType = unknown> {
  * @version version not set
  */
 export declare class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryDetails
+     * @summary Queries a list of details items.
+     * @request GET:/example/blog/blog/details
+     */
+    queryDetails: (params?: RequestParams) => Promise<HttpResponse<BlogQueryDetailsResponse, RpcStatus>>;
 }
 export {};

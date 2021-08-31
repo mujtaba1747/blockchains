@@ -9,6 +9,10 @@
  * ---------------------------------------------------------------
  */
 
+export interface BlogQueryDetailsResponse {
+  body?: string;
+}
+
 export interface ProtobufAny {
   typeUrl?: string;
 
@@ -218,4 +222,20 @@ export class HttpClient<SecurityDataType = unknown> {
  * @title blog/auction.proto
  * @version version not set
  */
-export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {}
+export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryDetails
+   * @summary Queries a list of details items.
+   * @request GET:/example/blog/blog/details
+   */
+  queryDetails = (params: RequestParams = {}) =>
+    this.request<BlogQueryDetailsResponse, RpcStatus>({
+      path: `/example/blog/blog/details`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+}
