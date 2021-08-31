@@ -90,28 +90,6 @@ func CmdCreateAuction() *cobra.Command {
 	return cmd
 }
 
-// TODO : Remove this
-
-/*
-func CmdGetAllAuctions() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "list-auctions",
-		Short: "lists options in sdout, used for debugging",
-		RunE: func(cmd *cobra.Command, args []string) error {
-
-			clientCtx, err := client.GetClientTxContext(cmd)
-			if err != nil {
-				return err
-			}
-
-		},
-	}
-
-	flags.AddTxFlagsToCmd(cmd)
-
-	return cmd
-}*/
-
 func CmdCreatePost() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "create-post [title] [body]",
