@@ -1,0 +1,13 @@
+syntax = "proto3";
+package hello.candle.candle;
+
+option go_package = "github.com/hello/candle/x/candle/types";
+
+import "gogoproto/gogo.proto";
+
+message BidList {
+  string creator = 1;
+  uint64 id = 2;
+  string auctionId = 3; 
+  uint64 amt = 4; 
+}

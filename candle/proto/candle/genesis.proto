@@ -1,0 +1,19 @@
+syntax = "proto3";
+package hello.candle.candle;
+
+// this line is used by starport scaffolding # genesis/proto/import
+import "candle/results_map.proto";
+import "candle/bid_list.proto";
+import "candle/auction_map.proto";
+
+option go_package = "github.com/hello/candle/x/candle/types";
+
+// GenesisState defines the candle module's genesis state.
+message GenesisState {
+    // this line is used by starport scaffolding # genesis/proto/state
+		repeated ResultsMap resultsMapList = 4; // this line is used by starport scaffolding # genesis/proto/stateField
+		repeated BidList bidListList = 2; // this line is used by starport scaffolding # genesis/proto/stateField
+		uint64 bidListCount = 3; // this line is used by starport scaffolding # genesis/proto/stateField
+		repeated AuctionMap auctionMapList = 1; // this line is used by starport scaffolding # genesis/proto/stateField
+    // this line is used by starport scaffolding # ibc/genesis/proto
+}

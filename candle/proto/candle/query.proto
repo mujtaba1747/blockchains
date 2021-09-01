@@ -1,0 +1,99 @@
+syntax = "proto3";
+package hello.candle.candle;
+
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+// this line is used by starport scaffolding # 1
+import "candle/results_map.proto";
+import "candle/bid_list.proto";
+import "candle/auction_map.proto";
+
+option go_package = "github.com/hello/candle/x/candle/types";
+
+// Query defines the gRPC querier service.
+service Query {
+    // this line is used by starport scaffolding # 2
+
+	// Queries a resultsMap by index.
+	rpc ResultsMap(QueryGetResultsMapRequest) returns (QueryGetResultsMapResponse) {
+		option (google.api.http).get = "/hello/candle/candle/resultsMap/{index}";
+	}
+
+	// Queries a list of resultsMap items.
+	rpc ResultsMapAll(QueryAllResultsMapRequest) returns (QueryAllResultsMapResponse) {
+		option (google.api.http).get = "/hello/candle/candle/resultsMap";
+	}
+
+
+	// Queries a bidList by id.
+	rpc BidList(QueryGetBidListRequest) returns (QueryGetBidListResponse) {
+		option (google.api.http).get = "/hello/candle/candle/bidList/{id}";
+	}
+
+	// Queries a list of bidList items.
+	rpc BidListAll(QueryAllBidListRequest) returns (QueryAllBidListResponse) {
+		option (google.api.http).get = "/hello/candle/candle/bidList";
+	}
+
+
+	// Queries a auctionMap by index.
+	rpc AuctionMap(QueryGetAuctionMapRequest) returns (QueryGetAuctionMapResponse) {
+		option (google.api.http).get = "/hello/candle/candle/auctionMap/{index}";
+	}
+
+	// Queries a list of auctionMap items.
+	rpc AuctionMapAll(QueryAllAuctionMapRequest) returns (QueryAllAuctionMapResponse) {
+		option (google.api.http).get = "/hello/candle/candle/auctionMap";
+	}
+
+}
+
+// this line is used by starport scaffolding # 3
+message QueryGetResultsMapRequest {
+	string index = 1;
+}
+
+message QueryGetResultsMapResponse {
+	ResultsMap ResultsMap = 1;
+}
+
+message QueryAllResultsMapRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllResultsMapResponse {
+	repeated ResultsMap ResultsMap = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+message QueryGetBidListRequest {
+	uint64 id = 1;
+}
+
+message QueryGetBidListResponse {
+	BidList BidList = 1;
+}
+
+message QueryAllBidListRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllBidListResponse {
+	repeated BidList BidList = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+message QueryGetAuctionMapRequest {
+	string index = 1;
+}
+
+message QueryGetAuctionMapResponse {
+	AuctionMap AuctionMap = 1;
+}
+
+message QueryAllAuctionMapRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllAuctionMapResponse {
+	repeated AuctionMap AuctionMap = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}

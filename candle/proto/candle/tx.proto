@@ -1,0 +1,122 @@
+syntax = "proto3";
+package hello.candle.candle;
+
+// this line is used by starport scaffolding # proto/tx/import
+import "candle/results_map.proto";
+import "candle/bid_list.proto";
+import "candle/auction_map.proto";
+
+option go_package = "github.com/hello/candle/x/candle/types";
+
+// Msg defines the Msg service.
+service Msg {
+    // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateResultsMap(MsgCreateResultsMap) returns (MsgCreateResultsMapResponse);
+  rpc UpdateResultsMap(MsgUpdateResultsMap) returns (MsgUpdateResultsMapResponse);
+  rpc DeleteResultsMap(MsgDeleteResultsMap) returns (MsgDeleteResultsMapResponse);
+  rpc CreateBidList(MsgCreateBidList) returns (MsgCreateBidListResponse);
+  rpc UpdateBidList(MsgUpdateBidList) returns (MsgUpdateBidListResponse);
+  rpc DeleteBidList(MsgDeleteBidList) returns (MsgDeleteBidListResponse);
+  rpc CreateAuctionMap(MsgCreateAuctionMap) returns (MsgCreateAuctionMapResponse);
+  rpc UpdateAuctionMap(MsgUpdateAuctionMap) returns (MsgUpdateAuctionMapResponse);
+  rpc DeleteAuctionMap(MsgDeleteAuctionMap) returns (MsgDeleteAuctionMapResponse);
+  rpc FinalizeAuction(MsgFinalizeAuction) returns (MsgFinalizeAuctionResponse);
+  rpc CreateBid(MsgCreateBid) returns (MsgCreateBidResponse);
+  rpc CreateAuction(MsgCreateAuction) returns (MsgCreateAuctionResponse);
+}
+
+// this line is used by starport scaffolding # proto/tx/message
+message MsgCreateResultsMap {
+  string creator = 1;
+  string index = 2;
+  string winner = 3;
+  uint64 bidId = 4;
+}
+message MsgCreateResultsMapResponse { }
+
+message MsgUpdateResultsMap {
+  string creator = 1;
+  string index = 2;
+  string winner = 3;
+  uint64 bidId = 4;
+}
+message MsgUpdateResultsMapResponse { }
+
+message MsgDeleteResultsMap {
+  string creator = 1;
+  string index = 2;
+}
+message MsgDeleteResultsMapResponse { }
+
+message MsgCreateBidList {
+  string creator = 1;
+  string auctionId = 2;
+  uint64 amt = 3;
+}
+
+message MsgCreateBidListResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateBidList {
+  string creator = 1;
+  uint64 id = 2;
+  string auctionId = 3;
+  uint64 amt = 4;
+}
+
+message MsgUpdateBidListResponse { }
+
+message MsgDeleteBidList {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteBidListResponse { }
+
+message MsgCreateAuctionMap {
+  string creator = 1;
+  string index = 2;
+  string blockHeight = 3;
+  string deadline = 4;
+}
+message MsgCreateAuctionMapResponse { }
+
+message MsgUpdateAuctionMap {
+  string creator = 1;
+  string index = 2;
+  string blockHeight = 3;
+  string deadline = 4;
+}
+message MsgUpdateAuctionMapResponse { }
+
+message MsgDeleteAuctionMap {
+  string creator = 1;
+  string index = 2;
+}
+message MsgDeleteAuctionMapResponse { }
+
+message MsgFinalizeAuction {
+  string creator = 1;
+  string auctionId = 2;
+}
+
+message MsgFinalizeAuctionResponse {
+}
+
+message MsgCreateBid {
+  string creator = 1;
+  string auctionId = 2;
+  uint64 amt = 3;
+}
+
+message MsgCreateBidResponse {
+}
+
+message MsgCreateAuction {
+  string creator = 1;
+  string title = 2;
+}
+
+message MsgCreateAuctionResponse {
+}
