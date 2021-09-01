@@ -1,7 +1,8 @@
 /* eslint-disable */
-import { Writer, Reader } from 'protobufjs/minimal';
+import * as Long from 'long';
+import { util, configure, Writer, Reader } from 'protobufjs/minimal';
 export const protobufPackage = 'hello.candle.candle';
-const baseAuctionMap = { creator: '', index: '', blockHeight: '', deadline: '' };
+const baseAuctionMap = { creator: '', index: '', blockHeight: 0, deadline: 0 };
 export const AuctionMap = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
@@ -10,11 +11,11 @@ export const AuctionMap = {
         if (message.index !== '') {
             writer.uint32(18).string(message.index);
         }
-        if (message.blockHeight !== '') {
-            writer.uint32(26).string(message.blockHeight);
+        if (message.blockHeight !== 0) {
+            writer.uint32(24).uint64(message.blockHeight);
         }
-        if (message.deadline !== '') {
-            writer.uint32(34).string(message.deadline);
+        if (message.deadline !== 0) {
+            writer.uint32(32).uint64(message.deadline);
         }
         return writer;
     },
@@ -32,10 +33,10 @@ export const AuctionMap = {
                     message.index = reader.string();
                     break;
                 case 3:
-                    message.blockHeight = reader.string();
+                    message.blockHeight = longToNumber(reader.uint64());
                     break;
                 case 4:
-                    message.deadline = reader.string();
+                    message.deadline = longToNumber(reader.uint64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -59,16 +60,16 @@ export const AuctionMap = {
             message.index = '';
         }
         if (object.blockHeight !== undefined && object.blockHeight !== null) {
-            message.blockHeight = String(object.blockHeight);
+            message.blockHeight = Number(object.blockHeight);
         }
         else {
-            message.blockHeight = '';
+            message.blockHeight = 0;
         }
         if (object.deadline !== undefined && object.deadline !== null) {
-            message.deadline = String(object.deadline);
+            message.deadline = Number(object.deadline);
         }
         else {
-            message.deadline = '';
+            message.deadline = 0;
         }
         return message;
     },
@@ -98,14 +99,35 @@ export const AuctionMap = {
             message.blockHeight = object.blockHeight;
         }
         else {
-            message.blockHeight = '';
+            message.blockHeight = 0;
         }
         if (object.deadline !== undefined && object.deadline !== null) {
             message.deadline = object.deadline;
         }
         else {
-            message.deadline = '';
+            message.deadline = 0;
         }
         return message;
     }
 };
+var globalThis = (() => {
+    if (typeof globalThis !== 'undefined')
+        return globalThis;
+    if (typeof self !== 'undefined')
+        return self;
+    if (typeof window !== 'undefined')
+        return window;
+    if (typeof global !== 'undefined')
+        return global;
+    throw 'Unable to locate global object';
+})();
+function longToNumber(long) {
+    if (long.gt(Number.MAX_SAFE_INTEGER)) {
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
+    }
+    return long.toNumber();
+}
+if (util.Long !== Long) {
+    util.Long = Long;
+    configure();
+}

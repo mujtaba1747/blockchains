@@ -18,11 +18,11 @@ func CmdCreateAuctionMap() *cobra.Command {
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			index := args[0]
-			argsBlockHeight, err := cast.ToStringE(args[1])
+			argsBlockHeight, err := cast.ToUint64E(args[1])
 			if err != nil {
 				return err
 			}
-			argsDeadline, err := cast.ToStringE(args[2])
+			argsDeadline, err := cast.ToUint64E(args[2])
 			if err != nil {
 				return err
 			}
@@ -53,11 +53,11 @@ func CmdUpdateAuctionMap() *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			index := args[0]
 
-			argsBlockHeight, err := cast.ToStringE(args[1])
+			argsBlockHeight, err := cast.ToUint64E(args[1])
 			if err != nil {
 				return err
 			}
-			argsDeadline, err := cast.ToStringE(args[2])
+			argsDeadline, err := cast.ToUint64E(args[2])
 			if err != nil {
 				return err
 			}

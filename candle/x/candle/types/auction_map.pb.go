@@ -26,8 +26,8 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 type AuctionMap struct {
 	Creator     string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 	Index       string `protobuf:"bytes,2,opt,name=index,proto3" json:"index,omitempty"`
-	BlockHeight string `protobuf:"bytes,3,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
-	Deadline    string `protobuf:"bytes,4,opt,name=deadline,proto3" json:"deadline,omitempty"`
+	BlockHeight uint64 `protobuf:"varint,3,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
+	Deadline    uint64 `protobuf:"varint,4,opt,name=deadline,proto3" json:"deadline,omitempty"`
 }
 
 func (m *AuctionMap) Reset()         { *m = AuctionMap{} }
@@ -77,18 +77,18 @@ func (m *AuctionMap) GetIndex() string {
 	return ""
 }
 
-func (m *AuctionMap) GetBlockHeight() string {
+func (m *AuctionMap) GetBlockHeight() uint64 {
 	if m != nil {
 		return m.BlockHeight
 	}
-	return ""
+	return 0
 }
 
-func (m *AuctionMap) GetDeadline() string {
+func (m *AuctionMap) GetDeadline() uint64 {
 	if m != nil {
 		return m.Deadline
 	}
-	return ""
+	return 0
 }
 
 func init() {
@@ -98,7 +98,7 @@ func init() {
 func init() { proto.RegisterFile("candle/auction_map.proto", fileDescriptor_d526a947e9c1405e) }
 
 var fileDescriptor_d526a947e9c1405e = []byte{
-	// 216 bytes of a gzipped FileDescriptorProto
+	// 219 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0x48, 0x4e, 0xcc, 0x4b,
 	0xc9, 0x49, 0xd5, 0x4f, 0x2c, 0x4d, 0x2e, 0xc9, 0xcc, 0xcf, 0x8b, 0xcf, 0x4d, 0x2c, 0xd0, 0x2b,
 	0x28, 0xca, 0x2f, 0xc9, 0x17, 0x12, 0xce, 0x48, 0xcd, 0xc9, 0xc9, 0xd7, 0x83, 0xc8, 0x43, 0x29,
@@ -106,13 +106,13 @@ var fileDescriptor_d526a947e9c1405e = []byte{
 	0xe5, 0x08, 0xd1, 0xef, 0x9b, 0x58, 0x20, 0x24, 0xc1, 0xc5, 0x9e, 0x5c, 0x94, 0x9a, 0x58, 0x92,
 	0x5f, 0x24, 0xc1, 0xa8, 0xc0, 0xa8, 0xc1, 0x19, 0x04, 0xe3, 0x0a, 0x89, 0x70, 0xb1, 0x66, 0xe6,
 	0xa5, 0xa4, 0x56, 0x48, 0x30, 0x81, 0xc5, 0x21, 0x1c, 0x21, 0x05, 0x2e, 0xee, 0xa4, 0x9c, 0xfc,
-	0xe4, 0x6c, 0x8f, 0xd4, 0xcc, 0xf4, 0x8c, 0x12, 0x09, 0x66, 0xb0, 0x1c, 0xb2, 0x90, 0x90, 0x14,
-	0x17, 0x47, 0x4a, 0x6a, 0x62, 0x4a, 0x4e, 0x66, 0x5e, 0xaa, 0x04, 0x0b, 0x58, 0x1a, 0xce, 0x77,
-	0x72, 0x38, 0xf1, 0x48, 0x8e, 0xf1, 0xc2, 0x23, 0x39, 0xc6, 0x07, 0x8f, 0xe4, 0x18, 0x27, 0x3c,
-	0x96, 0x63, 0xb8, 0xf0, 0x58, 0x8e, 0xe1, 0xc6, 0x63, 0x39, 0x86, 0x28, 0xb5, 0xf4, 0xcc, 0x92,
-	0x8c, 0xd2, 0x24, 0xbd, 0xe4, 0xfc, 0x5c, 0x7d, 0xb0, 0x5f, 0xf4, 0xa1, 0x7e, 0xad, 0x80, 0x31,
-	0x4a, 0x2a, 0x0b, 0x52, 0x8b, 0x93, 0xd8, 0xc0, 0x9e, 0x30, 0x06, 0x04, 0x00, 0x00, 0xff, 0xff,
-	0x8f, 0xb6, 0x0e, 0x4f, 0x0b, 0x01, 0x00, 0x00,
+	0xe4, 0x6c, 0x8f, 0xd4, 0xcc, 0xf4, 0x8c, 0x12, 0x09, 0x66, 0x05, 0x46, 0x0d, 0x96, 0x20, 0x64,
+	0x21, 0x21, 0x29, 0x2e, 0x8e, 0x94, 0xd4, 0xc4, 0x94, 0x9c, 0xcc, 0xbc, 0x54, 0x09, 0x16, 0xb0,
+	0x34, 0x9c, 0xef, 0xe4, 0x70, 0xe2, 0x91, 0x1c, 0xe3, 0x85, 0x47, 0x72, 0x8c, 0x0f, 0x1e, 0xc9,
+	0x31, 0x4e, 0x78, 0x2c, 0xc7, 0x70, 0xe1, 0xb1, 0x1c, 0xc3, 0x8d, 0xc7, 0x72, 0x0c, 0x51, 0x6a,
+	0xe9, 0x99, 0x25, 0x19, 0xa5, 0x49, 0x7a, 0xc9, 0xf9, 0xb9, 0xfa, 0x60, 0xbf, 0xe8, 0x43, 0xfd,
+	0x5a, 0x01, 0x63, 0x94, 0x54, 0x16, 0xa4, 0x16, 0x27, 0xb1, 0x81, 0x3d, 0x61, 0x0c, 0x08, 0x00,
+	0x00, 0xff, 0xff, 0x0a, 0x36, 0xbc, 0x3d, 0x0b, 0x01, 0x00, 0x00,
 }
 
 func (m *AuctionMap) Marshal() (dAtA []byte, err error) {
@@ -135,19 +135,15 @@ func (m *AuctionMap) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.Deadline) > 0 {
-		i -= len(m.Deadline)
-		copy(dAtA[i:], m.Deadline)
-		i = encodeVarintAuctionMap(dAtA, i, uint64(len(m.Deadline)))
+	if m.Deadline != 0 {
+		i = encodeVarintAuctionMap(dAtA, i, uint64(m.Deadline))
 		i--
-		dAtA[i] = 0x22
+		dAtA[i] = 0x20
 	}
-	if len(m.BlockHeight) > 0 {
-		i -= len(m.BlockHeight)
-		copy(dAtA[i:], m.BlockHeight)
-		i = encodeVarintAuctionMap(dAtA, i, uint64(len(m.BlockHeight)))
+	if m.BlockHeight != 0 {
+		i = encodeVarintAuctionMap(dAtA, i, uint64(m.BlockHeight))
 		i--
-		dAtA[i] = 0x1a
+		dAtA[i] = 0x18
 	}
 	if len(m.Index) > 0 {
 		i -= len(m.Index)
@@ -191,13 +187,11 @@ func (m *AuctionMap) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovAuctionMap(uint64(l))
 	}
-	l = len(m.BlockHeight)
-	if l > 0 {
-		n += 1 + l + sovAuctionMap(uint64(l))
+	if m.BlockHeight != 0 {
+		n += 1 + sovAuctionMap(uint64(m.BlockHeight))
 	}
-	l = len(m.Deadline)
-	if l > 0 {
-		n += 1 + l + sovAuctionMap(uint64(l))
+	if m.Deadline != 0 {
+		n += 1 + sovAuctionMap(uint64(m.Deadline))
 	}
 	return n
 }
@@ -302,10 +296,10 @@ func (m *AuctionMap) Unmarshal(dAtA []byte) error {
 			m.Index = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
-			if wireType != 2 {
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field BlockHeight", wireType)
 			}
-			var stringLen uint64
+			m.BlockHeight = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAuctionMap
@@ -315,29 +309,16 @@ func (m *AuctionMap) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				m.BlockHeight |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthAuctionMap
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthAuctionMap
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.BlockHeight = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
 		case 4:
-			if wireType != 2 {
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Deadline", wireType)
 			}
-			var stringLen uint64
+			m.Deadline = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAuctionMap
@@ -347,24 +328,11 @@ func (m *AuctionMap) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				m.Deadline |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthAuctionMap
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthAuctionMap
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Deadline = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAuctionMap(dAtA[iNdEx:])

@@ -10583,8 +10583,10 @@ paths:
                       type: string
                     blockHeight:
                       type: string
+                      format: uint64
                     deadline:
                       type: string
+                      format: uint64
               pagination:
                 type: object
                 properties:
@@ -10700,8 +10702,10 @@ paths:
                     type: string
                   blockHeight:
                     type: string
+                    format: uint64
                   deadline:
                     type: string
+                    format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -26365,8 +26369,10 @@ definitions:
         type: string
       blockHeight:
         type: string
+        format: uint64
       deadline:
         type: string
+        format: uint64
   hello.candle.candle.BidList:
     type: object
     properties:
@@ -26422,8 +26428,10 @@ definitions:
               type: string
             blockHeight:
               type: string
+              format: uint64
             deadline:
               type: string
+              format: uint64
       pagination:
         type: object
         properties:
@@ -26546,8 +26554,10 @@ definitions:
             type: string
           blockHeight:
             type: string
+            format: uint64
           deadline:
             type: string
+            format: uint64
   hello.candle.candle.QueryGetBidListResponse:
     type: object
     properties:

@@ -12,7 +12,11 @@
 export interface CandleAuctionMap {
   creator?: string;
   index?: string;
+
+  /** @format uint64 */
   blockHeight?: string;
+
+  /** @format uint64 */
   deadline?: string;
 }
 

@@ -1,0 +1,3 @@
+./candled query candle list-auction-map "au0" --chain-id="candle"
+./candled query candle show-auction-map "au0" --chain-id="candle"
+./candled tx candle create-auction "au0" --from=alice --chain-id="candle"

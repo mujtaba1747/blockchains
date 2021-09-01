@@ -7,7 +7,7 @@ import (
 
 var _ sdk.Msg = &MsgCreateAuctionMap{}
 
-func NewMsgCreateAuctionMap(creator string, index string, blockHeight string, deadline string) *MsgCreateAuctionMap {
+func NewMsgCreateAuctionMap(creator string, index string, blockHeight uint64, deadline uint64) *MsgCreateAuctionMap {
 	return &MsgCreateAuctionMap{
 		Creator:     creator,
 		Index:       index,
@@ -47,7 +47,7 @@ func (msg *MsgCreateAuctionMap) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateAuctionMap{}
 
-func NewMsgUpdateAuctionMap(creator string, index string, blockHeight string, deadline string) *MsgUpdateAuctionMap {
+func NewMsgUpdateAuctionMap(creator string, index string, blockHeight uint64, deadline uint64) *MsgUpdateAuctionMap {
 	return &MsgUpdateAuctionMap{
 		Creator:     creator,
 		Index:       index,

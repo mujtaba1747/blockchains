@@ -3,8 +3,8 @@ export declare const protobufPackage = "hello.candle.candle";
 export interface AuctionMap {
     creator: string;
     index: string;
-    blockHeight: string;
-    deadline: string;
+    blockHeight: number;
+    deadline: number;
 }
 export declare const AuctionMap: {
     encode(message: AuctionMap, writer?: Writer): Writer;

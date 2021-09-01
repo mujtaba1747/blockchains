@@ -8,6 +8,6 @@ import "gogoproto/gogo.proto";
 message AuctionMap {
   string creator = 1;
   string index = 2;
-  string blockHeight = 3; 
-  string deadline = 4; 
+  uint64 blockHeight = 3; 
+  uint64 deadline = 4; 
 }

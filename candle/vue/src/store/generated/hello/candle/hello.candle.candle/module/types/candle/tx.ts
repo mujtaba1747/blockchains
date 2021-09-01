@@ -59,8 +59,8 @@ export interface MsgDeleteBidListResponse {}
 export interface MsgCreateAuctionMap {
   creator: string
   index: string
-  blockHeight: string
-  deadline: string
+  blockHeight: number
+  deadline: number
 }
 
 export interface MsgCreateAuctionMapResponse {}
@@ -68,8 +68,8 @@ export interface MsgCreateAuctionMapResponse {}
 export interface MsgUpdateAuctionMap {
   creator: string
   index: string
-  blockHeight: string
-  deadline: string
+  blockHeight: number
+  deadline: number
 }
 
 export interface MsgUpdateAuctionMapResponse {}
@@ -899,7 +899,7 @@ export const MsgDeleteBidListResponse = {
   }
 }
 
-const baseMsgCreateAuctionMap: object = { creator: '', index: '', blockHeight: '', deadline: '' }
+const baseMsgCreateAuctionMap: object = { creator: '', index: '', blockHeight: 0, deadline: 0 }
 
 export const MsgCreateAuctionMap = {
   encode(message: MsgCreateAuctionMap, writer: Writer = Writer.create()): Writer {
@@ -909,11 +909,11 @@ export const MsgCreateAuctionMap = {
     if (message.index !== '') {
       writer.uint32(18).string(message.index)
     }
-    if (message.blockHeight !== '') {
-      writer.uint32(26).string(message.blockHeight)
+    if (message.blockHeight !== 0) {
+      writer.uint32(24).uint64(message.blockHeight)
     }
-    if (message.deadline !== '') {
-      writer.uint32(34).string(message.deadline)
+    if (message.deadline !== 0) {
+      writer.uint32(32).uint64(message.deadline)
     }
     return writer
   },
@@ -932,10 +932,10 @@ export const MsgCreateAuctionMap = {
           message.index = reader.string()
           break
         case 3:
-          message.blockHeight = reader.string()
+          message.blockHeight = longToNumber(reader.uint64() as Long)
           break
         case 4:
-          message.deadline = reader.string()
+          message.deadline = longToNumber(reader.uint64() as Long)
           break
         default:
           reader.skipType(tag & 7)
@@ -958,14 +958,14 @@ export const MsgCreateAuctionMap = {
       message.index = ''
     }
     if (object.blockHeight !== undefined && object.blockHeight !== null) {
-      message.blockHeight = String(object.blockHeight)
+      message.blockHeight = Number(object.blockHeight)
     } else {
-      message.blockHeight = ''
+      message.blockHeight = 0
     }
     if (object.deadline !== undefined && object.deadline !== null) {
-      message.deadline = String(object.deadline)
+      message.deadline = Number(object.deadline)
     } else {
-      message.deadline = ''
+      message.deadline = 0
     }
     return message
   },
@@ -994,12 +994,12 @@ export const MsgCreateAuctionMap = {
     if (object.blockHeight !== undefined && object.blockHeight !== null) {
       message.blockHeight = object.blockHeight
     } else {
-      message.blockHeight = ''
+      message.blockHeight = 0
     }
     if (object.deadline !== undefined && object.deadline !== null) {
       message.deadline = object.deadline
     } else {
-      message.deadline = ''
+      message.deadline = 0
     }
     return message
   }
@@ -1043,7 +1043,7 @@ export const MsgCreateAuctionMapResponse = {
   }
 }
 
-const baseMsgUpdateAuctionMap: object = { creator: '', index: '', blockHeight: '', deadline: '' }
+const baseMsgUpdateAuctionMap: object = { creator: '', index: '', blockHeight: 0, deadline: 0 }
 
 export const MsgUpdateAuctionMap = {
   encode(message: MsgUpdateAuctionMap, writer: Writer = Writer.create()): Writer {
@@ -1053,11 +1053,11 @@ export const MsgUpdateAuctionMap = {
     if (message.index !== '') {
       writer.uint32(18).string(message.index)
     }
-    if (message.blockHeight !== '') {
-      writer.uint32(26).string(message.blockHeight)
+    if (message.blockHeight !== 0) {
+      writer.uint32(24).uint64(message.blockHeight)
     }
-    if (message.deadline !== '') {
-      writer.uint32(34).string(message.deadline)
+    if (message.deadline !== 0) {
+      writer.uint32(32).uint64(message.deadline)
     }
     return writer
   },
@@ -1076,10 +1076,10 @@ export const MsgUpdateAuctionMap = {
           message.index = reader.string()
           break
         case 3:
-          message.blockHeight = reader.string()
+          message.blockHeight = longToNumber(reader.uint64() as Long)
           break
         case 4:
-          message.deadline = reader.string()
+          message.deadline = longToNumber(reader.uint64() as Long)
           break
         default:
           reader.skipType(tag & 7)
@@ -1102,14 +1102,14 @@ export const MsgUpdateAuctionMap = {
       message.index = ''
     }
     if (object.blockHeight !== undefined && object.blockHeight !== null) {
-      message.blockHeight = String(object.blockHeight)
+      message.blockHeight = Number(object.blockHeight)
     } else {
-      message.blockHeight = ''
+      message.blockHeight = 0
     }
     if (object.deadline !== undefined && object.deadline !== null) {
-      message.deadline = String(object.deadline)
+      message.deadline = Number(object.deadline)
     } else {
-      message.deadline = ''
+      message.deadline = 0
     }
     return message
   },
@@ -1138,12 +1138,12 @@ export const MsgUpdateAuctionMap = {
     if (object.blockHeight !== undefined && object.blockHeight !== null) {
       message.blockHeight = object.blockHeight
     } else {
-      message.blockHeight = ''
+      message.blockHeight = 0
     }
     if (object.deadline !== undefined && object.deadline !== null) {
       message.deadline = object.deadline
     } else {
-      message.deadline = ''
+      message.deadline = 0
     }
     return message
   }

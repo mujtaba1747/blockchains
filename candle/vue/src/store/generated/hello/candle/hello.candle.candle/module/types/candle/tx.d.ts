@@ -48,16 +48,16 @@ export interface MsgDeleteBidListResponse {
 export interface MsgCreateAuctionMap {
     creator: string;
     index: string;
-    blockHeight: string;
-    deadline: string;
+    blockHeight: number;
+    deadline: number;
 }
 export interface MsgCreateAuctionMapResponse {
 }
 export interface MsgUpdateAuctionMap {
     creator: string;
     index: string;
-    blockHeight: string;
-    deadline: string;
+    blockHeight: number;
+    deadline: number;
 }
 export interface MsgUpdateAuctionMapResponse {
 }
