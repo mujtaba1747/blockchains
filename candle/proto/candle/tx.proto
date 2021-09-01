@@ -2,6 +2,7 @@ syntax = "proto3";
 package hello.candle.candle;
 
 // this line is used by starport scaffolding # proto/tx/import
+import "candle/bid_map.proto";
 import "candle/results_map.proto";
 import "candle/bid_list.proto";
 import "candle/auction_map.proto";
@@ -11,6 +12,9 @@ option go_package = "github.com/hello/candle/x/candle/types";
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateBidMap(MsgCreateBidMap) returns (MsgCreateBidMapResponse);
+  rpc UpdateBidMap(MsgUpdateBidMap) returns (MsgUpdateBidMapResponse);
+  rpc DeleteBidMap(MsgDeleteBidMap) returns (MsgDeleteBidMapResponse);
   rpc CreateResultsMap(MsgCreateResultsMap) returns (MsgCreateResultsMapResponse);
   rpc UpdateResultsMap(MsgUpdateResultsMap) returns (MsgUpdateResultsMapResponse);
   rpc DeleteResultsMap(MsgDeleteResultsMap) returns (MsgDeleteResultsMapResponse);
@@ -26,11 +30,35 @@ service Msg {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreateBidMap {
+  string creator = 1;
+  string index = 2;
+  string auctionId = 3;
+  uint64 amt = 4;
+  int64 blockHeight = 5;
+}
+message MsgCreateBidMapResponse { }
+
+message MsgUpdateBidMap {
+  string creator = 1;
+  string index = 2;
+  string auctionId = 3;
+  uint64 amt = 4;
+  int64 blockHeight = 5;
+}
+message MsgUpdateBidMapResponse { }
+
+message MsgDeleteBidMap {
+  string creator = 1;
+  string index = 2;
+}
+message MsgDeleteBidMapResponse { }
+
 message MsgCreateResultsMap {
   string creator = 1;
   string index = 2;
   string winner = 3;
-  uint64 bidId = 4;
+  string bidId = 4;
 }
 message MsgCreateResultsMapResponse { }
 
@@ -38,7 +66,7 @@ message MsgUpdateResultsMap {
   string creator = 1;
   string index = 2;
   string winner = 3;
-  uint64 bidId = 4;
+  string bidId = 4;
 }
 message MsgUpdateResultsMapResponse { }
 

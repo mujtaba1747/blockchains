@@ -5,11 +5,38 @@ import * as Long from 'long'
 export const protobufPackage = 'hello.candle.candle'
 
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgCreateBidMap {
+  creator: string
+  index: string
+  auctionId: string
+  amt: number
+  blockHeight: number
+}
+
+export interface MsgCreateBidMapResponse {}
+
+export interface MsgUpdateBidMap {
+  creator: string
+  index: string
+  auctionId: string
+  amt: number
+  blockHeight: number
+}
+
+export interface MsgUpdateBidMapResponse {}
+
+export interface MsgDeleteBidMap {
+  creator: string
+  index: string
+}
+
+export interface MsgDeleteBidMapResponse {}
+
 export interface MsgCreateResultsMap {
   creator: string
   index: string
   winner: string
-  bidId: number
+  bidId: string
 }
 
 export interface MsgCreateResultsMapResponse {}
@@ -18,7 +45,7 @@ export interface MsgUpdateResultsMap {
   creator: string
   index: string
   winner: string
-  bidId: number
+  bidId: string
 }
 
 export interface MsgUpdateResultsMapResponse {}
@@ -103,7 +130,439 @@ export interface MsgCreateAuction {
 
 export interface MsgCreateAuctionResponse {}
 
-const baseMsgCreateResultsMap: object = { creator: '', index: '', winner: '', bidId: 0 }
+const baseMsgCreateBidMap: object = { creator: '', index: '', auctionId: '', amt: 0, blockHeight: 0 }
+
+export const MsgCreateBidMap = {
+  encode(message: MsgCreateBidMap, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.index !== '') {
+      writer.uint32(18).string(message.index)
+    }
+    if (message.auctionId !== '') {
+      writer.uint32(26).string(message.auctionId)
+    }
+    if (message.amt !== 0) {
+      writer.uint32(32).uint64(message.amt)
+    }
+    if (message.blockHeight !== 0) {
+      writer.uint32(40).int64(message.blockHeight)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateBidMap {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateBidMap } as MsgCreateBidMap
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.index = reader.string()
+          break
+        case 3:
+          message.auctionId = reader.string()
+          break
+        case 4:
+          message.amt = longToNumber(reader.uint64() as Long)
+          break
+        case 5:
+          message.blockHeight = longToNumber(reader.int64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgCreateBidMap {
+    const message = { ...baseMsgCreateBidMap } as MsgCreateBidMap
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index)
+    } else {
+      message.index = ''
+    }
+    if (object.auctionId !== undefined && object.auctionId !== null) {
+      message.auctionId = String(object.auctionId)
+    } else {
+      message.auctionId = ''
+    }
+    if (object.amt !== undefined && object.amt !== null) {
+      message.amt = Number(object.amt)
+    } else {
+      message.amt = 0
+    }
+    if (object.blockHeight !== undefined && object.blockHeight !== null) {
+      message.blockHeight = Number(object.blockHeight)
+    } else {
+      message.blockHeight = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgCreateBidMap): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.index !== undefined && (obj.index = message.index)
+    message.auctionId !== undefined && (obj.auctionId = message.auctionId)
+    message.amt !== undefined && (obj.amt = message.amt)
+    message.blockHeight !== undefined && (obj.blockHeight = message.blockHeight)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateBidMap>): MsgCreateBidMap {
+    const message = { ...baseMsgCreateBidMap } as MsgCreateBidMap
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index
+    } else {
+      message.index = ''
+    }
+    if (object.auctionId !== undefined && object.auctionId !== null) {
+      message.auctionId = object.auctionId
+    } else {
+      message.auctionId = ''
+    }
+    if (object.amt !== undefined && object.amt !== null) {
+      message.amt = object.amt
+    } else {
+      message.amt = 0
+    }
+    if (object.blockHeight !== undefined && object.blockHeight !== null) {
+      message.blockHeight = object.blockHeight
+    } else {
+      message.blockHeight = 0
+    }
+    return message
+  }
+}
+
+const baseMsgCreateBidMapResponse: object = {}
+
+export const MsgCreateBidMapResponse = {
+  encode(_: MsgCreateBidMapResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateBidMapResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateBidMapResponse } as MsgCreateBidMapResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgCreateBidMapResponse {
+    const message = { ...baseMsgCreateBidMapResponse } as MsgCreateBidMapResponse
+    return message
+  },
+
+  toJSON(_: MsgCreateBidMapResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgCreateBidMapResponse>): MsgCreateBidMapResponse {
+    const message = { ...baseMsgCreateBidMapResponse } as MsgCreateBidMapResponse
+    return message
+  }
+}
+
+const baseMsgUpdateBidMap: object = { creator: '', index: '', auctionId: '', amt: 0, blockHeight: 0 }
+
+export const MsgUpdateBidMap = {
+  encode(message: MsgUpdateBidMap, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.index !== '') {
+      writer.uint32(18).string(message.index)
+    }
+    if (message.auctionId !== '') {
+      writer.uint32(26).string(message.auctionId)
+    }
+    if (message.amt !== 0) {
+      writer.uint32(32).uint64(message.amt)
+    }
+    if (message.blockHeight !== 0) {
+      writer.uint32(40).int64(message.blockHeight)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateBidMap {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateBidMap } as MsgUpdateBidMap
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.index = reader.string()
+          break
+        case 3:
+          message.auctionId = reader.string()
+          break
+        case 4:
+          message.amt = longToNumber(reader.uint64() as Long)
+          break
+        case 5:
+          message.blockHeight = longToNumber(reader.int64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgUpdateBidMap {
+    const message = { ...baseMsgUpdateBidMap } as MsgUpdateBidMap
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index)
+    } else {
+      message.index = ''
+    }
+    if (object.auctionId !== undefined && object.auctionId !== null) {
+      message.auctionId = String(object.auctionId)
+    } else {
+      message.auctionId = ''
+    }
+    if (object.amt !== undefined && object.amt !== null) {
+      message.amt = Number(object.amt)
+    } else {
+      message.amt = 0
+    }
+    if (object.blockHeight !== undefined && object.blockHeight !== null) {
+      message.blockHeight = Number(object.blockHeight)
+    } else {
+      message.blockHeight = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgUpdateBidMap): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.index !== undefined && (obj.index = message.index)
+    message.auctionId !== undefined && (obj.auctionId = message.auctionId)
+    message.amt !== undefined && (obj.amt = message.amt)
+    message.blockHeight !== undefined && (obj.blockHeight = message.blockHeight)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgUpdateBidMap>): MsgUpdateBidMap {
+    const message = { ...baseMsgUpdateBidMap } as MsgUpdateBidMap
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index
+    } else {
+      message.index = ''
+    }
+    if (object.auctionId !== undefined && object.auctionId !== null) {
+      message.auctionId = object.auctionId
+    } else {
+      message.auctionId = ''
+    }
+    if (object.amt !== undefined && object.amt !== null) {
+      message.amt = object.amt
+    } else {
+      message.amt = 0
+    }
+    if (object.blockHeight !== undefined && object.blockHeight !== null) {
+      message.blockHeight = object.blockHeight
+    } else {
+      message.blockHeight = 0
+    }
+    return message
+  }
+}
+
+const baseMsgUpdateBidMapResponse: object = {}
+
+export const MsgUpdateBidMapResponse = {
+  encode(_: MsgUpdateBidMapResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateBidMapResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateBidMapResponse } as MsgUpdateBidMapResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgUpdateBidMapResponse {
+    const message = { ...baseMsgUpdateBidMapResponse } as MsgUpdateBidMapResponse
+    return message
+  },
+
+  toJSON(_: MsgUpdateBidMapResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgUpdateBidMapResponse>): MsgUpdateBidMapResponse {
+    const message = { ...baseMsgUpdateBidMapResponse } as MsgUpdateBidMapResponse
+    return message
+  }
+}
+
+const baseMsgDeleteBidMap: object = { creator: '', index: '' }
+
+export const MsgDeleteBidMap = {
+  encode(message: MsgDeleteBidMap, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.index !== '') {
+      writer.uint32(18).string(message.index)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteBidMap {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteBidMap } as MsgDeleteBidMap
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.index = reader.string()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgDeleteBidMap {
+    const message = { ...baseMsgDeleteBidMap } as MsgDeleteBidMap
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index)
+    } else {
+      message.index = ''
+    }
+    return message
+  },
+
+  toJSON(message: MsgDeleteBidMap): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.index !== undefined && (obj.index = message.index)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgDeleteBidMap>): MsgDeleteBidMap {
+    const message = { ...baseMsgDeleteBidMap } as MsgDeleteBidMap
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index
+    } else {
+      message.index = ''
+    }
+    return message
+  }
+}
+
+const baseMsgDeleteBidMapResponse: object = {}
+
+export const MsgDeleteBidMapResponse = {
+  encode(_: MsgDeleteBidMapResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteBidMapResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteBidMapResponse } as MsgDeleteBidMapResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgDeleteBidMapResponse {
+    const message = { ...baseMsgDeleteBidMapResponse } as MsgDeleteBidMapResponse
+    return message
+  },
+
+  toJSON(_: MsgDeleteBidMapResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgDeleteBidMapResponse>): MsgDeleteBidMapResponse {
+    const message = { ...baseMsgDeleteBidMapResponse } as MsgDeleteBidMapResponse
+    return message
+  }
+}
+
+const baseMsgCreateResultsMap: object = { creator: '', index: '', winner: '', bidId: '' }
 
 export const MsgCreateResultsMap = {
   encode(message: MsgCreateResultsMap, writer: Writer = Writer.create()): Writer {
@@ -116,8 +575,8 @@ export const MsgCreateResultsMap = {
     if (message.winner !== '') {
       writer.uint32(26).string(message.winner)
     }
-    if (message.bidId !== 0) {
-      writer.uint32(32).uint64(message.bidId)
+    if (message.bidId !== '') {
+      writer.uint32(34).string(message.bidId)
     }
     return writer
   },
@@ -139,7 +598,7 @@ export const MsgCreateResultsMap = {
           message.winner = reader.string()
           break
         case 4:
-          message.bidId = longToNumber(reader.uint64() as Long)
+          message.bidId = reader.string()
           break
         default:
           reader.skipType(tag & 7)
@@ -167,9 +626,9 @@ export const MsgCreateResultsMap = {
       message.winner = ''
     }
     if (object.bidId !== undefined && object.bidId !== null) {
-      message.bidId = Number(object.bidId)
+      message.bidId = String(object.bidId)
     } else {
-      message.bidId = 0
+      message.bidId = ''
     }
     return message
   },
@@ -203,7 +662,7 @@ export const MsgCreateResultsMap = {
     if (object.bidId !== undefined && object.bidId !== null) {
       message.bidId = object.bidId
     } else {
-      message.bidId = 0
+      message.bidId = ''
     }
     return message
   }
@@ -247,7 +706,7 @@ export const MsgCreateResultsMapResponse = {
   }
 }
 
-const baseMsgUpdateResultsMap: object = { creator: '', index: '', winner: '', bidId: 0 }
+const baseMsgUpdateResultsMap: object = { creator: '', index: '', winner: '', bidId: '' }
 
 export const MsgUpdateResultsMap = {
   encode(message: MsgUpdateResultsMap, writer: Writer = Writer.create()): Writer {
@@ -260,8 +719,8 @@ export const MsgUpdateResultsMap = {
     if (message.winner !== '') {
       writer.uint32(26).string(message.winner)
     }
-    if (message.bidId !== 0) {
-      writer.uint32(32).uint64(message.bidId)
+    if (message.bidId !== '') {
+      writer.uint32(34).string(message.bidId)
     }
     return writer
   },
@@ -283,7 +742,7 @@ export const MsgUpdateResultsMap = {
           message.winner = reader.string()
           break
         case 4:
-          message.bidId = longToNumber(reader.uint64() as Long)
+          message.bidId = reader.string()
           break
         default:
           reader.skipType(tag & 7)
@@ -311,9 +770,9 @@ export const MsgUpdateResultsMap = {
       message.winner = ''
     }
     if (object.bidId !== undefined && object.bidId !== null) {
-      message.bidId = Number(object.bidId)
+      message.bidId = String(object.bidId)
     } else {
-      message.bidId = 0
+      message.bidId = ''
     }
     return message
   },
@@ -347,7 +806,7 @@ export const MsgUpdateResultsMap = {
     if (object.bidId !== undefined && object.bidId !== null) {
       message.bidId = object.bidId
     } else {
-      message.bidId = 0
+      message.bidId = ''
     }
     return message
   }
@@ -1647,6 +2106,9 @@ export const MsgCreateAuctionResponse = {
 /** Msg defines the Msg service. */
 export interface Msg {
   /** this line is used by starport scaffolding # proto/tx/rpc */
+  CreateBidMap(request: MsgCreateBidMap): Promise<MsgCreateBidMapResponse>
+  UpdateBidMap(request: MsgUpdateBidMap): Promise<MsgUpdateBidMapResponse>
+  DeleteBidMap(request: MsgDeleteBidMap): Promise<MsgDeleteBidMapResponse>
   CreateResultsMap(request: MsgCreateResultsMap): Promise<MsgCreateResultsMapResponse>
   UpdateResultsMap(request: MsgUpdateResultsMap): Promise<MsgUpdateResultsMapResponse>
   DeleteResultsMap(request: MsgDeleteResultsMap): Promise<MsgDeleteResultsMapResponse>
@@ -1666,6 +2128,24 @@ export class MsgClientImpl implements Msg {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  CreateBidMap(request: MsgCreateBidMap): Promise<MsgCreateBidMapResponse> {
+    const data = MsgCreateBidMap.encode(request).finish()
+    const promise = this.rpc.request('hello.candle.candle.Msg', 'CreateBidMap', data)
+    return promise.then((data) => MsgCreateBidMapResponse.decode(new Reader(data)))
+  }
+
+  UpdateBidMap(request: MsgUpdateBidMap): Promise<MsgUpdateBidMapResponse> {
+    const data = MsgUpdateBidMap.encode(request).finish()
+    const promise = this.rpc.request('hello.candle.candle.Msg', 'UpdateBidMap', data)
+    return promise.then((data) => MsgUpdateBidMapResponse.decode(new Reader(data)))
+  }
+
+  DeleteBidMap(request: MsgDeleteBidMap): Promise<MsgDeleteBidMapResponse> {
+    const data = MsgDeleteBidMap.encode(request).finish()
+    const promise = this.rpc.request('hello.candle.candle.Msg', 'DeleteBidMap', data)
+    return promise.then((data) => MsgDeleteBidMapResponse.decode(new Reader(data)))
+  }
+
   CreateResultsMap(request: MsgCreateResultsMap): Promise<MsgCreateResultsMapResponse> {
     const data = MsgCreateResultsMap.encode(request).finish()
     const promise = this.rpc.request('hello.candle.candle.Msg', 'CreateResultsMap', data)

@@ -1,11 +1,241 @@
 /* eslint-disable */
 import { Reader, util, configure, Writer } from 'protobufjs/minimal';
 import * as Long from 'long';
-import { ResultsMap } from '../candle/results_map';
+import { BidMap } from '../candle/bid_map';
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
+import { ResultsMap } from '../candle/results_map';
 import { BidList } from '../candle/bid_list';
 import { AuctionMap } from '../candle/auction_map';
 export const protobufPackage = 'hello.candle.candle';
+const baseQueryGetBidMapRequest = { index: '' };
+export const QueryGetBidMapRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.index !== '') {
+            writer.uint32(10).string(message.index);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryGetBidMapRequest };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.index = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryGetBidMapRequest };
+        if (object.index !== undefined && object.index !== null) {
+            message.index = String(object.index);
+        }
+        else {
+            message.index = '';
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.index !== undefined && (obj.index = message.index);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryGetBidMapRequest };
+        if (object.index !== undefined && object.index !== null) {
+            message.index = object.index;
+        }
+        else {
+            message.index = '';
+        }
+        return message;
+    }
+};
+const baseQueryGetBidMapResponse = {};
+export const QueryGetBidMapResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.BidMap !== undefined) {
+            BidMap.encode(message.BidMap, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryGetBidMapResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.BidMap = BidMap.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryGetBidMapResponse };
+        if (object.BidMap !== undefined && object.BidMap !== null) {
+            message.BidMap = BidMap.fromJSON(object.BidMap);
+        }
+        else {
+            message.BidMap = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.BidMap !== undefined && (obj.BidMap = message.BidMap ? BidMap.toJSON(message.BidMap) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryGetBidMapResponse };
+        if (object.BidMap !== undefined && object.BidMap !== null) {
+            message.BidMap = BidMap.fromPartial(object.BidMap);
+        }
+        else {
+            message.BidMap = undefined;
+        }
+        return message;
+    }
+};
+const baseQueryAllBidMapRequest = {};
+export const QueryAllBidMapRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.pagination !== undefined) {
+            PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryAllBidMapRequest };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryAllBidMapRequest };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryAllBidMapRequest };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    }
+};
+const baseQueryAllBidMapResponse = {};
+export const QueryAllBidMapResponse = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.BidMap) {
+            BidMap.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryAllBidMapResponse };
+        message.BidMap = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.BidMap.push(BidMap.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryAllBidMapResponse };
+        message.BidMap = [];
+        if (object.BidMap !== undefined && object.BidMap !== null) {
+            for (const e of object.BidMap) {
+                message.BidMap.push(BidMap.fromJSON(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.BidMap) {
+            obj.BidMap = message.BidMap.map((e) => (e ? BidMap.toJSON(e) : undefined));
+        }
+        else {
+            obj.BidMap = [];
+        }
+        message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryAllBidMapResponse };
+        message.BidMap = [];
+        if (object.BidMap !== undefined && object.BidMap !== null) {
+            for (const e of object.BidMap) {
+                message.BidMap.push(BidMap.fromPartial(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    }
+};
 const baseQueryGetResultsMapRequest = { index: '' };
 export const QueryGetResultsMapRequest = {
     encode(message, writer = Writer.create()) {
@@ -696,6 +926,16 @@ export const QueryAllAuctionMapResponse = {
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
+    }
+    BidMap(request) {
+        const data = QueryGetBidMapRequest.encode(request).finish();
+        const promise = this.rpc.request('hello.candle.candle.Query', 'BidMap', data);
+        return promise.then((data) => QueryGetBidMapResponse.decode(new Reader(data)));
+    }
+    BidMapAll(request) {
+        const data = QueryAllBidMapRequest.encode(request).finish();
+        const promise = this.rpc.request('hello.candle.candle.Query', 'BidMapAll', data);
+        return promise.then((data) => QueryAllBidMapResponse.decode(new Reader(data)));
     }
     ResultsMap(request) {
         const data = QueryGetResultsMapRequest.encode(request).finish();

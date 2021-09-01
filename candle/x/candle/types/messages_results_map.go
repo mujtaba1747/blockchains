@@ -7,7 +7,7 @@ import (
 
 var _ sdk.Msg = &MsgCreateResultsMap{}
 
-func NewMsgCreateResultsMap(creator string, index string, winner string, bidId uint64) *MsgCreateResultsMap {
+func NewMsgCreateResultsMap(creator string, index string, winner string, bidId string) *MsgCreateResultsMap {
 	return &MsgCreateResultsMap{
 		Creator: creator,
 		Index:   index,
@@ -47,7 +47,7 @@ func (msg *MsgCreateResultsMap) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateResultsMap{}
 
-func NewMsgUpdateResultsMap(creator string, index string, winner string, bidId uint64) *MsgUpdateResultsMap {
+func NewMsgUpdateResultsMap(creator string, index string, winner string, bidId string) *MsgUpdateResultsMap {
 	return &MsgUpdateResultsMap{
 		Creator: creator,
 		Index:   index,

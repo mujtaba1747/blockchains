@@ -2,7 +2,427 @@
 import { Reader, util, configure, Writer } from 'protobufjs/minimal';
 import * as Long from 'long';
 export const protobufPackage = 'hello.candle.candle';
-const baseMsgCreateResultsMap = { creator: '', index: '', winner: '', bidId: 0 };
+const baseMsgCreateBidMap = { creator: '', index: '', auctionId: '', amt: 0, blockHeight: 0 };
+export const MsgCreateBidMap = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== '') {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.index !== '') {
+            writer.uint32(18).string(message.index);
+        }
+        if (message.auctionId !== '') {
+            writer.uint32(26).string(message.auctionId);
+        }
+        if (message.amt !== 0) {
+            writer.uint32(32).uint64(message.amt);
+        }
+        if (message.blockHeight !== 0) {
+            writer.uint32(40).int64(message.blockHeight);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreateBidMap };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.index = reader.string();
+                    break;
+                case 3:
+                    message.auctionId = reader.string();
+                    break;
+                case 4:
+                    message.amt = longToNumber(reader.uint64());
+                    break;
+                case 5:
+                    message.blockHeight = longToNumber(reader.int64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgCreateBidMap };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.index !== undefined && object.index !== null) {
+            message.index = String(object.index);
+        }
+        else {
+            message.index = '';
+        }
+        if (object.auctionId !== undefined && object.auctionId !== null) {
+            message.auctionId = String(object.auctionId);
+        }
+        else {
+            message.auctionId = '';
+        }
+        if (object.amt !== undefined && object.amt !== null) {
+            message.amt = Number(object.amt);
+        }
+        else {
+            message.amt = 0;
+        }
+        if (object.blockHeight !== undefined && object.blockHeight !== null) {
+            message.blockHeight = Number(object.blockHeight);
+        }
+        else {
+            message.blockHeight = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.index !== undefined && (obj.index = message.index);
+        message.auctionId !== undefined && (obj.auctionId = message.auctionId);
+        message.amt !== undefined && (obj.amt = message.amt);
+        message.blockHeight !== undefined && (obj.blockHeight = message.blockHeight);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgCreateBidMap };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.index !== undefined && object.index !== null) {
+            message.index = object.index;
+        }
+        else {
+            message.index = '';
+        }
+        if (object.auctionId !== undefined && object.auctionId !== null) {
+            message.auctionId = object.auctionId;
+        }
+        else {
+            message.auctionId = '';
+        }
+        if (object.amt !== undefined && object.amt !== null) {
+            message.amt = object.amt;
+        }
+        else {
+            message.amt = 0;
+        }
+        if (object.blockHeight !== undefined && object.blockHeight !== null) {
+            message.blockHeight = object.blockHeight;
+        }
+        else {
+            message.blockHeight = 0;
+        }
+        return message;
+    }
+};
+const baseMsgCreateBidMapResponse = {};
+export const MsgCreateBidMapResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreateBidMapResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = { ...baseMsgCreateBidMapResponse };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = { ...baseMsgCreateBidMapResponse };
+        return message;
+    }
+};
+const baseMsgUpdateBidMap = { creator: '', index: '', auctionId: '', amt: 0, blockHeight: 0 };
+export const MsgUpdateBidMap = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== '') {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.index !== '') {
+            writer.uint32(18).string(message.index);
+        }
+        if (message.auctionId !== '') {
+            writer.uint32(26).string(message.auctionId);
+        }
+        if (message.amt !== 0) {
+            writer.uint32(32).uint64(message.amt);
+        }
+        if (message.blockHeight !== 0) {
+            writer.uint32(40).int64(message.blockHeight);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgUpdateBidMap };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.index = reader.string();
+                    break;
+                case 3:
+                    message.auctionId = reader.string();
+                    break;
+                case 4:
+                    message.amt = longToNumber(reader.uint64());
+                    break;
+                case 5:
+                    message.blockHeight = longToNumber(reader.int64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgUpdateBidMap };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.index !== undefined && object.index !== null) {
+            message.index = String(object.index);
+        }
+        else {
+            message.index = '';
+        }
+        if (object.auctionId !== undefined && object.auctionId !== null) {
+            message.auctionId = String(object.auctionId);
+        }
+        else {
+            message.auctionId = '';
+        }
+        if (object.amt !== undefined && object.amt !== null) {
+            message.amt = Number(object.amt);
+        }
+        else {
+            message.amt = 0;
+        }
+        if (object.blockHeight !== undefined && object.blockHeight !== null) {
+            message.blockHeight = Number(object.blockHeight);
+        }
+        else {
+            message.blockHeight = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.index !== undefined && (obj.index = message.index);
+        message.auctionId !== undefined && (obj.auctionId = message.auctionId);
+        message.amt !== undefined && (obj.amt = message.amt);
+        message.blockHeight !== undefined && (obj.blockHeight = message.blockHeight);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgUpdateBidMap };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.index !== undefined && object.index !== null) {
+            message.index = object.index;
+        }
+        else {
+            message.index = '';
+        }
+        if (object.auctionId !== undefined && object.auctionId !== null) {
+            message.auctionId = object.auctionId;
+        }
+        else {
+            message.auctionId = '';
+        }
+        if (object.amt !== undefined && object.amt !== null) {
+            message.amt = object.amt;
+        }
+        else {
+            message.amt = 0;
+        }
+        if (object.blockHeight !== undefined && object.blockHeight !== null) {
+            message.blockHeight = object.blockHeight;
+        }
+        else {
+            message.blockHeight = 0;
+        }
+        return message;
+    }
+};
+const baseMsgUpdateBidMapResponse = {};
+export const MsgUpdateBidMapResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgUpdateBidMapResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = { ...baseMsgUpdateBidMapResponse };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = { ...baseMsgUpdateBidMapResponse };
+        return message;
+    }
+};
+const baseMsgDeleteBidMap = { creator: '', index: '' };
+export const MsgDeleteBidMap = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== '') {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.index !== '') {
+            writer.uint32(18).string(message.index);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgDeleteBidMap };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.index = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgDeleteBidMap };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.index !== undefined && object.index !== null) {
+            message.index = String(object.index);
+        }
+        else {
+            message.index = '';
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.index !== undefined && (obj.index = message.index);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgDeleteBidMap };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.index !== undefined && object.index !== null) {
+            message.index = object.index;
+        }
+        else {
+            message.index = '';
+        }
+        return message;
+    }
+};
+const baseMsgDeleteBidMapResponse = {};
+export const MsgDeleteBidMapResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgDeleteBidMapResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = { ...baseMsgDeleteBidMapResponse };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = { ...baseMsgDeleteBidMapResponse };
+        return message;
+    }
+};
+const baseMsgCreateResultsMap = { creator: '', index: '', winner: '', bidId: '' };
 export const MsgCreateResultsMap = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
@@ -14,8 +434,8 @@ export const MsgCreateResultsMap = {
         if (message.winner !== '') {
             writer.uint32(26).string(message.winner);
         }
-        if (message.bidId !== 0) {
-            writer.uint32(32).uint64(message.bidId);
+        if (message.bidId !== '') {
+            writer.uint32(34).string(message.bidId);
         }
         return writer;
     },
@@ -36,7 +456,7 @@ export const MsgCreateResultsMap = {
                     message.winner = reader.string();
                     break;
                 case 4:
-                    message.bidId = longToNumber(reader.uint64());
+                    message.bidId = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -66,10 +486,10 @@ export const MsgCreateResultsMap = {
             message.winner = '';
         }
         if (object.bidId !== undefined && object.bidId !== null) {
-            message.bidId = Number(object.bidId);
+            message.bidId = String(object.bidId);
         }
         else {
-            message.bidId = 0;
+            message.bidId = '';
         }
         return message;
     },
@@ -105,7 +525,7 @@ export const MsgCreateResultsMap = {
             message.bidId = object.bidId;
         }
         else {
-            message.bidId = 0;
+            message.bidId = '';
         }
         return message;
     }
@@ -142,7 +562,7 @@ export const MsgCreateResultsMapResponse = {
         return message;
     }
 };
-const baseMsgUpdateResultsMap = { creator: '', index: '', winner: '', bidId: 0 };
+const baseMsgUpdateResultsMap = { creator: '', index: '', winner: '', bidId: '' };
 export const MsgUpdateResultsMap = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
@@ -154,8 +574,8 @@ export const MsgUpdateResultsMap = {
         if (message.winner !== '') {
             writer.uint32(26).string(message.winner);
         }
-        if (message.bidId !== 0) {
-            writer.uint32(32).uint64(message.bidId);
+        if (message.bidId !== '') {
+            writer.uint32(34).string(message.bidId);
         }
         return writer;
     },
@@ -176,7 +596,7 @@ export const MsgUpdateResultsMap = {
                     message.winner = reader.string();
                     break;
                 case 4:
-                    message.bidId = longToNumber(reader.uint64());
+                    message.bidId = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -206,10 +626,10 @@ export const MsgUpdateResultsMap = {
             message.winner = '';
         }
         if (object.bidId !== undefined && object.bidId !== null) {
-            message.bidId = Number(object.bidId);
+            message.bidId = String(object.bidId);
         }
         else {
-            message.bidId = 0;
+            message.bidId = '';
         }
         return message;
     },
@@ -245,7 +665,7 @@ export const MsgUpdateResultsMap = {
             message.bidId = object.bidId;
         }
         else {
-            message.bidId = 0;
+            message.bidId = '';
         }
         return message;
     }
@@ -1476,6 +1896,21 @@ export const MsgCreateAuctionResponse = {
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
+    }
+    CreateBidMap(request) {
+        const data = MsgCreateBidMap.encode(request).finish();
+        const promise = this.rpc.request('hello.candle.candle.Msg', 'CreateBidMap', data);
+        return promise.then((data) => MsgCreateBidMapResponse.decode(new Reader(data)));
+    }
+    UpdateBidMap(request) {
+        const data = MsgUpdateBidMap.encode(request).finish();
+        const promise = this.rpc.request('hello.candle.candle.Msg', 'UpdateBidMap', data);
+        return promise.then((data) => MsgUpdateBidMapResponse.decode(new Reader(data)));
+    }
+    DeleteBidMap(request) {
+        const data = MsgDeleteBidMap.encode(request).finish();
+        const promise = this.rpc.request('hello.candle.candle.Msg', 'DeleteBidMap', data);
+        return promise.then((data) => MsgDeleteBidMapResponse.decode(new Reader(data)));
     }
     CreateResultsMap(request) {
         const data = MsgCreateResultsMap.encode(request).finish();

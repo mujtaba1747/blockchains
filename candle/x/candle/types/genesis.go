@@ -13,6 +13,7 @@ func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		// this line is used by starport scaffolding # ibc/genesistype/default
 		// this line is used by starport scaffolding # genesis/types/default
+		BidMapList:     []*BidMap{},
 		ResultsMapList: []*ResultsMap{},
 		BidListList:    []*BidList{},
 		AuctionMapList: []*AuctionMap{},
@@ -25,6 +26,15 @@ func (gs GenesisState) Validate() error {
 	// this line is used by starport scaffolding # ibc/genesistype/validate
 
 	// this line is used by starport scaffolding # genesis/types/validate
+	// Check for duplicated index in bidMap
+	bidMapIndexMap := make(map[string]bool)
+
+	for _, elem := range gs.BidMapList {
+		if _, ok := bidMapIndexMap[elem.Index]; ok {
+			return fmt.Errorf("duplicated index for bidMap")
+		}
+		bidMapIndexMap[elem.Index] = true
+	}
 	// Check for duplicated index in resultsMap
 	resultsMapIndexMap := make(map[string]bool)
 

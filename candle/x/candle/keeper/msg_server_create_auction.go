@@ -11,12 +11,14 @@ import (
 )
 
 func (k msgServer) CreateAuction(goCtx context.Context, msg *types.MsgCreateAuction) (*types.MsgCreateAuctionResponse, error) {
+
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	prevHash := ctx.BlockHeader().LastBlockId.Hash
 	seed := binary.BigEndian.Uint64(prevHash[:9])
 
 	rand.Seed(int64(seed))
+
 	// TODO: Handling the message
 	var auction = types.AuctionMap{
 		Creator:     msg.Creator,
@@ -30,6 +32,7 @@ func (k msgServer) CreateAuction(goCtx context.Context, msg *types.MsgCreateAuct
 	}
 
 	k.SetAuctionMap(ctx, auction)
+
 	ctx.Logger().Info("Auction", auction.Index, "deadline = ", auction.Deadline)
 
 	return &types.MsgCreateAuctionResponse{}, nil

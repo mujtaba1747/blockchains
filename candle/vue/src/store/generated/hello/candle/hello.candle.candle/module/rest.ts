@@ -31,6 +31,18 @@ export interface CandleBidList {
   amt?: string;
 }
 
+export interface CandleBidMap {
+  creator?: string;
+  index?: string;
+  auctionId?: string;
+
+  /** @format uint64 */
+  amt?: string;
+
+  /** @format int64 */
+  blockHeight?: string;
+}
+
 export type CandleMsgCreateAuctionMapResponse = object;
 
 export type CandleMsgCreateAuctionResponse = object;
@@ -40,6 +52,8 @@ export interface CandleMsgCreateBidListResponse {
   id?: string;
 }
 
+export type CandleMsgCreateBidMapResponse = object;
+
 export type CandleMsgCreateBidResponse = object;
 
 export type CandleMsgCreateResultsMapResponse = object;
@@ -48,6 +62,8 @@ export type CandleMsgDeleteAuctionMapResponse = object;
 
 export type CandleMsgDeleteBidListResponse = object;
 
+export type CandleMsgDeleteBidMapResponse = object;
+
 export type CandleMsgDeleteResultsMapResponse = object;
 
 export type CandleMsgFinalizeAuctionResponse = object;
@@ -55,6 +71,8 @@ export type CandleMsgFinalizeAuctionResponse = object;
 export type CandleMsgUpdateAuctionMapResponse = object;
 
 export type CandleMsgUpdateBidListResponse = object;
+
+export type CandleMsgUpdateBidMapResponse = object;
 
 export type CandleMsgUpdateResultsMapResponse = object;
 
@@ -75,6 +93,21 @@ export interface CandleQueryAllAuctionMapResponse {
 
 export interface CandleQueryAllBidListResponse {
   BidList?: CandleBidList[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface CandleQueryAllBidMapResponse {
+  BidMap?: CandleBidMap[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -111,6 +144,10 @@ export interface CandleQueryGetBidListResponse {
   BidList?: CandleBidList;
 }
 
+export interface CandleQueryGetBidMapResponse {
+  BidMap?: CandleBidMap;
+}
+
 export interface CandleQueryGetResultsMapResponse {
   ResultsMap?: CandleResultsMap;
 }
@@ -119,8 +156,6 @@ export interface CandleResultsMap {
   creator?: string;
   index?: string;
   winner?: string;
-
-  /** @format uint64 */
   bidId?: string;
 }
 
@@ -467,6 +502,47 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryBidList = (id: string, params: RequestParams = {}) =>
     this.request<CandleQueryGetBidListResponse, RpcStatus>({
       path: `/hello/candle/candle/bidList/${id}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryBidMapAll
+   * @summary Queries a list of bidMap items.
+   * @request GET:/hello/candle/candle/bidMap
+   */
+  queryBidMapAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<CandleQueryAllBidMapResponse, RpcStatus>({
+      path: `/hello/candle/candle/bidMap`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryBidMap
+   * @summary Queries a bidMap by index.
+   * @request GET:/hello/candle/candle/bidMap/{index}
+   */
+  queryBidMap = (index: string, params: RequestParams = {}) =>
+    this.request<CandleQueryGetBidMapResponse, RpcStatus>({
+      path: `/hello/candle/candle/bidMap/${index}`,
       method: "GET",
       format: "json",
       ...params,

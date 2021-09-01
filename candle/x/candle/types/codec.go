@@ -9,6 +9,10 @@ import (
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	// this line is used by starport scaffolding # 2
+	cdc.RegisterConcrete(&MsgCreateBidMap{}, "candle/CreateBidMap", nil)
+	cdc.RegisterConcrete(&MsgUpdateBidMap{}, "candle/UpdateBidMap", nil)
+	cdc.RegisterConcrete(&MsgDeleteBidMap{}, "candle/DeleteBidMap", nil)
+
 	cdc.RegisterConcrete(&MsgCreateResultsMap{}, "candle/CreateResultsMap", nil)
 	cdc.RegisterConcrete(&MsgUpdateResultsMap{}, "candle/UpdateResultsMap", nil)
 	cdc.RegisterConcrete(&MsgDeleteResultsMap{}, "candle/DeleteResultsMap", nil)
@@ -31,6 +35,11 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	// this line is used by starport scaffolding # 3
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCreateBidMap{},
+		&MsgUpdateBidMap{},
+		&MsgDeleteBidMap{},
+	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateResultsMap{},
 		&MsgUpdateResultsMap{},

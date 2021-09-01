@@ -4,6 +4,7 @@ package hello.candle.candle;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "candle/bid_map.proto";
 import "candle/results_map.proto";
 import "candle/bid_list.proto";
 import "candle/auction_map.proto";
@@ -13,6 +14,17 @@ option go_package = "github.com/hello/candle/x/candle/types";
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+
+	// Queries a bidMap by index.
+	rpc BidMap(QueryGetBidMapRequest) returns (QueryGetBidMapResponse) {
+		option (google.api.http).get = "/hello/candle/candle/bidMap/{index}";
+	}
+
+	// Queries a list of bidMap items.
+	rpc BidMapAll(QueryAllBidMapRequest) returns (QueryAllBidMapResponse) {
+		option (google.api.http).get = "/hello/candle/candle/bidMap";
+	}
+
 
 	// Queries a resultsMap by index.
 	rpc ResultsMap(QueryGetResultsMapRequest) returns (QueryGetResultsMapResponse) {
@@ -49,6 +61,22 @@ service Query {
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetBidMapRequest {
+	string index = 1;
+}
+
+message QueryGetBidMapResponse {
+	BidMap BidMap = 1;
+}
+
+message QueryAllBidMapRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllBidMapResponse {
+	repeated BidMap BidMap = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
 message QueryGetResultsMapRequest {
 	string index = 1;
 }

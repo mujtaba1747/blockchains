@@ -198,6 +198,35 @@ export class Api extends HttpClient {
          * No description
          *
          * @tags Query
+         * @name QueryBidMapAll
+         * @summary Queries a list of bidMap items.
+         * @request GET:/hello/candle/candle/bidMap
+         */
+        this.queryBidMapAll = (query, params = {}) => this.request({
+            path: `/hello/candle/candle/bidMap`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryBidMap
+         * @summary Queries a bidMap by index.
+         * @request GET:/hello/candle/candle/bidMap/{index}
+         */
+        this.queryBidMap = (index, params = {}) => this.request({
+            path: `/hello/candle/candle/bidMap/${index}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
          * @name QueryResultsMapAll
          * @summary Queries a list of resultsMap items.
          * @request GET:/hello/candle/candle/resultsMap

@@ -10,6 +10,11 @@ import (
 // state.
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
 	// this line is used by starport scaffolding # genesis/module/init
+	// Set all the bidMap
+	for _, elem := range genState.BidMapList {
+		k.SetBidMap(ctx, *elem)
+	}
+
 	// Set all the resultsMap
 	for _, elem := range genState.ResultsMapList {
 		k.SetResultsMap(ctx, *elem)
@@ -36,6 +41,13 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis := types.DefaultGenesis()
 
 	// this line is used by starport scaffolding # genesis/module/export
+	// Get all bidMap
+	bidMapList := k.GetAllBidMap(ctx)
+	for _, elem := range bidMapList {
+		elem := elem
+		genesis.BidMapList = append(genesis.BidMapList, &elem)
+	}
+
 	// Get all resultsMap
 	resultsMapList := k.GetAllResultsMap(ctx)
 	for _, elem := range resultsMapList {

@@ -1,14 +1,32 @@
 /* eslint-disable */
 import { Reader, util, configure, Writer } from 'protobufjs/minimal'
 import * as Long from 'long'
-import { ResultsMap } from '../candle/results_map'
+import { BidMap } from '../candle/bid_map'
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination'
+import { ResultsMap } from '../candle/results_map'
 import { BidList } from '../candle/bid_list'
 import { AuctionMap } from '../candle/auction_map'
 
 export const protobufPackage = 'hello.candle.candle'
 
 /** this line is used by starport scaffolding # 3 */
+export interface QueryGetBidMapRequest {
+  index: string
+}
+
+export interface QueryGetBidMapResponse {
+  BidMap: BidMap | undefined
+}
+
+export interface QueryAllBidMapRequest {
+  pagination: PageRequest | undefined
+}
+
+export interface QueryAllBidMapResponse {
+  BidMap: BidMap[]
+  pagination: PageResponse | undefined
+}
+
 export interface QueryGetResultsMapRequest {
   index: string
 }
@@ -58,6 +76,250 @@ export interface QueryAllAuctionMapRequest {
 export interface QueryAllAuctionMapResponse {
   AuctionMap: AuctionMap[]
   pagination: PageResponse | undefined
+}
+
+const baseQueryGetBidMapRequest: object = { index: '' }
+
+export const QueryGetBidMapRequest = {
+  encode(message: QueryGetBidMapRequest, writer: Writer = Writer.create()): Writer {
+    if (message.index !== '') {
+      writer.uint32(10).string(message.index)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetBidMapRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetBidMapRequest } as QueryGetBidMapRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.index = reader.string()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetBidMapRequest {
+    const message = { ...baseQueryGetBidMapRequest } as QueryGetBidMapRequest
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index)
+    } else {
+      message.index = ''
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetBidMapRequest): unknown {
+    const obj: any = {}
+    message.index !== undefined && (obj.index = message.index)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetBidMapRequest>): QueryGetBidMapRequest {
+    const message = { ...baseQueryGetBidMapRequest } as QueryGetBidMapRequest
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index
+    } else {
+      message.index = ''
+    }
+    return message
+  }
+}
+
+const baseQueryGetBidMapResponse: object = {}
+
+export const QueryGetBidMapResponse = {
+  encode(message: QueryGetBidMapResponse, writer: Writer = Writer.create()): Writer {
+    if (message.BidMap !== undefined) {
+      BidMap.encode(message.BidMap, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetBidMapResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetBidMapResponse } as QueryGetBidMapResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.BidMap = BidMap.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetBidMapResponse {
+    const message = { ...baseQueryGetBidMapResponse } as QueryGetBidMapResponse
+    if (object.BidMap !== undefined && object.BidMap !== null) {
+      message.BidMap = BidMap.fromJSON(object.BidMap)
+    } else {
+      message.BidMap = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetBidMapResponse): unknown {
+    const obj: any = {}
+    message.BidMap !== undefined && (obj.BidMap = message.BidMap ? BidMap.toJSON(message.BidMap) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetBidMapResponse>): QueryGetBidMapResponse {
+    const message = { ...baseQueryGetBidMapResponse } as QueryGetBidMapResponse
+    if (object.BidMap !== undefined && object.BidMap !== null) {
+      message.BidMap = BidMap.fromPartial(object.BidMap)
+    } else {
+      message.BidMap = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllBidMapRequest: object = {}
+
+export const QueryAllBidMapRequest = {
+  encode(message: QueryAllBidMapRequest, writer: Writer = Writer.create()): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllBidMapRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllBidMapRequest } as QueryAllBidMapRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllBidMapRequest {
+    const message = { ...baseQueryAllBidMapRequest } as QueryAllBidMapRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllBidMapRequest): unknown {
+    const obj: any = {}
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllBidMapRequest>): QueryAllBidMapRequest {
+    const message = { ...baseQueryAllBidMapRequest } as QueryAllBidMapRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllBidMapResponse: object = {}
+
+export const QueryAllBidMapResponse = {
+  encode(message: QueryAllBidMapResponse, writer: Writer = Writer.create()): Writer {
+    for (const v of message.BidMap) {
+      BidMap.encode(v!, writer.uint32(10).fork()).ldelim()
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllBidMapResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllBidMapResponse } as QueryAllBidMapResponse
+    message.BidMap = []
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.BidMap.push(BidMap.decode(reader, reader.uint32()))
+          break
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllBidMapResponse {
+    const message = { ...baseQueryAllBidMapResponse } as QueryAllBidMapResponse
+    message.BidMap = []
+    if (object.BidMap !== undefined && object.BidMap !== null) {
+      for (const e of object.BidMap) {
+        message.BidMap.push(BidMap.fromJSON(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllBidMapResponse): unknown {
+    const obj: any = {}
+    if (message.BidMap) {
+      obj.BidMap = message.BidMap.map((e) => (e ? BidMap.toJSON(e) : undefined))
+    } else {
+      obj.BidMap = []
+    }
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllBidMapResponse>): QueryAllBidMapResponse {
+    const message = { ...baseQueryAllBidMapResponse } as QueryAllBidMapResponse
+    message.BidMap = []
+    if (object.BidMap !== undefined && object.BidMap !== null) {
+      for (const e of object.BidMap) {
+        message.BidMap.push(BidMap.fromPartial(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
 }
 
 const baseQueryGetResultsMapRequest: object = { index: '' }
@@ -794,6 +1056,10 @@ export const QueryAllAuctionMapResponse = {
 
 /** Query defines the gRPC querier service. */
 export interface Query {
+  /** Queries a bidMap by index. */
+  BidMap(request: QueryGetBidMapRequest): Promise<QueryGetBidMapResponse>
+  /** Queries a list of bidMap items. */
+  BidMapAll(request: QueryAllBidMapRequest): Promise<QueryAllBidMapResponse>
   /** Queries a resultsMap by index. */
   ResultsMap(request: QueryGetResultsMapRequest): Promise<QueryGetResultsMapResponse>
   /** Queries a list of resultsMap items. */
@@ -813,6 +1079,18 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  BidMap(request: QueryGetBidMapRequest): Promise<QueryGetBidMapResponse> {
+    const data = QueryGetBidMapRequest.encode(request).finish()
+    const promise = this.rpc.request('hello.candle.candle.Query', 'BidMap', data)
+    return promise.then((data) => QueryGetBidMapResponse.decode(new Reader(data)))
+  }
+
+  BidMapAll(request: QueryAllBidMapRequest): Promise<QueryAllBidMapResponse> {
+    const data = QueryAllBidMapRequest.encode(request).finish()
+    const promise = this.rpc.request('hello.candle.candle.Query', 'BidMapAll', data)
+    return promise.then((data) => QueryAllBidMapResponse.decode(new Reader(data)))
+  }
+
   ResultsMap(request: QueryGetResultsMapRequest): Promise<QueryGetResultsMapResponse> {
     const data = QueryGetResultsMapRequest.encode(request).finish()
     const promise = this.rpc.request('hello.candle.candle.Query', 'ResultsMap', data)

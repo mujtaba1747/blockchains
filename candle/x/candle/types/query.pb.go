@@ -30,6 +30,190 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // this line is used by starport scaffolding # 3
+type QueryGetBidMapRequest struct {
+	Index string `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
+}
+
+func (m *QueryGetBidMapRequest) Reset()         { *m = QueryGetBidMapRequest{} }
+func (m *QueryGetBidMapRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetBidMapRequest) ProtoMessage()    {}
+func (*QueryGetBidMapRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c89604a107e01a88, []int{0}
+}
+func (m *QueryGetBidMapRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetBidMapRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetBidMapRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetBidMapRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetBidMapRequest.Merge(m, src)
+}
+func (m *QueryGetBidMapRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetBidMapRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetBidMapRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetBidMapRequest proto.InternalMessageInfo
+
+func (m *QueryGetBidMapRequest) GetIndex() string {
+	if m != nil {
+		return m.Index
+	}
+	return ""
+}
+
+type QueryGetBidMapResponse struct {
+	BidMap *BidMap `protobuf:"bytes,1,opt,name=BidMap,proto3" json:"BidMap,omitempty"`
+}
+
+func (m *QueryGetBidMapResponse) Reset()         { *m = QueryGetBidMapResponse{} }
+func (m *QueryGetBidMapResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetBidMapResponse) ProtoMessage()    {}
+func (*QueryGetBidMapResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c89604a107e01a88, []int{1}
+}
+func (m *QueryGetBidMapResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetBidMapResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetBidMapResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetBidMapResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetBidMapResponse.Merge(m, src)
+}
+func (m *QueryGetBidMapResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetBidMapResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetBidMapResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetBidMapResponse proto.InternalMessageInfo
+
+func (m *QueryGetBidMapResponse) GetBidMap() *BidMap {
+	if m != nil {
+		return m.BidMap
+	}
+	return nil
+}
+
+type QueryAllBidMapRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllBidMapRequest) Reset()         { *m = QueryAllBidMapRequest{} }
+func (m *QueryAllBidMapRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllBidMapRequest) ProtoMessage()    {}
+func (*QueryAllBidMapRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c89604a107e01a88, []int{2}
+}
+func (m *QueryAllBidMapRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllBidMapRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllBidMapRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllBidMapRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllBidMapRequest.Merge(m, src)
+}
+func (m *QueryAllBidMapRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllBidMapRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllBidMapRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllBidMapRequest proto.InternalMessageInfo
+
+func (m *QueryAllBidMapRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllBidMapResponse struct {
+	BidMap     []*BidMap           `protobuf:"bytes,1,rep,name=BidMap,proto3" json:"BidMap,omitempty"`
+	Pagination *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllBidMapResponse) Reset()         { *m = QueryAllBidMapResponse{} }
+func (m *QueryAllBidMapResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllBidMapResponse) ProtoMessage()    {}
+func (*QueryAllBidMapResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c89604a107e01a88, []int{3}
+}
+func (m *QueryAllBidMapResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllBidMapResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllBidMapResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllBidMapResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllBidMapResponse.Merge(m, src)
+}
+func (m *QueryAllBidMapResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllBidMapResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllBidMapResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllBidMapResponse proto.InternalMessageInfo
+
+func (m *QueryAllBidMapResponse) GetBidMap() []*BidMap {
+	if m != nil {
+		return m.BidMap
+	}
+	return nil
+}
+
+func (m *QueryAllBidMapResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
 type QueryGetResultsMapRequest struct {
 	Index string `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
 }
@@ -38,7 +222,7 @@ func (m *QueryGetResultsMapRequest) Reset()         { *m = QueryGetResultsMapReq
 func (m *QueryGetResultsMapRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryGetResultsMapRequest) ProtoMessage()    {}
 func (*QueryGetResultsMapRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c89604a107e01a88, []int{0}
+	return fileDescriptor_c89604a107e01a88, []int{4}
 }
 func (m *QueryGetResultsMapRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -82,7 +266,7 @@ func (m *QueryGetResultsMapResponse) Reset()         { *m = QueryGetResultsMapRe
 func (m *QueryGetResultsMapResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryGetResultsMapResponse) ProtoMessage()    {}
 func (*QueryGetResultsMapResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c89604a107e01a88, []int{1}
+	return fileDescriptor_c89604a107e01a88, []int{5}
 }
 func (m *QueryGetResultsMapResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -126,7 +310,7 @@ func (m *QueryAllResultsMapRequest) Reset()         { *m = QueryAllResultsMapReq
 func (m *QueryAllResultsMapRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryAllResultsMapRequest) ProtoMessage()    {}
 func (*QueryAllResultsMapRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c89604a107e01a88, []int{2}
+	return fileDescriptor_c89604a107e01a88, []int{6}
 }
 func (m *QueryAllResultsMapRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -171,7 +355,7 @@ func (m *QueryAllResultsMapResponse) Reset()         { *m = QueryAllResultsMapRe
 func (m *QueryAllResultsMapResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryAllResultsMapResponse) ProtoMessage()    {}
 func (*QueryAllResultsMapResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c89604a107e01a88, []int{3}
+	return fileDescriptor_c89604a107e01a88, []int{7}
 }
 func (m *QueryAllResultsMapResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -222,7 +406,7 @@ func (m *QueryGetBidListRequest) Reset()         { *m = QueryGetBidListRequest{}
 func (m *QueryGetBidListRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryGetBidListRequest) ProtoMessage()    {}
 func (*QueryGetBidListRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c89604a107e01a88, []int{4}
+	return fileDescriptor_c89604a107e01a88, []int{8}
 }
 func (m *QueryGetBidListRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -266,7 +450,7 @@ func (m *QueryGetBidListResponse) Reset()         { *m = QueryGetBidListResponse
 func (m *QueryGetBidListResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryGetBidListResponse) ProtoMessage()    {}
 func (*QueryGetBidListResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c89604a107e01a88, []int{5}
+	return fileDescriptor_c89604a107e01a88, []int{9}
 }
 func (m *QueryGetBidListResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -310,7 +494,7 @@ func (m *QueryAllBidListRequest) Reset()         { *m = QueryAllBidListRequest{}
 func (m *QueryAllBidListRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryAllBidListRequest) ProtoMessage()    {}
 func (*QueryAllBidListRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c89604a107e01a88, []int{6}
+	return fileDescriptor_c89604a107e01a88, []int{10}
 }
 func (m *QueryAllBidListRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -355,7 +539,7 @@ func (m *QueryAllBidListResponse) Reset()         { *m = QueryAllBidListResponse
 func (m *QueryAllBidListResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryAllBidListResponse) ProtoMessage()    {}
 func (*QueryAllBidListResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c89604a107e01a88, []int{7}
+	return fileDescriptor_c89604a107e01a88, []int{11}
 }
 func (m *QueryAllBidListResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -406,7 +590,7 @@ func (m *QueryGetAuctionMapRequest) Reset()         { *m = QueryGetAuctionMapReq
 func (m *QueryGetAuctionMapRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryGetAuctionMapRequest) ProtoMessage()    {}
 func (*QueryGetAuctionMapRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c89604a107e01a88, []int{8}
+	return fileDescriptor_c89604a107e01a88, []int{12}
 }
 func (m *QueryGetAuctionMapRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -450,7 +634,7 @@ func (m *QueryGetAuctionMapResponse) Reset()         { *m = QueryGetAuctionMapRe
 func (m *QueryGetAuctionMapResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryGetAuctionMapResponse) ProtoMessage()    {}
 func (*QueryGetAuctionMapResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c89604a107e01a88, []int{9}
+	return fileDescriptor_c89604a107e01a88, []int{13}
 }
 func (m *QueryGetAuctionMapResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -494,7 +678,7 @@ func (m *QueryAllAuctionMapRequest) Reset()         { *m = QueryAllAuctionMapReq
 func (m *QueryAllAuctionMapRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryAllAuctionMapRequest) ProtoMessage()    {}
 func (*QueryAllAuctionMapRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c89604a107e01a88, []int{10}
+	return fileDescriptor_c89604a107e01a88, []int{14}
 }
 func (m *QueryAllAuctionMapRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -539,7 +723,7 @@ func (m *QueryAllAuctionMapResponse) Reset()         { *m = QueryAllAuctionMapRe
 func (m *QueryAllAuctionMapResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryAllAuctionMapResponse) ProtoMessage()    {}
 func (*QueryAllAuctionMapResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c89604a107e01a88, []int{11}
+	return fileDescriptor_c89604a107e01a88, []int{15}
 }
 func (m *QueryAllAuctionMapResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -583,6 +767,10 @@ func (m *QueryAllAuctionMapResponse) GetPagination() *query.PageResponse {
 }
 
 func init() {
+	proto.RegisterType((*QueryGetBidMapRequest)(nil), "hello.candle.candle.QueryGetBidMapRequest")
+	proto.RegisterType((*QueryGetBidMapResponse)(nil), "hello.candle.candle.QueryGetBidMapResponse")
+	proto.RegisterType((*QueryAllBidMapRequest)(nil), "hello.candle.candle.QueryAllBidMapRequest")
+	proto.RegisterType((*QueryAllBidMapResponse)(nil), "hello.candle.candle.QueryAllBidMapResponse")
 	proto.RegisterType((*QueryGetResultsMapRequest)(nil), "hello.candle.candle.QueryGetResultsMapRequest")
 	proto.RegisterType((*QueryGetResultsMapResponse)(nil), "hello.candle.candle.QueryGetResultsMapResponse")
 	proto.RegisterType((*QueryAllResultsMapRequest)(nil), "hello.candle.candle.QueryAllResultsMapRequest")
@@ -600,47 +788,54 @@ func init() {
 func init() { proto.RegisterFile("candle/query.proto", fileDescriptor_c89604a107e01a88) }
 
 var fileDescriptor_c89604a107e01a88 = []byte{
-	// 635 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x96, 0x4d, 0x6f, 0x13, 0x3d,
-	0x10, 0xc7, 0xeb, 0xf4, 0xe9, 0x53, 0x61, 0x04, 0x07, 0xf3, 0x56, 0xa2, 0x68, 0x4b, 0x17, 0xd4,
-	0xb4, 0x14, 0xad, 0x95, 0x22, 0x71, 0x85, 0xf4, 0x40, 0x2f, 0x54, 0xa2, 0x39, 0x22, 0xa1, 0xe2,
-	0xcd, 0x5a, 0xa9, 0x25, 0x67, 0xbd, 0x8d, 0x1d, 0xd4, 0xaa, 0xea, 0x85, 0x3b, 0x02, 0x89, 0x13,
-	0x1c, 0xb8, 0x20, 0xf1, 0x59, 0x38, 0x56, 0xe2, 0xc2, 0x11, 0x25, 0x7c, 0x10, 0x14, 0xaf, 0xd3,
-	0xf5, 0x66, 0xb7, 0xbb, 0x89, 0x14, 0x4e, 0x49, 0xec, 0xf9, 0xcf, 0xfc, 0x66, 0x3c, 0x33, 0x0a,
-	0x44, 0x6d, 0x12, 0x06, 0x9c, 0xe2, 0xa3, 0x3e, 0xed, 0x9d, 0x78, 0x51, 0x4f, 0x28, 0x81, 0x6e,
-	0x1c, 0x52, 0xce, 0x85, 0x17, 0xdf, 0x98, 0x8f, 0x6a, 0xad, 0x23, 0x44, 0x87, 0x53, 0x4c, 0x22,
-	0x86, 0x49, 0x18, 0x0a, 0x45, 0x14, 0x13, 0xa1, 0x8c, 0x25, 0xd5, 0x87, 0x6d, 0x21, 0xbb, 0x42,
-	0x62, 0x9f, 0x48, 0xe3, 0x0b, 0xbf, 0x6d, 0xf8, 0x54, 0x91, 0x06, 0x8e, 0x48, 0x87, 0x85, 0xda,
-	0xd8, 0xd8, 0xae, 0x98, 0x90, 0x3d, 0x2a, 0xfb, 0x5c, 0xc9, 0x83, 0x2e, 0x89, 0xcc, 0xcd, 0x2d,
-	0x73, 0xe3, 0xb3, 0xe0, 0x80, 0x33, 0xa9, 0x26, 0x04, 0xa4, 0xdf, 0x1e, 0xb9, 0x49, 0x04, 0x6e,
-	0x03, 0xde, 0xdd, 0x1f, 0x05, 0xdb, 0xa5, 0xaa, 0x15, 0x7b, 0xdb, 0x23, 0x51, 0x8b, 0x1e, 0xf5,
-	0xa9, 0x54, 0xe8, 0x26, 0x5c, 0x62, 0x61, 0x40, 0x8f, 0x57, 0xc0, 0x3d, 0xb0, 0x71, 0xa5, 0x15,
-	0xff, 0x70, 0x5f, 0xc3, 0x6a, 0x9e, 0x44, 0x46, 0x22, 0x94, 0x14, 0x3d, 0x85, 0x30, 0x39, 0xd5,
-	0xc2, 0xab, 0xdb, 0xab, 0x5e, 0x4e, 0x3d, 0x3c, 0x4b, 0x6c, 0x49, 0xdc, 0xb6, 0x21, 0x6a, 0x72,
-	0x9e, 0x25, 0x7a, 0x0e, 0x61, 0x52, 0x0d, 0xe3, 0x7d, 0xdd, 0x8b, 0x4b, 0xe7, 0x8d, 0x4a, 0xe7,
-	0xc5, 0xcf, 0x60, 0x4a, 0xe7, 0xbd, 0x24, 0x1d, 0x6a, 0xb4, 0x2d, 0x4b, 0xe9, 0x7e, 0x07, 0x26,
-	0x89, 0x89, 0x28, 0x97, 0x24, 0xb1, 0x38, 0x63, 0x12, 0x68, 0x37, 0xc5, 0x59, 0xd1, 0x9c, 0xf5,
-	0x52, 0xce, 0x38, 0x7a, 0x0a, 0x74, 0x03, 0xde, 0x1e, 0x17, 0x7b, 0x87, 0x05, 0x2f, 0x98, 0x54,
-	0xe3, 0x52, 0x5c, 0x87, 0x15, 0x16, 0xe8, 0x12, 0xfc, 0xd7, 0xaa, 0xb0, 0xc0, 0xdd, 0x87, 0x77,
-	0x32, 0x96, 0x26, 0x9d, 0x27, 0x70, 0xd9, 0x1c, 0x99, 0x92, 0xd5, 0x72, 0x73, 0x19, 0xcb, 0xc6,
-	0xc6, 0xee, 0x1b, 0x13, 0xbc, 0xc9, 0xf9, 0x44, 0xf0, 0x79, 0xbd, 0xc3, 0x17, 0x60, 0xa8, 0xed,
-	0x10, 0x79, 0xd4, 0x8b, 0x53, 0x53, 0xcf, 0xaf, 0xf6, 0xd6, 0x6c, 0x34, 0xe3, 0xc1, 0x99, 0x65,
-	0x36, 0x6c, 0x49, 0xd2, 0x56, 0xc9, 0x69, 0xe1, 0x6c, 0x58, 0x62, 0x4b, 0x62, 0xcf, 0x46, 0x96,
-	0xe8, 0x5f, 0xcc, 0xc6, 0x14, 0x49, 0x2c, 0xce, 0x98, 0xc4, 0xdc, 0xde, 0x67, 0xfb, 0xdb, 0x32,
-	0x5c, 0xd2, 0xa0, 0xe8, 0x2b, 0xb0, 0x07, 0x16, 0x79, 0xb9, 0x38, 0x97, 0xee, 0xb9, 0x2a, 0x9e,
-	0xda, 0x3e, 0xa6, 0x70, 0xf1, 0xbb, 0x9f, 0x7f, 0x3e, 0x55, 0x36, 0x51, 0x1d, 0x6b, 0x21, 0x36,
-	0xeb, 0x35, 0xbd, 0x96, 0xf7, 0x48, 0x84, 0x4f, 0x75, 0x5b, 0x9c, 0xa1, 0xcf, 0x00, 0x5e, 0x4b,
-	0xfc, 0x34, 0x39, 0x2f, 0x62, 0xcc, 0xdb, 0x7c, 0x45, 0x8c, 0xb9, 0x3b, 0xcc, 0xad, 0x6b, 0xc6,
-	0x35, 0xb4, 0x5a, 0xc2, 0x88, 0x3e, 0x80, 0x8b, 0x41, 0x43, 0x5b, 0x85, 0x95, 0x48, 0x2f, 0x81,
-	0xea, 0xa3, 0xe9, 0x8c, 0x0d, 0xcf, 0xa6, 0xe6, 0xb9, 0x8f, 0xd6, 0x72, 0x79, 0xfc, 0xd8, 0x1a,
-	0x9f, 0xb2, 0xe0, 0x0c, 0xbd, 0x07, 0x10, 0x1a, 0xf9, 0xa8, 0x54, 0x5b, 0x85, 0xa9, 0x4f, 0x0f,
-	0x95, 0xdd, 0x31, 0xee, 0x03, 0x0d, 0xe5, 0xa0, 0x5a, 0x11, 0x94, 0x6e, 0x2f, 0xab, 0x81, 0x8b,
-	0xdb, 0x2b, 0x33, 0x98, 0x25, 0xed, 0x95, 0x1d, 0xb1, 0x92, 0xf6, 0x22, 0x17, 0x82, 0x54, 0x7b,
-	0x25, 0x7e, 0xca, 0xdb, 0x6b, 0x26, 0xc6, 0xdc, 0x35, 0x50, 0xd2, 0x5e, 0x09, 0xe3, 0xce, 0xb3,
-	0x1f, 0x03, 0x07, 0x9c, 0x0f, 0x1c, 0xf0, 0x7b, 0xe0, 0x80, 0x8f, 0x43, 0x67, 0xe1, 0x7c, 0xe8,
-	0x2c, 0xfc, 0x1a, 0x3a, 0x0b, 0xaf, 0xd6, 0x3b, 0x4c, 0x1d, 0xf6, 0x7d, 0xaf, 0x2d, 0xba, 0x69,
-	0x27, 0xc7, 0xe3, 0x2f, 0xea, 0x24, 0xa2, 0xd2, 0xff, 0x5f, 0xff, 0x55, 0x79, 0xfc, 0x37, 0x00,
-	0x00, 0xff, 0xff, 0x37, 0x3c, 0x12, 0x2d, 0x6a, 0x09, 0x00, 0x00,
+	// 738 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x96, 0xcf, 0x4f, 0xd4, 0x40,
+	0x14, 0xc7, 0x99, 0x5d, 0xc1, 0x30, 0x46, 0x0f, 0x23, 0x28, 0x2e, 0x58, 0xa4, 0x28, 0x3f, 0xb5,
+	0x0d, 0x90, 0x78, 0xd5, 0xe5, 0x20, 0x17, 0x49, 0x64, 0x8f, 0x26, 0x06, 0x67, 0xb7, 0x93, 0x65,
+	0x92, 0xa1, 0x2d, 0x3b, 0x5d, 0x03, 0x21, 0x5c, 0xbc, 0x79, 0xf0, 0x47, 0x62, 0x62, 0xa2, 0x07,
+	0x8f, 0xfe, 0x1d, 0x1e, 0x3d, 0x92, 0x78, 0xf1, 0x68, 0xc0, 0x3f, 0xc4, 0xec, 0xf4, 0xed, 0x76,
+	0xba, 0x2d, 0x6d, 0x37, 0x59, 0x4e, 0xc0, 0xf4, 0x7d, 0xe7, 0x7d, 0xde, 0x77, 0xde, 0xbc, 0x01,
+	0x93, 0x06, 0x75, 0x1d, 0xc1, 0xec, 0x83, 0x36, 0x6b, 0x1d, 0x59, 0x7e, 0xcb, 0x0b, 0x3c, 0x72,
+	0x73, 0x8f, 0x09, 0xe1, 0x59, 0xe1, 0x17, 0xf8, 0x51, 0x99, 0x69, 0x7a, 0x5e, 0x53, 0x30, 0x9b,
+	0xfa, 0xdc, 0xa6, 0xae, 0xeb, 0x05, 0x34, 0xe0, 0x9e, 0x2b, 0x43, 0x49, 0x65, 0xa5, 0xe1, 0xc9,
+	0x7d, 0x4f, 0xda, 0x75, 0x2a, 0x61, 0x2f, 0xfb, 0xcd, 0x5a, 0x9d, 0x05, 0x74, 0xcd, 0xf6, 0x69,
+	0x93, 0xbb, 0x2a, 0x18, 0x62, 0x27, 0x20, 0x65, 0x9d, 0x3b, 0xbb, 0xfb, 0xd4, 0x87, 0xd5, 0x29,
+	0x58, 0x6d, 0x31, 0xd9, 0x16, 0x81, 0xd4, 0xbe, 0x4c, 0x6a, 0xf1, 0x82, 0xcb, 0xa0, 0x4f, 0x40,
+	0xdb, 0x8d, 0xce, 0xe6, 0x91, 0xc0, 0x7c, 0x84, 0x27, 0x77, 0x3a, 0x08, 0x5b, 0x2c, 0xd8, 0xe4,
+	0xce, 0x36, 0xf5, 0x6b, 0xec, 0xa0, 0xcd, 0x64, 0x40, 0x26, 0xf0, 0x28, 0x77, 0x1d, 0x76, 0x38,
+	0x85, 0xee, 0xa1, 0xa5, 0xf1, 0x5a, 0xf8, 0x87, 0xb9, 0x8d, 0x6f, 0xf5, 0x87, 0x4b, 0xdf, 0x73,
+	0x25, 0x23, 0x1b, 0x78, 0x2c, 0x5c, 0x51, 0x82, 0x6b, 0xeb, 0xd3, 0x56, 0x8a, 0x33, 0x16, 0x88,
+	0x20, 0xd4, 0xdc, 0x85, 0xec, 0x55, 0x21, 0xe2, 0xd9, 0x9f, 0x61, 0x1c, 0x79, 0x01, 0x3b, 0x2e,
+	0x58, 0xa1, 0x71, 0x56, 0xc7, 0x38, 0x2b, 0x3c, 0x04, 0x30, 0xce, 0x7a, 0x41, 0x9b, 0x0c, 0xb4,
+	0x35, 0x4d, 0x69, 0x7e, 0x41, 0x00, 0xac, 0x65, 0x48, 0x01, 0x2e, 0x17, 0x04, 0x26, 0x5b, 0x31,
+	0xae, 0x92, 0xe2, 0x5a, 0xcc, 0xe5, 0x0a, 0x33, 0xc6, 0xc0, 0xd6, 0xf0, 0x9d, 0xae, 0x91, 0xb5,
+	0xf0, 0x14, 0x73, 0xbd, 0x7f, 0x85, 0x2b, 0x69, 0x12, 0x28, 0xe7, 0x09, 0xc6, 0xd1, 0x2a, 0x38,
+	0x36, 0x9b, 0x5a, 0x92, 0x26, 0xd6, 0x24, 0x66, 0x03, 0x88, 0xaa, 0x42, 0x24, 0x89, 0x86, 0x75,
+	0x1e, 0x3f, 0x10, 0x14, 0xd1, 0x97, 0xe5, 0x82, 0x22, 0xca, 0x03, 0x16, 0x31, 0xbc, 0xf3, 0x59,
+	0x8a, 0x35, 0xfa, 0x73, 0x2e, 0x83, 0xae, 0x15, 0x37, 0x70, 0x89, 0x3b, 0xca, 0x82, 0x2b, 0xb5,
+	0x12, 0x77, 0xcc, 0x1d, 0x7c, 0x3b, 0x11, 0x09, 0xe5, 0x3c, 0xc6, 0x57, 0x61, 0x09, 0x2c, 0x9b,
+	0xb9, 0xa8, 0xc7, 0x94, 0xac, 0x1b, 0x6c, 0xbe, 0x8e, 0x35, 0xad, 0x9e, 0x7c, 0x58, 0xe7, 0xf0,
+	0x0d, 0x01, 0xb5, 0x9e, 0x22, 0x8d, 0xba, 0x5c, 0x98, 0xfa, 0x52, 0xee, 0x46, 0x35, 0x1c, 0x58,
+	0x83, 0xdc, 0x0d, 0x5d, 0x12, 0xb5, 0x55, 0xb4, 0x9a, 0x79, 0x37, 0x34, 0xb1, 0x26, 0xd1, 0xef,
+	0x46, 0x92, 0xe8, 0x32, 0xee, 0x46, 0x81, 0x22, 0xca, 0x03, 0x16, 0x31, 0xb4, 0xf3, 0x59, 0xff,
+	0x39, 0x8e, 0x47, 0x15, 0x28, 0xf9, 0x80, 0xba, 0x43, 0x94, 0xac, 0xa4, 0xa2, 0xa4, 0xbe, 0x2d,
+	0x95, 0xd5, 0x42, 0xb1, 0x61, 0x66, 0x73, 0xf5, 0xed, 0xef, 0x7f, 0x9f, 0x4b, 0x0f, 0xc8, 0xbc,
+	0xad, 0x44, 0x36, 0x3c, 0x65, 0xd1, 0x43, 0xb7, 0x4d, 0x7d, 0xfb, 0x58, 0xb5, 0xc1, 0x09, 0x79,
+	0x87, 0xf0, 0x78, 0xa8, 0xaf, 0x0a, 0x91, 0xc5, 0xd4, 0xff, 0xe2, 0x64, 0x31, 0x25, 0xde, 0x0e,
+	0x73, 0x5e, 0x31, 0xdd, 0x25, 0xd3, 0x19, 0x4c, 0xe4, 0x3b, 0xd2, 0xa7, 0x19, 0xb1, 0x32, 0x8b,
+	0x4e, 0x8c, 0xdc, 0x8a, 0x5d, 0x38, 0x1e, 0xa0, 0x6c, 0x05, 0xb5, 0x4c, 0x16, 0x53, 0xa1, 0x5a,
+	0x3d, 0x41, 0xcf, 0xac, 0xaf, 0x08, 0x5f, 0x8f, 0xf6, 0xe9, 0x18, 0x66, 0x65, 0x9a, 0x30, 0x10,
+	0x63, 0xea, 0x80, 0x37, 0x17, 0x15, 0xe3, 0x1c, 0x99, 0xcd, 0x61, 0x24, 0x1f, 0x51, 0x6f, 0x0a,
+	0x91, 0xdc, 0x76, 0xd1, 0x26, 0x64, 0xe5, 0x61, 0xb1, 0x60, 0xe0, 0x59, 0x56, 0x3c, 0xf3, 0x64,
+	0xee, 0xa2, 0x83, 0xec, 0x44, 0xdb, 0xc7, 0xdc, 0x39, 0x21, 0xef, 0x11, 0xc6, 0x20, 0xef, 0x58,
+	0x95, 0xdb, 0x2f, 0x05, 0xa1, 0x92, 0x03, 0xd8, 0xbc, 0xaf, 0xa0, 0x0c, 0x32, 0x93, 0x05, 0xa5,
+	0xda, 0x4b, 0xbb, 0xdd, 0xd9, 0xed, 0x95, 0x98, 0x5a, 0x39, 0xed, 0x95, 0x9c, 0x3f, 0x39, 0xed,
+	0x45, 0x7b, 0x82, 0x58, 0x7b, 0x45, 0xfb, 0xe4, 0xb7, 0xd7, 0x40, 0x8c, 0xa9, 0x33, 0x32, 0xa7,
+	0xbd, 0x22, 0xc6, 0xcd, 0xa7, 0xbf, 0xce, 0x0c, 0x74, 0x7a, 0x66, 0xa0, 0xbf, 0x67, 0x06, 0xfa,
+	0x74, 0x6e, 0x8c, 0x9c, 0x9e, 0x1b, 0x23, 0x7f, 0xce, 0x8d, 0x91, 0x97, 0x0b, 0x4d, 0x1e, 0xec,
+	0xb5, 0xeb, 0x56, 0xc3, 0xdb, 0x8f, 0x6f, 0x72, 0xd8, 0xfd, 0x25, 0x38, 0xf2, 0x99, 0xac, 0x8f,
+	0xa9, 0xff, 0x9f, 0x37, 0xfe, 0x07, 0x00, 0x00, 0xff, 0xff, 0x24, 0xe1, 0x53, 0x74, 0x15, 0x0c,
+	0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -655,6 +850,10 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type QueryClient interface {
+	// Queries a bidMap by index.
+	BidMap(ctx context.Context, in *QueryGetBidMapRequest, opts ...grpc.CallOption) (*QueryGetBidMapResponse, error)
+	// Queries a list of bidMap items.
+	BidMapAll(ctx context.Context, in *QueryAllBidMapRequest, opts ...grpc.CallOption) (*QueryAllBidMapResponse, error)
 	// Queries a resultsMap by index.
 	ResultsMap(ctx context.Context, in *QueryGetResultsMapRequest, opts ...grpc.CallOption) (*QueryGetResultsMapResponse, error)
 	// Queries a list of resultsMap items.
@@ -675,6 +874,24 @@ type queryClient struct {
 
 func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 	return &queryClient{cc}
+}
+
+func (c *queryClient) BidMap(ctx context.Context, in *QueryGetBidMapRequest, opts ...grpc.CallOption) (*QueryGetBidMapResponse, error) {
+	out := new(QueryGetBidMapResponse)
+	err := c.cc.Invoke(ctx, "/hello.candle.candle.Query/BidMap", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) BidMapAll(ctx context.Context, in *QueryAllBidMapRequest, opts ...grpc.CallOption) (*QueryAllBidMapResponse, error) {
+	out := new(QueryAllBidMapResponse)
+	err := c.cc.Invoke(ctx, "/hello.candle.candle.Query/BidMapAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *queryClient) ResultsMap(ctx context.Context, in *QueryGetResultsMapRequest, opts ...grpc.CallOption) (*QueryGetResultsMapResponse, error) {
@@ -733,6 +950,10 @@ func (c *queryClient) AuctionMapAll(ctx context.Context, in *QueryAllAuctionMapR
 
 // QueryServer is the server API for Query service.
 type QueryServer interface {
+	// Queries a bidMap by index.
+	BidMap(context.Context, *QueryGetBidMapRequest) (*QueryGetBidMapResponse, error)
+	// Queries a list of bidMap items.
+	BidMapAll(context.Context, *QueryAllBidMapRequest) (*QueryAllBidMapResponse, error)
 	// Queries a resultsMap by index.
 	ResultsMap(context.Context, *QueryGetResultsMapRequest) (*QueryGetResultsMapResponse, error)
 	// Queries a list of resultsMap items.
@@ -751,6 +972,12 @@ type QueryServer interface {
 type UnimplementedQueryServer struct {
 }
 
+func (*UnimplementedQueryServer) BidMap(ctx context.Context, req *QueryGetBidMapRequest) (*QueryGetBidMapResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BidMap not implemented")
+}
+func (*UnimplementedQueryServer) BidMapAll(ctx context.Context, req *QueryAllBidMapRequest) (*QueryAllBidMapResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BidMapAll not implemented")
+}
 func (*UnimplementedQueryServer) ResultsMap(ctx context.Context, req *QueryGetResultsMapRequest) (*QueryGetResultsMapResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ResultsMap not implemented")
 }
@@ -772,6 +999,42 @@ func (*UnimplementedQueryServer) AuctionMapAll(ctx context.Context, req *QueryAl
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
 	s.RegisterService(&_Query_serviceDesc, srv)
+}
+
+func _Query_BidMap_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetBidMapRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).BidMap(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/hello.candle.candle.Query/BidMap",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).BidMap(ctx, req.(*QueryGetBidMapRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_BidMapAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllBidMapRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).BidMapAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/hello.candle.candle.Query/BidMapAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).BidMapAll(ctx, req.(*QueryAllBidMapRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Query_ResultsMap_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -887,6 +1150,14 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "BidMap",
+			Handler:    _Query_BidMap_Handler,
+		},
+		{
+			MethodName: "BidMapAll",
+			Handler:    _Query_BidMapAll_Handler,
+		},
+		{
 			MethodName: "ResultsMap",
 			Handler:    _Query_ResultsMap_Handler,
 		},
@@ -913,6 +1184,155 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "candle/query.proto",
+}
+
+func (m *QueryGetBidMapRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetBidMapRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetBidMapRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Index) > 0 {
+		i -= len(m.Index)
+		copy(dAtA[i:], m.Index)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Index)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetBidMapResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetBidMapResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetBidMapResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.BidMap != nil {
+		{
+			size, err := m.BidMap.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllBidMapRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllBidMapRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllBidMapRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllBidMapResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllBidMapResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllBidMapResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.BidMap) > 0 {
+		for iNdEx := len(m.BidMap) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.BidMap[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
 }
 
 func (m *QueryGetResultsMapRequest) Marshal() (dAtA []byte, err error) {
@@ -1371,6 +1791,64 @@ func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+func (m *QueryGetBidMapRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Index)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetBidMapResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.BidMap != nil {
+		l = m.BidMap.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllBidMapRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllBidMapResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.BidMap) > 0 {
+		for _, e := range m.BidMap {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
 func (m *QueryGetResultsMapRequest) Size() (n int) {
 	if m == nil {
 		return 0
@@ -1549,6 +2027,380 @@ func sovQuery(x uint64) (n int) {
 }
 func sozQuery(x uint64) (n int) {
 	return sovQuery(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (m *QueryGetBidMapRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetBidMapRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetBidMapRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Index", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Index = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetBidMapResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetBidMapResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetBidMapResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field BidMap", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.BidMap == nil {
+				m.BidMap = &BidMap{}
+			}
+			if err := m.BidMap.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllBidMapRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllBidMapRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllBidMapRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllBidMapResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllBidMapResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllBidMapResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field BidMap", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.BidMap = append(m.BidMap, &BidMap{})
+			if err := m.BidMap[len(m.BidMap)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 func (m *QueryGetResultsMapRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)

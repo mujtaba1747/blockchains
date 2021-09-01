@@ -11,18 +11,22 @@ import (
 	"github.com/hello/candle/x/candle/types"
 )
 
-func CmdCreateResultsMap() *cobra.Command {
+func CmdCreateBidMap() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-results-map [index] [winner] [bidId]",
-		Short: "Create a new resultsMap",
-		Args:  cobra.ExactArgs(3),
+		Use:   "create-bid-map [index] [auctionId] [amt] [blockHeight]",
+		Short: "Create a new bidMap",
+		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			index := args[0]
-			argsWinner, err := cast.ToStringE(args[1])
+			argsAuctionId, err := cast.ToStringE(args[1])
 			if err != nil {
 				return err
 			}
-			argsBidId, err := cast.ToStringE(args[2])
+			argsAmt, err := cast.ToUint64E(args[2])
+			if err != nil {
+				return err
+			}
+			argsBlockHeight, err := cast.ToInt64E(args[3])
 			if err != nil {
 				return err
 			}
@@ -32,7 +36,7 @@ func CmdCreateResultsMap() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgCreateResultsMap(clientCtx.GetFromAddress().String(), index, argsWinner, argsBidId)
+			msg := types.NewMsgCreateBidMap(clientCtx.GetFromAddress().String(), index, argsAuctionId, argsAmt, argsBlockHeight)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -45,19 +49,23 @@ func CmdCreateResultsMap() *cobra.Command {
 	return cmd
 }
 
-func CmdUpdateResultsMap() *cobra.Command {
+func CmdUpdateBidMap() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "update-results-map [index] [winner] [bidId]",
-		Short: "Update a resultsMap",
-		Args:  cobra.ExactArgs(3),
+		Use:   "update-bid-map [index] [auctionId] [amt] [blockHeight]",
+		Short: "Update a bidMap",
+		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			index := args[0]
 
-			argsWinner, err := cast.ToStringE(args[1])
+			argsAuctionId, err := cast.ToStringE(args[1])
 			if err != nil {
 				return err
 			}
-			argsBidId, err := cast.ToStringE(args[2])
+			argsAmt, err := cast.ToUint64E(args[2])
+			if err != nil {
+				return err
+			}
+			argsBlockHeight, err := cast.ToInt64E(args[3])
 			if err != nil {
 				return err
 			}
@@ -67,7 +75,7 @@ func CmdUpdateResultsMap() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgUpdateResultsMap(clientCtx.GetFromAddress().String(), index, argsWinner, argsBidId)
+			msg := types.NewMsgUpdateBidMap(clientCtx.GetFromAddress().String(), index, argsAuctionId, argsAmt, argsBlockHeight)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -80,10 +88,10 @@ func CmdUpdateResultsMap() *cobra.Command {
 	return cmd
 }
 
-func CmdDeleteResultsMap() *cobra.Command {
+func CmdDeleteBidMap() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "delete-results-map [index]",
-		Short: "Delete a resultsMap",
+		Use:   "delete-bid-map [index]",
+		Short: "Delete a bidMap",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			index := args[0]
@@ -93,7 +101,7 @@ func CmdDeleteResultsMap() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgDeleteResultsMap(clientCtx.GetFromAddress().String(), index)
+			msg := types.NewMsgDeleteBidMap(clientCtx.GetFromAddress().String(), index)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

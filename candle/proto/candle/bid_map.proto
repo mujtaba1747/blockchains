@@ -5,9 +5,10 @@ option go_package = "github.com/hello/candle/x/candle/types";
 
 import "gogoproto/gogo.proto";
 
-message ResultsMap {
+message BidMap {
   string creator = 1;
   string index = 2;
-  string winner = 3; 
-  string bidId = 4; 
+  string auctionId = 3; 
+  uint64 amt = 4; 
+  int64 blockHeight = 5; 
 }

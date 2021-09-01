@@ -1,11 +1,35 @@
 import { Reader, Writer } from 'protobufjs/minimal';
 export declare const protobufPackage = "hello.candle.candle";
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgCreateBidMap {
+    creator: string;
+    index: string;
+    auctionId: string;
+    amt: number;
+    blockHeight: number;
+}
+export interface MsgCreateBidMapResponse {
+}
+export interface MsgUpdateBidMap {
+    creator: string;
+    index: string;
+    auctionId: string;
+    amt: number;
+    blockHeight: number;
+}
+export interface MsgUpdateBidMapResponse {
+}
+export interface MsgDeleteBidMap {
+    creator: string;
+    index: string;
+}
+export interface MsgDeleteBidMapResponse {
+}
 export interface MsgCreateResultsMap {
     creator: string;
     index: string;
     winner: string;
-    bidId: number;
+    bidId: string;
 }
 export interface MsgCreateResultsMapResponse {
 }
@@ -13,7 +37,7 @@ export interface MsgUpdateResultsMap {
     creator: string;
     index: string;
     winner: string;
-    bidId: number;
+    bidId: string;
 }
 export interface MsgUpdateResultsMapResponse {
 }
@@ -86,6 +110,48 @@ export interface MsgCreateAuction {
 }
 export interface MsgCreateAuctionResponse {
 }
+export declare const MsgCreateBidMap: {
+    encode(message: MsgCreateBidMap, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateBidMap;
+    fromJSON(object: any): MsgCreateBidMap;
+    toJSON(message: MsgCreateBidMap): unknown;
+    fromPartial(object: DeepPartial<MsgCreateBidMap>): MsgCreateBidMap;
+};
+export declare const MsgCreateBidMapResponse: {
+    encode(_: MsgCreateBidMapResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateBidMapResponse;
+    fromJSON(_: any): MsgCreateBidMapResponse;
+    toJSON(_: MsgCreateBidMapResponse): unknown;
+    fromPartial(_: DeepPartial<MsgCreateBidMapResponse>): MsgCreateBidMapResponse;
+};
+export declare const MsgUpdateBidMap: {
+    encode(message: MsgUpdateBidMap, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateBidMap;
+    fromJSON(object: any): MsgUpdateBidMap;
+    toJSON(message: MsgUpdateBidMap): unknown;
+    fromPartial(object: DeepPartial<MsgUpdateBidMap>): MsgUpdateBidMap;
+};
+export declare const MsgUpdateBidMapResponse: {
+    encode(_: MsgUpdateBidMapResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateBidMapResponse;
+    fromJSON(_: any): MsgUpdateBidMapResponse;
+    toJSON(_: MsgUpdateBidMapResponse): unknown;
+    fromPartial(_: DeepPartial<MsgUpdateBidMapResponse>): MsgUpdateBidMapResponse;
+};
+export declare const MsgDeleteBidMap: {
+    encode(message: MsgDeleteBidMap, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteBidMap;
+    fromJSON(object: any): MsgDeleteBidMap;
+    toJSON(message: MsgDeleteBidMap): unknown;
+    fromPartial(object: DeepPartial<MsgDeleteBidMap>): MsgDeleteBidMap;
+};
+export declare const MsgDeleteBidMapResponse: {
+    encode(_: MsgDeleteBidMapResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteBidMapResponse;
+    fromJSON(_: any): MsgDeleteBidMapResponse;
+    toJSON(_: MsgDeleteBidMapResponse): unknown;
+    fromPartial(_: DeepPartial<MsgDeleteBidMapResponse>): MsgDeleteBidMapResponse;
+};
 export declare const MsgCreateResultsMap: {
     encode(message: MsgCreateResultsMap, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateResultsMap;
@@ -257,6 +323,9 @@ export declare const MsgCreateAuctionResponse: {
 /** Msg defines the Msg service. */
 export interface Msg {
     /** this line is used by starport scaffolding # proto/tx/rpc */
+    CreateBidMap(request: MsgCreateBidMap): Promise<MsgCreateBidMapResponse>;
+    UpdateBidMap(request: MsgUpdateBidMap): Promise<MsgUpdateBidMapResponse>;
+    DeleteBidMap(request: MsgDeleteBidMap): Promise<MsgDeleteBidMapResponse>;
     CreateResultsMap(request: MsgCreateResultsMap): Promise<MsgCreateResultsMapResponse>;
     UpdateResultsMap(request: MsgUpdateResultsMap): Promise<MsgUpdateResultsMapResponse>;
     DeleteResultsMap(request: MsgDeleteResultsMap): Promise<MsgDeleteResultsMapResponse>;
@@ -273,6 +342,9 @@ export interface Msg {
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
     constructor(rpc: Rpc);
+    CreateBidMap(request: MsgCreateBidMap): Promise<MsgCreateBidMapResponse>;
+    UpdateBidMap(request: MsgUpdateBidMap): Promise<MsgUpdateBidMapResponse>;
+    DeleteBidMap(request: MsgDeleteBidMap): Promise<MsgDeleteBidMapResponse>;
     CreateResultsMap(request: MsgCreateResultsMap): Promise<MsgCreateResultsMapResponse>;
     UpdateResultsMap(request: MsgUpdateResultsMap): Promise<MsgUpdateResultsMapResponse>;
     DeleteResultsMap(request: MsgDeleteResultsMap): Promise<MsgDeleteResultsMapResponse>;

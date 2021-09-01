@@ -1,6 +1,7 @@
 /* eslint-disable */
 import * as Long from 'long';
 import { util, configure, Writer, Reader } from 'protobufjs/minimal';
+import { BidMap } from '../candle/bid_map';
 import { ResultsMap } from '../candle/results_map';
 import { BidList } from '../candle/bid_list';
 import { AuctionMap } from '../candle/auction_map';
@@ -8,6 +9,9 @@ export const protobufPackage = 'hello.candle.candle';
 const baseGenesisState = { bidListCount: 0 };
 export const GenesisState = {
     encode(message, writer = Writer.create()) {
+        for (const v of message.bidMapList) {
+            BidMap.encode(v, writer.uint32(42).fork()).ldelim();
+        }
         for (const v of message.resultsMapList) {
             ResultsMap.encode(v, writer.uint32(34).fork()).ldelim();
         }
@@ -26,12 +30,16 @@ export const GenesisState = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseGenesisState };
+        message.bidMapList = [];
         message.resultsMapList = [];
         message.bidListList = [];
         message.auctionMapList = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
+                case 5:
+                    message.bidMapList.push(BidMap.decode(reader, reader.uint32()));
+                    break;
                 case 4:
                     message.resultsMapList.push(ResultsMap.decode(reader, reader.uint32()));
                     break;
@@ -53,9 +61,15 @@ export const GenesisState = {
     },
     fromJSON(object) {
         const message = { ...baseGenesisState };
+        message.bidMapList = [];
         message.resultsMapList = [];
         message.bidListList = [];
         message.auctionMapList = [];
+        if (object.bidMapList !== undefined && object.bidMapList !== null) {
+            for (const e of object.bidMapList) {
+                message.bidMapList.push(BidMap.fromJSON(e));
+            }
+        }
         if (object.resultsMapList !== undefined && object.resultsMapList !== null) {
             for (const e of object.resultsMapList) {
                 message.resultsMapList.push(ResultsMap.fromJSON(e));
@@ -81,6 +95,12 @@ export const GenesisState = {
     },
     toJSON(message) {
         const obj = {};
+        if (message.bidMapList) {
+            obj.bidMapList = message.bidMapList.map((e) => (e ? BidMap.toJSON(e) : undefined));
+        }
+        else {
+            obj.bidMapList = [];
+        }
         if (message.resultsMapList) {
             obj.resultsMapList = message.resultsMapList.map((e) => (e ? ResultsMap.toJSON(e) : undefined));
         }
@@ -104,9 +124,15 @@ export const GenesisState = {
     },
     fromPartial(object) {
         const message = { ...baseGenesisState };
+        message.bidMapList = [];
         message.resultsMapList = [];
         message.bidListList = [];
         message.auctionMapList = [];
+        if (object.bidMapList !== undefined && object.bidMapList !== null) {
+            for (const e of object.bidMapList) {
+                message.bidMapList.push(BidMap.fromPartial(e));
+            }
+        }
         if (object.resultsMapList !== undefined && object.resultsMapList !== null) {
             for (const e of object.resultsMapList) {
                 message.resultsMapList.push(ResultsMap.fromPartial(e));

@@ -37,3 +37,7 @@ const (
 const (
 	ResultsMapKey = "ResultsMap-value-"
 )
+
+const (
+	BidMapKey = "BidMap-value-"
+)

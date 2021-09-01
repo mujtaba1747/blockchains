@@ -1,10 +1,24 @@
 import { Reader, Writer } from 'protobufjs/minimal';
-import { ResultsMap } from '../candle/results_map';
+import { BidMap } from '../candle/bid_map';
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
+import { ResultsMap } from '../candle/results_map';
 import { BidList } from '../candle/bid_list';
 import { AuctionMap } from '../candle/auction_map';
 export declare const protobufPackage = "hello.candle.candle";
 /** this line is used by starport scaffolding # 3 */
+export interface QueryGetBidMapRequest {
+    index: string;
+}
+export interface QueryGetBidMapResponse {
+    BidMap: BidMap | undefined;
+}
+export interface QueryAllBidMapRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllBidMapResponse {
+    BidMap: BidMap[];
+    pagination: PageResponse | undefined;
+}
 export interface QueryGetResultsMapRequest {
     index: string;
 }
@@ -44,6 +58,34 @@ export interface QueryAllAuctionMapResponse {
     AuctionMap: AuctionMap[];
     pagination: PageResponse | undefined;
 }
+export declare const QueryGetBidMapRequest: {
+    encode(message: QueryGetBidMapRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetBidMapRequest;
+    fromJSON(object: any): QueryGetBidMapRequest;
+    toJSON(message: QueryGetBidMapRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetBidMapRequest>): QueryGetBidMapRequest;
+};
+export declare const QueryGetBidMapResponse: {
+    encode(message: QueryGetBidMapResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetBidMapResponse;
+    fromJSON(object: any): QueryGetBidMapResponse;
+    toJSON(message: QueryGetBidMapResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetBidMapResponse>): QueryGetBidMapResponse;
+};
+export declare const QueryAllBidMapRequest: {
+    encode(message: QueryAllBidMapRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllBidMapRequest;
+    fromJSON(object: any): QueryAllBidMapRequest;
+    toJSON(message: QueryAllBidMapRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllBidMapRequest>): QueryAllBidMapRequest;
+};
+export declare const QueryAllBidMapResponse: {
+    encode(message: QueryAllBidMapResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllBidMapResponse;
+    fromJSON(object: any): QueryAllBidMapResponse;
+    toJSON(message: QueryAllBidMapResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllBidMapResponse>): QueryAllBidMapResponse;
+};
 export declare const QueryGetResultsMapRequest: {
     encode(message: QueryGetResultsMapRequest, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): QueryGetResultsMapRequest;
@@ -130,6 +172,10 @@ export declare const QueryAllAuctionMapResponse: {
 };
 /** Query defines the gRPC querier service. */
 export interface Query {
+    /** Queries a bidMap by index. */
+    BidMap(request: QueryGetBidMapRequest): Promise<QueryGetBidMapResponse>;
+    /** Queries a list of bidMap items. */
+    BidMapAll(request: QueryAllBidMapRequest): Promise<QueryAllBidMapResponse>;
     /** Queries a resultsMap by index. */
     ResultsMap(request: QueryGetResultsMapRequest): Promise<QueryGetResultsMapResponse>;
     /** Queries a list of resultsMap items. */
@@ -146,6 +192,8 @@ export interface Query {
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
+    BidMap(request: QueryGetBidMapRequest): Promise<QueryGetBidMapResponse>;
+    BidMapAll(request: QueryAllBidMapRequest): Promise<QueryAllBidMapResponse>;
     ResultsMap(request: QueryGetResultsMapRequest): Promise<QueryGetResultsMapResponse>;
     ResultsMapAll(request: QueryAllResultsMapRequest): Promise<QueryAllResultsMapResponse>;
     BidList(request: QueryGetBidListRequest): Promise<QueryGetBidListResponse>;

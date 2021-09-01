@@ -1,8 +1,7 @@
 /* eslint-disable */
-import * as Long from 'long';
-import { util, configure, Writer, Reader } from 'protobufjs/minimal';
+import { Writer, Reader } from 'protobufjs/minimal';
 export const protobufPackage = 'hello.candle.candle';
-const baseResultsMap = { creator: '', index: '', winner: '', bidId: 0 };
+const baseResultsMap = { creator: '', index: '', winner: '', bidId: '' };
 export const ResultsMap = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
@@ -14,8 +13,8 @@ export const ResultsMap = {
         if (message.winner !== '') {
             writer.uint32(26).string(message.winner);
         }
-        if (message.bidId !== 0) {
-            writer.uint32(32).uint64(message.bidId);
+        if (message.bidId !== '') {
+            writer.uint32(34).string(message.bidId);
         }
         return writer;
     },
@@ -36,7 +35,7 @@ export const ResultsMap = {
                     message.winner = reader.string();
                     break;
                 case 4:
-                    message.bidId = longToNumber(reader.uint64());
+                    message.bidId = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -66,10 +65,10 @@ export const ResultsMap = {
             message.winner = '';
         }
         if (object.bidId !== undefined && object.bidId !== null) {
-            message.bidId = Number(object.bidId);
+            message.bidId = String(object.bidId);
         }
         else {
-            message.bidId = 0;
+            message.bidId = '';
         }
         return message;
     },
@@ -105,29 +104,8 @@ export const ResultsMap = {
             message.bidId = object.bidId;
         }
         else {
-            message.bidId = 0;
+            message.bidId = '';
         }
         return message;
     }
 };
-var globalThis = (() => {
-    if (typeof globalThis !== 'undefined')
-        return globalThis;
-    if (typeof self !== 'undefined')
-        return self;
-    if (typeof window !== 'undefined')
-        return window;
-    if (typeof global !== 'undefined')
-        return global;
-    throw 'Unable to locate global object';
-})();
-function longToNumber(long) {
-    if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
-    }
-    return long.toNumber();
-}
-if (util.Long !== Long) {
-    util.Long = Long;
-    configure();
-}

@@ -10905,6 +10905,181 @@ paths:
           format: uint64
       tags:
         - Query
+  /hello/candle/candle/bidMap:
+    get:
+      summary: Queries a list of bidMap items.
+      operationId: HelloCandleCandleBidMapAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              BidMap:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    creator:
+                      type: string
+                    index:
+                      type: string
+                    auctionId:
+                      type: string
+                    amt:
+                      type: string
+                      format: uint64
+                    blockHeight:
+                      type: string
+                      format: int64
+              pagination:
+                type: object
+                properties:
+                  nextKey:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  '/hello/candle/candle/bidMap/{index}':
+    get:
+      summary: Queries a bidMap by index.
+      operationId: HelloCandleCandleBidMap
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              BidMap:
+                type: object
+                properties:
+                  creator:
+                    type: string
+                  index:
+                    type: string
+                  auctionId:
+                    type: string
+                  amt:
+                    type: string
+                    format: uint64
+                  blockHeight:
+                    type: string
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: index
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
   /hello/candle/candle/resultsMap:
     get:
       summary: Queries a list of resultsMap items.
@@ -10928,7 +11103,6 @@ paths:
                       type: string
                     bidId:
                       type: string
-                      format: uint64
               pagination:
                 type: object
                 properties:
@@ -11046,7 +11220,6 @@ paths:
                     type: string
                   bidId:
                     type: string
-                    format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -26386,6 +26559,21 @@ definitions:
       amt:
         type: string
         format: uint64
+  hello.candle.candle.BidMap:
+    type: object
+    properties:
+      creator:
+        type: string
+      index:
+        type: string
+      auctionId:
+        type: string
+      amt:
+        type: string
+        format: uint64
+      blockHeight:
+        type: string
+        format: int64
   hello.candle.candle.MsgCreateAuctionMapResponse:
     type: object
   hello.candle.candle.MsgCreateAuctionResponse:
@@ -26396,6 +26584,8 @@ definitions:
       id:
         type: string
         format: uint64
+  hello.candle.candle.MsgCreateBidMapResponse:
+    type: object
   hello.candle.candle.MsgCreateBidResponse:
     type: object
   hello.candle.candle.MsgCreateResultsMapResponse:
@@ -26404,6 +26594,8 @@ definitions:
     type: object
   hello.candle.candle.MsgDeleteBidListResponse:
     type: object
+  hello.candle.candle.MsgDeleteBidMapResponse:
+    type: object
   hello.candle.candle.MsgDeleteResultsMapResponse:
     type: object
   hello.candle.candle.MsgFinalizeAuctionResponse:
@@ -26411,6 +26603,8 @@ definitions:
   hello.candle.candle.MsgUpdateAuctionMapResponse:
     type: object
   hello.candle.candle.MsgUpdateBidListResponse:
+    type: object
+  hello.candle.candle.MsgUpdateBidMapResponse:
     type: object
   hello.candle.candle.MsgUpdateResultsMapResponse:
     type: object
@@ -26500,6 +26694,51 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
+  hello.candle.candle.QueryAllBidMapResponse:
+    type: object
+    properties:
+      BidMap:
+        type: array
+        items:
+          type: object
+          properties:
+            creator:
+              type: string
+            index:
+              type: string
+            auctionId:
+              type: string
+            amt:
+              type: string
+              format: uint64
+            blockHeight:
+              type: string
+              format: int64
+      pagination:
+        type: object
+        properties:
+          nextKey:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
   hello.candle.candle.QueryAllResultsMapResponse:
     type: object
     properties:
@@ -26516,7 +26755,6 @@ definitions:
               type: string
             bidId:
               type: string
-              format: uint64
       pagination:
         type: object
         properties:
@@ -26574,6 +26812,24 @@ definitions:
           amt:
             type: string
             format: uint64
+  hello.candle.candle.QueryGetBidMapResponse:
+    type: object
+    properties:
+      BidMap:
+        type: object
+        properties:
+          creator:
+            type: string
+          index:
+            type: string
+          auctionId:
+            type: string
+          amt:
+            type: string
+            format: uint64
+          blockHeight:
+            type: string
+            format: int64
   hello.candle.candle.QueryGetResultsMapResponse:
     type: object
     properties:
@@ -26588,7 +26844,6 @@ definitions:
             type: string
           bidId:
             type: string
-            format: uint64
   hello.candle.candle.ResultsMap:
     type: object
     properties:
@@ -26600,7 +26855,6 @@ definitions:
         type: string
       bidId:
         type: string
-        format: uint64
   ibc.applications.transfer.v1.DenomTrace:
     type: object
     properties:

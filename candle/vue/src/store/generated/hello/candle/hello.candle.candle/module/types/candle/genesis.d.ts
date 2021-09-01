@@ -1,4 +1,5 @@
 import { Writer, Reader } from 'protobufjs/minimal';
+import { BidMap } from '../candle/bid_map';
 import { ResultsMap } from '../candle/results_map';
 import { BidList } from '../candle/bid_list';
 import { AuctionMap } from '../candle/auction_map';
@@ -6,6 +7,8 @@ export declare const protobufPackage = "hello.candle.candle";
 /** GenesisState defines the candle module's genesis state. */
 export interface GenesisState {
     /** this line is used by starport scaffolding # genesis/proto/state */
+    bidMapList: BidMap[];
+    /** this line is used by starport scaffolding # genesis/proto/stateField */
     resultsMapList: ResultsMap[];
     /** this line is used by starport scaffolding # genesis/proto/stateField */
     bidListList: BidList[];
