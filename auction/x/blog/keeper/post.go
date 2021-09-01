@@ -40,6 +40,10 @@ func (k Keeper) SetPostCount(ctx sdk.Context, count int64) {
 
 func (k Keeper) CreatePost(ctx sdk.Context, msg types.MsgCreatePost) {
 	// Create the post
+	logger := ctx.Logger()
+	logger.Debug("Check1")
+	logger.Info("Check2")
+	logger.Error("Check3")
 	count := k.GetPostCount(ctx)
 	var post = types.Post{
 		Creator: msg.Creator,
