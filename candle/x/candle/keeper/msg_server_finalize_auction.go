@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"math/rand"
+	"strconv"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -47,13 +48,19 @@ func (k msgServer) FinalizeAuction(goCtx context.Context, msg *types.MsgFinalize
 	rand.Seed(int64(seed))
 
 	// leftPoint is the block height from which auction-end window begins
-	leftPoint := rand.Int31n(int32(auction.Deadline)) + int32(auction.BlockHeight)
+	// leftPoint := rand.Int31n(int32(auction.Deadline)) + int32(auction.BlockHeight)
+	startHeight := auction.BlockHeight
+	endHeight := startHeight + uint64(10+rand.Int63n(int64(auction.Deadline-10)))
+	ctx.Logger().Info(
+		"Finalize Auction Start : " + strconv.FormatUint(startHeight, 10) + " End : " +
+			strconv.FormatUint(endHeight, 10),
+	)
 	var amt = uint64(0)
 
 	// This is inefficient
 	allBids := k.GetAllBidMap(ctx)
 	for _, b := range allBids {
-		if b.BlockHeight >= int64(leftPoint) && b.BlockHeight < int64(auctionEndHeight) && amt < b.Amt {
+		if b.BlockHeight >= int64(startHeight) && b.BlockHeight <= int64(endHeight) && amt < b.Amt {
 			amt = b.Amt
 			result.Winner = b.Creator
 			result.BidId = b.Index

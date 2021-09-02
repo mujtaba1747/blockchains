@@ -1,3 +1,7 @@
-./candled query candle list-auction-map "au0" --chain-id="candle"
-./candled query candle show-auction-map "au0" --chain-id="candle"
-./candled tx candle create-auction "au0" --from=alice --chain-id="candle"
+candled query candle list-auction-map "au0" --chain-id="candle"
+candled query candle show-auction-map "au0" --chain-id="candle"
+candled query candle list-results-map
+candled query candle list-bid-map
+candled tx candle create-auction "au0" --from=alice --chain-id="candle"
+candled tx candle finalize-auction "au5" --from=bob --chain-id="candle"
+candled tx candle create-bid "au5" "2" --from=alice --chain-id="candle"
