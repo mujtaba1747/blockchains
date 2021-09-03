@@ -1,0 +1,16 @@
+syntax = "proto3";
+package cosmonaut.scavenge.scavenge;
+
+// this line is used by starport scaffolding # genesis/proto/import
+import "scavenge/commit.proto";
+import "scavenge/scavenge.proto";
+
+option go_package = "github.com/cosmonaut/scavenge/x/scavenge/types";
+
+// GenesisState defines the scavenge module's genesis state.
+message GenesisState {
+    // this line is used by starport scaffolding # genesis/proto/state
+		repeated Commit commitList = 2; // this line is used by starport scaffolding # genesis/proto/stateField
+		repeated Scavenge scavengeList = 1; // this line is used by starport scaffolding # genesis/proto/stateField
+    // this line is used by starport scaffolding # ibc/genesis/proto
+}

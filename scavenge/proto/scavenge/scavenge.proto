@@ -1,0 +1,16 @@
+syntax = "proto3";
+package cosmonaut.scavenge.scavenge;
+
+option go_package = "github.com/cosmonaut/scavenge/x/scavenge/types";
+
+import "gogoproto/gogo.proto";
+
+message Scavenge {
+  string creator = 1;
+  string index = 2;
+  string solutionHash = 3; 
+  string solution = 4; 
+  string description = 5; 
+  string reward = 6; 
+  string scavenger = 7; 
+}

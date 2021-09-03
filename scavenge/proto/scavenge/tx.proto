@@ -1,0 +1,42 @@
+syntax = "proto3";
+package cosmonaut.scavenge.scavenge;
+
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "github.com/cosmonaut/scavenge/x/scavenge/types";
+
+// Msg defines the Msg service.
+service Msg {
+    // this line is used by starport scaffolding # proto/tx/rpc
+  rpc RevealSolution(MsgRevealSolution) returns (MsgRevealSolutionResponse);
+  rpc CommitSolution(MsgCommitSolution) returns (MsgCommitSolutionResponse);
+  rpc SubmitScavenge(MsgSubmitScavenge) returns (MsgSubmitScavengeResponse);
+}
+
+// this line is used by starport scaffolding # proto/tx/message
+message MsgRevealSolution {
+  string creator = 1;
+  string solution = 2;
+}
+
+message MsgRevealSolutionResponse {
+}
+
+message MsgCommitSolution {
+  string creator = 1;
+  string solutionHash = 2;
+  string solutionScavengerHash = 3;
+}
+
+message MsgCommitSolutionResponse {
+}
+
+message MsgSubmitScavenge {
+  string creator = 1;
+  string solutionHash = 2;
+  string description = 3;
+  string reward = 4;
+}
+
+message MsgSubmitScavengeResponse {
+}
