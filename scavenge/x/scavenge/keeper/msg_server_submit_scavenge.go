@@ -1,3 +1,4 @@
+// x/scavenge/keeper/msg_server_submit_scavenge.go
 package keeper
 
 import (
@@ -6,13 +7,10 @@ import (
 	"github.com/cosmonaut/scavenge/x/scavenge/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-
 	"github.com/tendermint/tendermint/crypto"
 )
 
 func (k msgServer) SubmitScavenge(goCtx context.Context, msg *types.MsgSubmitScavenge) (*types.MsgSubmitScavengeResponse, error) {
-
-	// TODO: Handling the message
 	// get context that contains information about the environment, such as block height
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	// create a new scavenge from the data in the MsgSubmitScavenge message
@@ -43,13 +41,10 @@ func (k msgServer) SubmitScavenge(goCtx context.Context, msg *types.MsgSubmitSca
 	}
 	// send tokens from the scavenge creator to the module account
 	sdkError := k.bankKeeper.SendCoins(ctx, scavenger, moduleAcct, reward)
-
 	if sdkError != nil {
 		return nil, sdkError
 	}
 	// write the scavenge to the store
 	k.SetScavenge(ctx, scavenge)
-	return &types.MsgSubmitScavengeResponse{}, nil
-
 	return &types.MsgSubmitScavengeResponse{}, nil
 }
