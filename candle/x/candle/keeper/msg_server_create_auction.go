@@ -15,7 +15,7 @@ func (k msgServer) CreateAuction(goCtx context.Context, msg *types.MsgCreateAuct
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	prevHash := ctx.BlockHeader().LastBlockId.Hash
-	seed := binary.BigEndian.Uint64(prevHash[:9])
+	seed := binary.BigEndian.Uint64(prevHash[:8])
 
 	rand.Seed(int64(seed))
 

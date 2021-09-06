@@ -47,8 +47,6 @@ func (k msgServer) FinalizeAuction(goCtx context.Context, msg *types.MsgFinalize
 	seed := binary.BigEndian.Uint64(prevHash[:9])
 	rand.Seed(int64(seed))
 
-	// leftPoint is the block height from which auction-end window begins
-	// leftPoint := rand.Int31n(int32(auction.Deadline)) + int32(auction.BlockHeight)
 	startHeight := auction.BlockHeight
 	endHeight := startHeight + uint64(10+rand.Int63n(int64(auction.Deadline-10)))
 	ctx.Logger().Info(
