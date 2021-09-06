@@ -44,7 +44,7 @@ func (k msgServer) FinalizeAuction(goCtx context.Context, msg *types.MsgFinalize
 	}
 
 	prevHash := ctx.BlockHeader().LastBlockId.Hash
-	seed := binary.BigEndian.Uint64(prevHash[:9])
+	seed := binary.BigEndian.Uint64(prevHash[:8])
 	rand.Seed(int64(seed))
 
 	startHeight := auction.BlockHeight

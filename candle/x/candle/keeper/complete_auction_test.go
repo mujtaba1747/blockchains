@@ -49,6 +49,7 @@ func TestCompleteAuction(t *testing.T) {
 	ctx = ctx.WithBlockHeight(int64(auction.BlockHeight) + 1)
 	wctx = sdk.WrapSDKContext(ctx)
 
+	// Creating a bid at the very start
 	msgCreateBid := &types.MsgCreateBid{
 		Creator:   "foo",
 		AuctionId: auction.Index,
@@ -58,6 +59,7 @@ func TestCompleteAuction(t *testing.T) {
 	// IMP : We need the err to be nil here
 	require.NoError(t, err)
 
+	// Finalizing the auction before end time, will not work
 	msgFinalizeAuction := &types.MsgFinalizeAuction{
 		Creator:   "foo",
 		AuctionId: auction.Index,
@@ -68,9 +70,18 @@ func TestCompleteAuction(t *testing.T) {
 
 	// Raising a huge bid at the end ( outside the finalize-window )
 	// To show that it will not be considered
-	// msgCreateBid.Amt += 1000
-	// msgCreateBid.Creator = "bar"
+	msgCreateBid.Amt += 1000
+	msgCreateBid.Creator = "bar"
+	ctx = ctx.WithBlockHeight(int64(auction.BlockHeight + auction.Deadline - 1))
+	wctx = sdk.WrapSDKContext(ctx)
 
-	// ctx = ctx.WithBlockHeight(int64(auction.BlockHeight + auction.Deadline))
+	_, err = srv.CreateBid(wctx, msgCreateBid)
+	require.NoError(t, err)
+
+	// Finalizing the auction, after it has ended
+	ctx = ctx.WithBlockHeight(int64(auction.BlockHeight + auction.Deadline))
+	wctx = sdk.WrapSDKContext(ctx)
+	_, err = srv.FinalizeAuction(wctx, msgFinalizeAuction)
+	require.NoError(t, err)
 
 }
