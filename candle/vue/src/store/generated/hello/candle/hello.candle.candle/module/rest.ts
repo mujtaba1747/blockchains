@@ -160,10 +160,7 @@ export interface CandleResultsMap {
 }
 
 export interface ProtobufAny {
-  typeUrl?: string;
-
-  /** @format byte */
-  value?: string;
+  "@type"?: string;
 }
 
 export interface RpcStatus {
