@@ -38,18 +38,29 @@ func setupKeeper(t testing.TB) (*Keeper, sdk.Context) {
 	return keeper, ctx
 }
 
-type IntegrationTestSuite struct {
+type TestSuite struct {
 	suite.Suite
 
-	app         *simapp.SimApp
-	ctx         sdk.Context
-	queryClient types.QueryClient
+	App    *simapp.SimApp
+	Ctx    sdk.Context
+	Keeper *Keeper
+	Cdc    *codec.LegacyAmino
 }
 
-func (suite *IntegrationTestSuite) SetupTest() {
-	app := simapp.Setup(false)
-	ctx := app.BaseApp.NewContext(false, tmproto.Header{})
-
-	suite.app = app
-	suite.ctx = ctx
+func (suite *TestSuite) SetupTest() {
+	suite.App = simapp.Setup(false)
+	suite.Cdc = suite.App.LegacyAmino()
+	suite.Keeper, suite.Ctx = setupKeeper(suite.Suite.T())
 }
+
+// TODO: Remove this
+
+// func (suite *TestSuite) TestFun() {
+// 	suite.T().Log(suite.App.LastCommitID().String())
+// 	suite.T().Fail()
+// }
+
+// func TestFunc(t *testing.T) {
+// 	x := &TestSuite{}
+// 	suite.Run(t, x)
+// }
