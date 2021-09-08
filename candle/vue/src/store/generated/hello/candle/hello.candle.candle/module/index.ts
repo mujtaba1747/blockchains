@@ -4,39 +4,39 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgDeleteBidMap } from "./types/candle/tx";
-import { MsgCreateBid } from "./types/candle/tx";
-import { MsgCreateResultsMap } from "./types/candle/tx";
+import { MsgCreateBidMap } from "./types/candle/tx";
+import { MsgUpdateBidMap } from "./types/candle/tx";
 import { MsgUpdateBidList } from "./types/candle/tx";
+import { MsgUpdateResultsMap } from "./types/candle/tx";
 import { MsgDeleteBidList } from "./types/candle/tx";
-import { MsgFinalizeAuction } from "./types/candle/tx";
-import { MsgCreateAuctionMap } from "./types/candle/tx";
-import { MsgDeleteResultsMap } from "./types/candle/tx";
 import { MsgCreateAuction } from "./types/candle/tx";
 import { MsgDeleteAuctionMap } from "./types/candle/tx";
-import { MsgUpdateAuctionMap } from "./types/candle/tx";
-import { MsgUpdateBidMap } from "./types/candle/tx";
-import { MsgCreateBidMap } from "./types/candle/tx";
-import { MsgUpdateResultsMap } from "./types/candle/tx";
+import { MsgFinalizeAuction } from "./types/candle/tx";
+import { MsgCreateResultsMap } from "./types/candle/tx";
 import { MsgCreateBidList } from "./types/candle/tx";
+import { MsgDeleteResultsMap } from "./types/candle/tx";
+import { MsgUpdateAuctionMap } from "./types/candle/tx";
+import { MsgDeleteBidMap } from "./types/candle/tx";
+import { MsgCreateBid } from "./types/candle/tx";
+import { MsgCreateAuctionMap } from "./types/candle/tx";
 
 
 const types = [
-  ["/hello.candle.candle.MsgDeleteBidMap", MsgDeleteBidMap],
-  ["/hello.candle.candle.MsgCreateBid", MsgCreateBid],
-  ["/hello.candle.candle.MsgCreateResultsMap", MsgCreateResultsMap],
+  ["/hello.candle.candle.MsgCreateBidMap", MsgCreateBidMap],
+  ["/hello.candle.candle.MsgUpdateBidMap", MsgUpdateBidMap],
   ["/hello.candle.candle.MsgUpdateBidList", MsgUpdateBidList],
+  ["/hello.candle.candle.MsgUpdateResultsMap", MsgUpdateResultsMap],
   ["/hello.candle.candle.MsgDeleteBidList", MsgDeleteBidList],
-  ["/hello.candle.candle.MsgFinalizeAuction", MsgFinalizeAuction],
-  ["/hello.candle.candle.MsgCreateAuctionMap", MsgCreateAuctionMap],
-  ["/hello.candle.candle.MsgDeleteResultsMap", MsgDeleteResultsMap],
   ["/hello.candle.candle.MsgCreateAuction", MsgCreateAuction],
   ["/hello.candle.candle.MsgDeleteAuctionMap", MsgDeleteAuctionMap],
-  ["/hello.candle.candle.MsgUpdateAuctionMap", MsgUpdateAuctionMap],
-  ["/hello.candle.candle.MsgUpdateBidMap", MsgUpdateBidMap],
-  ["/hello.candle.candle.MsgCreateBidMap", MsgCreateBidMap],
-  ["/hello.candle.candle.MsgUpdateResultsMap", MsgUpdateResultsMap],
+  ["/hello.candle.candle.MsgFinalizeAuction", MsgFinalizeAuction],
+  ["/hello.candle.candle.MsgCreateResultsMap", MsgCreateResultsMap],
   ["/hello.candle.candle.MsgCreateBidList", MsgCreateBidList],
+  ["/hello.candle.candle.MsgDeleteResultsMap", MsgDeleteResultsMap],
+  ["/hello.candle.candle.MsgUpdateAuctionMap", MsgUpdateAuctionMap],
+  ["/hello.candle.candle.MsgDeleteBidMap", MsgDeleteBidMap],
+  ["/hello.candle.candle.MsgCreateBid", MsgCreateBid],
+  ["/hello.candle.candle.MsgCreateAuctionMap", MsgCreateAuctionMap],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -65,21 +65,21 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgDeleteBidMap: (data: MsgDeleteBidMap): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgDeleteBidMap", value: data }),
-    msgCreateBid: (data: MsgCreateBid): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgCreateBid", value: data }),
-    msgCreateResultsMap: (data: MsgCreateResultsMap): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgCreateResultsMap", value: data }),
+    msgCreateBidMap: (data: MsgCreateBidMap): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgCreateBidMap", value: data }),
+    msgUpdateBidMap: (data: MsgUpdateBidMap): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgUpdateBidMap", value: data }),
     msgUpdateBidList: (data: MsgUpdateBidList): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgUpdateBidList", value: data }),
+    msgUpdateResultsMap: (data: MsgUpdateResultsMap): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgUpdateResultsMap", value: data }),
     msgDeleteBidList: (data: MsgDeleteBidList): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgDeleteBidList", value: data }),
-    msgFinalizeAuction: (data: MsgFinalizeAuction): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgFinalizeAuction", value: data }),
-    msgCreateAuctionMap: (data: MsgCreateAuctionMap): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgCreateAuctionMap", value: data }),
-    msgDeleteResultsMap: (data: MsgDeleteResultsMap): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgDeleteResultsMap", value: data }),
     msgCreateAuction: (data: MsgCreateAuction): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgCreateAuction", value: data }),
     msgDeleteAuctionMap: (data: MsgDeleteAuctionMap): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgDeleteAuctionMap", value: data }),
-    msgUpdateAuctionMap: (data: MsgUpdateAuctionMap): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgUpdateAuctionMap", value: data }),
-    msgUpdateBidMap: (data: MsgUpdateBidMap): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgUpdateBidMap", value: data }),
-    msgCreateBidMap: (data: MsgCreateBidMap): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgCreateBidMap", value: data }),
-    msgUpdateResultsMap: (data: MsgUpdateResultsMap): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgUpdateResultsMap", value: data }),
+    msgFinalizeAuction: (data: MsgFinalizeAuction): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgFinalizeAuction", value: data }),
+    msgCreateResultsMap: (data: MsgCreateResultsMap): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgCreateResultsMap", value: data }),
     msgCreateBidList: (data: MsgCreateBidList): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgCreateBidList", value: data }),
+    msgDeleteResultsMap: (data: MsgDeleteResultsMap): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgDeleteResultsMap", value: data }),
+    msgUpdateAuctionMap: (data: MsgUpdateAuctionMap): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgUpdateAuctionMap", value: data }),
+    msgDeleteBidMap: (data: MsgDeleteBidMap): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgDeleteBidMap", value: data }),
+    msgCreateBid: (data: MsgCreateBid): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgCreateBid", value: data }),
+    msgCreateAuctionMap: (data: MsgCreateAuctionMap): EncodeObject => ({ typeUrl: "/hello.candle.candle.MsgCreateAuctionMap", value: data }),
     
   };
 };

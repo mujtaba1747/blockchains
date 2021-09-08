@@ -11,6 +11,19 @@ import (
 	"github.com/hello/candle/x/candle/types"
 )
 
+func GetBidMapIdx(ctx sdk.Context, auctionId, bidCreator string, amt uint64) string {
+	// Used hashing to have unique bids in map
+	indexHash := sha256.Sum256(
+		[]byte((strconv.FormatInt(ctx.BlockHeight(), 10)) +
+			auctionId +
+			bidCreator +
+			strconv.FormatUint(amt, 10)),
+	)
+
+	indexStr := base64.StdEncoding.EncodeToString(indexHash[:])
+	return indexStr
+}
+
 func (k msgServer) CreateBid(goCtx context.Context, msg *types.MsgCreateBid) (*types.MsgCreateBidResponse, error) {
 
 	ctx := sdk.UnwrapSDKContext(goCtx)

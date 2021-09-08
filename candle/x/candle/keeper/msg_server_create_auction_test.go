@@ -25,7 +25,7 @@ func randomBlockHeader() (tmproto.Header, error) {
 	return blockHeader, err
 }
 
-func TestCreateSingleAuction(t *testing.T) {
+func TestCreateAuction(t *testing.T) {
 	testSuite := &TestSuite{}
 
 	// TODO: There must be a better way to do this
