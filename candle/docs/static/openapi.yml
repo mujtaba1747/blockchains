@@ -10888,6 +10888,9 @@ paths:
                       type: string
                     bidId:
                       type: string
+                    endHeight:
+                      type: string
+                      format: int64
               pagination:
                 type: object
                 properties:
@@ -11003,6 +11006,9 @@ paths:
                     type: string
                   bidId:
                     type: string
+                  endHeight:
+                    type: string
+                    format: int64
         default:
           description: An unexpected error response.
           schema:
@@ -26296,6 +26302,9 @@ definitions:
               type: string
             bidId:
               type: string
+            endHeight:
+              type: string
+              format: int64
       pagination:
         type: object
         properties:
@@ -26385,6 +26394,9 @@ definitions:
             type: string
           bidId:
             type: string
+          endHeight:
+            type: string
+            format: int64
   hello.candle.candle.ResultsMap:
     type: object
     properties:
@@ -26396,6 +26408,9 @@ definitions:
         type: string
       bidId:
         type: string
+      endHeight:
+        type: string
+        format: int64
   ibc.applications.transfer.v1.DenomTrace:
     type: object
     properties:

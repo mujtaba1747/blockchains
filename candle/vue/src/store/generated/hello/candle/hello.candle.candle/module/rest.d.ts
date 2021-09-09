@@ -110,6 +110,8 @@ export interface CandleResultsMap {
     index?: string;
     winner?: string;
     bidId?: string;
+    /** @format int64 */
+    endHeight?: string;
 }
 export interface ProtobufAny {
     "@type"?: string;

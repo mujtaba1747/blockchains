@@ -5,6 +5,7 @@ export interface ResultsMap {
     index: string;
     winner: string;
     bidId: string;
+    endHeight: number;
 }
 export declare const ResultsMap: {
     encode(message: ResultsMap, writer?: Writer): Writer;

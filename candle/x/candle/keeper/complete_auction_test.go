@@ -1,87 +1,109 @@
 package keeper
 
 import (
-	"math/rand"
+	"fmt"
 	"testing"
-	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/hello/candle/x/candle/types"
-	"github.com/stretchr/testify/require"
-	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 )
 
-func TestCompleteAuction(t *testing.T) {
-	// Probably not a good idea, better not to seed
-	rand.Seed(time.Now().UnixNano())
+func TestAuction(t *testing.T) {
+	testSuite := &TestSuite{}
 
-	keeper, ctx := setupKeeper(t)
-	srv := NewMsgServerImpl(*keeper)
+	// TODO: There must be a better way to do this
+	testSuite.SetT(t)
+	testSuite.SetupTest()
+	testSuite.TestCompleteAuction()
+	testSuite.SetupTest()
+}
 
-	hash := make([]byte, 8)
-	_, err := rand.Read(hash)
-	require.NoError(t, err)
+// Creates a bid at the blockheight present in suite.Ctx
+func (suite *TestSuite) CreateBidAtHeightHelper(auction types.AuctionMap, bidAmt uint64, bidCreator string) error {
 
-	blockHeader := tmproto.Header{
-		LastBlockId: tmproto.BlockID{
-			Hash: hash,
-		},
+	_, isFound := suite.Keeper.GetAuctionMap(suite.Ctx, auction.Index)
+	if !isFound {
+		return fmt.Errorf("auction not found")
 	}
 
-	ctx = ctx.WithBlockHeader(blockHeader)
+	err := suite.CreateBidHelper(auction.Index, bidAmt, bidCreator)
+	if err != nil {
+		return err
+	}
+
+	// Asserting that the bid was actually created
+	bidIdx := GetBidMapIdx(suite.Ctx, auction.Index, bidCreator, bidAmt)
+	_, isFound = suite.Keeper.GetBidMap(suite.Ctx, bidIdx)
+	if !isFound {
+		return fmt.Errorf("create bid failed")
+	}
+
+	return nil
+}
+
+func (suite *TestSuite) TestCompleteAuction() {
+	auctionTitle := "foo"
+
+	require := suite.Require()
+
+	err := suite.CreateAuctionHelper(auctionTitle)
+	require.NoError(err)
+
+	// Asserting if the auction is actually created
+	auction, isFound := suite.Keeper.GetAuctionMap(suite.Ctx, auctionTitle)
+	require.True(isFound)
+
+	beginHeight := auction.BlockHeight
+	expiryHeight := beginHeight + auction.Deadline
+
+	// Adding 2 Bids: One at the beginning and other at the very end
+	// The Bid at the Beginning is lower but will win, if other end is outside window
+	// After finalize we have 2 cases: end = expiry - 1 and end < expiry - 1
+	// Bids are not allowed at height=expiry
+
+	ctxBackup := suite.Ctx
+
+	suite.Ctx = suite.Ctx.WithBlockHeight(int64(beginHeight))
+	err = suite.CreateBidAtHeightHelper(auction, 10, "alice")
+	require.NoError(err)
+
+	suite.Ctx = suite.Ctx.WithBlockHeight(int64(expiryHeight) - 1)
+	err = suite.CreateBidAtHeightHelper(auction, 20, "bob")
+	require.NoError(err)
+
+	suite.Ctx = ctxBackup
+
+	// Finalzing the auction
+	blockHeader, err := randomBlockHeader()
+	require.NoError(err)
+
+	ctx := ctxBackup.WithBlockHeader(blockHeader).WithBlockHeight(int64(expiryHeight))
 	wctx := sdk.WrapSDKContext(ctx)
 
-	creator := "alice"
-	createMsg := &types.MsgCreateAuction{
-		Creator: creator,
-		Title:   "test-0",
+	srv := NewMsgServerImpl(*suite.Keeper)
+	_, err = srv.FinalizeAuction(
+		wctx,
+		&types.MsgFinalizeAuction{
+			Creator:   "xyz", // Doesn't matter who finalizes the auction
+			AuctionId: auctionTitle,
+		},
+	)
+	require.NoError(err)
+
+	// Asserting that the auction actually got finalized
+	result, isFound := suite.Keeper.GetResultsMap(suite.Ctx, auctionTitle)
+	require.True(isFound)
+
+	// End Height is the height of the last block on which a bid can be created
+	endHeight := result.EndHeight
+
+	if endHeight == int64(expiryHeight)-1 {
+		// bob wins!
+		require.Equal(result.Winner, "bob")
+	} else {
+		// alice wins!
+		require.Equal(result.Winner, "alice")
 	}
 
-	_, err = srv.CreateAuction(wctx, createMsg)
-	if err != nil {
-		t.Log(err)
-	}
-	require.NoError(t, err)
-
-	auction, isFound := keeper.GetAuctionMap(ctx, createMsg.Title)
-	require.True(t, isFound)
-
-	ctx = ctx.WithBlockHeight(int64(auction.BlockHeight) + 1)
-	wctx = sdk.WrapSDKContext(ctx)
-
-	// Creating a bid at the very start
-	msgCreateBid := &types.MsgCreateBid{
-		Creator:   "foo",
-		AuctionId: auction.Index,
-		Amt:       uint64(rand.Uint32()),
-	}
-	_, err = srv.CreateBid(wctx, msgCreateBid)
-	// IMP : We need the err to be nil here
-	require.NoError(t, err)
-
-	// Finalizing the auction before end time, will not work
-	msgFinalizeAuction := &types.MsgFinalizeAuction{
-		Creator:   "foo",
-		AuctionId: auction.Index,
-	}
-	_, err = srv.FinalizeAuction(wctx, msgFinalizeAuction)
-	// Error should be non-nil. This Finalize is too early
-	require.Error(t, err)
-
-	// Raising a huge bid at the end ( outside the finalize-window )
-	// To show that it will not be considered
-	msgCreateBid.Amt += 1000
-	msgCreateBid.Creator = "bar"
-	ctx = ctx.WithBlockHeight(int64(auction.BlockHeight + auction.Deadline - 1))
-	wctx = sdk.WrapSDKContext(ctx)
-
-	_, err = srv.CreateBid(wctx, msgCreateBid)
-	require.NoError(t, err)
-
-	// Finalizing the auction, after it has ended
-	ctx = ctx.WithBlockHeight(int64(auction.BlockHeight + auction.Deadline))
-	wctx = sdk.WrapSDKContext(ctx)
-	_, err = srv.FinalizeAuction(wctx, msgFinalizeAuction)
-	require.NoError(t, err)
-
+	suite.Ctx = ctxBackup
 }

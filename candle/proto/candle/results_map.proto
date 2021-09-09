@@ -9,5 +9,6 @@ message ResultsMap {
   string creator = 1;
   string index = 2;
   string winner = 3; 
-  string bidId = 4; 
+  string bidId = 4;
+  int64 endHeight = 5;
 }

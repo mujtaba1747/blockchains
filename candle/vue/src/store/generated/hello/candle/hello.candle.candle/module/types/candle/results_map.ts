@@ -1,5 +1,6 @@
 /* eslint-disable */
-import { Writer, Reader } from 'protobufjs/minimal'
+import * as Long from 'long'
+import { util, configure, Writer, Reader } from 'protobufjs/minimal'
 
 export const protobufPackage = 'hello.candle.candle'
 
@@ -8,9 +9,10 @@ export interface ResultsMap {
   index: string
   winner: string
   bidId: string
+  endHeight: number
 }
 
-const baseResultsMap: object = { creator: '', index: '', winner: '', bidId: '' }
+const baseResultsMap: object = { creator: '', index: '', winner: '', bidId: '', endHeight: 0 }
 
 export const ResultsMap = {
   encode(message: ResultsMap, writer: Writer = Writer.create()): Writer {
@@ -25,6 +27,9 @@ export const ResultsMap = {
     }
     if (message.bidId !== '') {
       writer.uint32(34).string(message.bidId)
+    }
+    if (message.endHeight !== 0) {
+      writer.uint32(40).int64(message.endHeight)
     }
     return writer
   },
@@ -47,6 +52,9 @@ export const ResultsMap = {
           break
         case 4:
           message.bidId = reader.string()
+          break
+        case 5:
+          message.endHeight = longToNumber(reader.int64() as Long)
           break
         default:
           reader.skipType(tag & 7)
@@ -78,6 +86,11 @@ export const ResultsMap = {
     } else {
       message.bidId = ''
     }
+    if (object.endHeight !== undefined && object.endHeight !== null) {
+      message.endHeight = Number(object.endHeight)
+    } else {
+      message.endHeight = 0
+    }
     return message
   },
 
@@ -87,6 +100,7 @@ export const ResultsMap = {
     message.index !== undefined && (obj.index = message.index)
     message.winner !== undefined && (obj.winner = message.winner)
     message.bidId !== undefined && (obj.bidId = message.bidId)
+    message.endHeight !== undefined && (obj.endHeight = message.endHeight)
     return obj
   },
 
@@ -112,9 +126,24 @@ export const ResultsMap = {
     } else {
       message.bidId = ''
     }
+    if (object.endHeight !== undefined && object.endHeight !== null) {
+      message.endHeight = object.endHeight
+    } else {
+      message.endHeight = 0
+    }
     return message
   }
 }
+
+declare var self: any | undefined
+declare var window: any | undefined
+var globalThis: any = (() => {
+  if (typeof globalThis !== 'undefined') return globalThis
+  if (typeof self !== 'undefined') return self
+  if (typeof window !== 'undefined') return window
+  if (typeof global !== 'undefined') return global
+  throw 'Unable to locate global object'
+})()
 
 type Builtin = Date | Function | Uint8Array | string | number | undefined
 export type DeepPartial<T> = T extends Builtin
@@ -126,3 +155,15 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
+
+function longToNumber(long: Long): number {
+  if (long.gt(Number.MAX_SAFE_INTEGER)) {
+    throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER')
+  }
+  return long.toNumber()
+}
+
+if (util.Long !== Long) {
+  util.Long = Long as any
+  configure()
+}

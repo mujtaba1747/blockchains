@@ -49,6 +49,8 @@ func (k msgServer) FinalizeAuction(goCtx context.Context, msg *types.MsgFinalize
 
 	startHeight := auction.BlockHeight
 	endHeight := startHeight + uint64(10+rand.Int63n(int64(auction.Deadline-10)))
+	// endHeight := startHeight + auction.Deadline - 1
+
 	ctx.Logger().Info(
 		"Finalize Auction Start : " + strconv.FormatUint(startHeight, 10) + " End : " +
 			strconv.FormatUint(endHeight, 10),
@@ -62,6 +64,7 @@ func (k msgServer) FinalizeAuction(goCtx context.Context, msg *types.MsgFinalize
 			amt = b.Amt
 			result.Winner = b.Creator
 			result.BidId = b.Index
+			result.EndHeight = int64(endHeight)
 		}
 	}
 
