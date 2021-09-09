@@ -8,6 +8,43 @@ option go_package = "github.com/cosmonaut/nameservice/x/nameservice/types";
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateName(MsgCreateName) returns (MsgCreateNameResponse);
+  rpc DeleteName(MsgDeleteName) returns (MsgDeleteNameResponse);
+  rpc SetName(MsgSetName) returns (MsgSetNameResponse);
+  rpc BuyName(MsgBuyName) returns (MsgBuyNameResponse);
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreateName {
+  string creator = 1;
+  string name = 2;
+}
+
+message MsgCreateNameResponse {
+}
+
+message MsgDeleteName {
+  string creator = 1;
+  string name = 2;
+}
+
+message MsgDeleteNameResponse {
+}
+
+message MsgSetName {
+  string creator = 1;
+  string name = 2;
+  string value = 3;
+}
+
+message MsgSetNameResponse {
+}
+
+message MsgBuyName {
+  string creator = 1;
+  string name = 2;
+  string bid = 3;
+}
+
+message MsgBuyNameResponse {
+}
