@@ -2,11 +2,13 @@ syntax = "proto3";
 package cosmonaut.nameservice.nameservice;
 
 // this line is used by starport scaffolding # genesis/proto/import
+import "nameservice/whois.proto";
 
 option go_package = "github.com/cosmonaut/nameservice/x/nameservice/types";
 
 // GenesisState defines the nameservice module's genesis state.
 message GenesisState {
     // this line is used by starport scaffolding # genesis/proto/state
+		repeated Whois whoisList = 1; // this line is used by starport scaffolding # genesis/proto/stateField
     // this line is used by starport scaffolding # ibc/genesis/proto
 }

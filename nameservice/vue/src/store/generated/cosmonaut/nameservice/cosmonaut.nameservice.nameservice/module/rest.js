@@ -134,4 +134,36 @@ export class HttpClient {
  * @version version not set
  */
 export class Api extends HttpClient {
+    constructor() {
+        super(...arguments);
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryWhoisAll
+         * @summary Queries a list of whois items.
+         * @request GET:/cosmonaut/nameservice/nameservice/whois
+         */
+        this.queryWhoisAll = (query, params = {}) => this.request({
+            path: `/cosmonaut/nameservice/nameservice/whois`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryWhois
+         * @summary Queries a whois by index.
+         * @request GET:/cosmonaut/nameservice/nameservice/whois/{index}
+         */
+        this.queryWhois = (index, params = {}) => this.request({
+            path: `/cosmonaut/nameservice/nameservice/whois/${index}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+    }
 }
