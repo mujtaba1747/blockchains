@@ -94,7 +94,7 @@ func (suite *TestSuite) TestCompleteAuction() {
 	result, isFound := suite.Keeper.GetResultsMap(suite.Ctx, auctionTitle)
 	require.True(isFound)
 
-	// End Height is the height of the last block on which a bid can be created
+	// End Height is the height of the last block on which a bid can be placed
 	endHeight := result.EndHeight
 
 	if endHeight == int64(expiryHeight)-1 {
