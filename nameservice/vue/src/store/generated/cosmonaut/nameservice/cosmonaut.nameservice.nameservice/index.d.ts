@@ -1,4 +1,5 @@
 import { Whois } from "./module/types/nameservice/whois";
-export { Whois };
+import { Params } from "./module/types/nameservice/whois";
+export { Whois, Params };
 declare const _default;
 export default _default;

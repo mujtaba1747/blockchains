@@ -9,12 +9,22 @@ export interface Whois {
     createHt: string;
     expiry: string;
 }
+export interface Params {
+    minPrice: number;
+}
 export declare const Whois: {
     encode(message: Whois, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): Whois;
     fromJSON(object: any): Whois;
     toJSON(message: Whois): unknown;
     fromPartial(object: DeepPartial<Whois>): Whois;
+};
+export declare const Params: {
+    encode(message: Params, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): Params;
+    fromJSON(object: any): Params;
+    toJSON(message: Params): unknown;
+    fromPartial(object: DeepPartial<Params>): Params;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

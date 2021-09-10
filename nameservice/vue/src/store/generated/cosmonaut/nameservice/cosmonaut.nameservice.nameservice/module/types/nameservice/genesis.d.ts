@@ -1,10 +1,10 @@
-import { Whois } from '../nameservice/whois';
+import { Whois, Params } from '../nameservice/whois';
 import { Writer, Reader } from 'protobufjs/minimal';
 export declare const protobufPackage = "cosmonaut.nameservice.nameservice";
-/** GenesisState defines the nameservice module's genesis state. */
 export interface GenesisState {
     /** this line is used by starport scaffolding # genesis/proto/state */
     whoisList: Whois[];
+    Params: Params | undefined;
 }
 export declare const GenesisState: {
     encode(message: GenesisState, writer?: Writer): Writer;

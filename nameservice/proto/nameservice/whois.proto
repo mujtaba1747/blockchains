@@ -14,3 +14,7 @@ message Whois {
   string createHt = 6; 
   string expiry = 7; 
 }
+
+message Params {
+  int64 minPrice = 1;
+}

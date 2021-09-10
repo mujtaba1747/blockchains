@@ -8,6 +8,7 @@ import (
 	"github.com/cosmonaut/nameservice/x/nameservice/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	// this line is used by starport scaffolding # ibc/keeper/import
 )
 
@@ -18,7 +19,8 @@ type (
 		memKey   sdk.StoreKey
 		// this line is used by starport scaffolding # ibc/keeper/attribute
 
-		bankKeeper types.BankKeeper
+		bankKeeper    types.BankKeeper
+		ParamSubspace paramtypes.Subspace
 	}
 )
 
@@ -28,16 +30,23 @@ func NewKeeper(
 	memKey sdk.StoreKey,
 	// this line is used by starport scaffolding # ibc/keeper/parameter
 	bankKeeper types.BankKeeper,
+
+	paramSubspace paramtypes.Subspace,
 ) *Keeper {
 	return &Keeper{
 		cdc:      cdc,
 		storeKey: storeKey,
 		memKey:   memKey,
 		// this line is used by starport scaffolding # ibc/keeper/return
-		bankKeeper: bankKeeper,
+		bankKeeper:    bankKeeper,
+		ParamSubspace: paramSubspace,
 	}
 }
 
 func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 	return ctx.Logger().With("module", fmt.Sprintf("x/%s", types.ModuleName))
 }
+
+// func (k Keeper) SetParams(ctx sdk.Context, params par) {
+// 	k.paramSpace.SetParamSet(ctx, &params)
+// }

@@ -83,6 +83,7 @@ import (
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 	tmjson "github.com/tendermint/tendermint/libs/json"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
+
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 	nameservicemodule "github.com/cosmonaut/nameservice/x/nameservice"
 	nameservicemodulekeeper "github.com/cosmonaut/nameservice/x/nameservice/keeper"
@@ -345,6 +346,7 @@ func New(
 		keys[nameservicemoduletypes.MemStoreKey],
 
 		app.BankKeeper,
+		app.GetSubspace(nameservicemoduletypes.ModuleName),
 	)
 	nameserviceModule := nameservicemodule.NewAppModule(appCodec, app.NameserviceKeeper)
 

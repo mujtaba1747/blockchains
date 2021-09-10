@@ -1,13 +1,13 @@
 /* eslint-disable */
-import { Whois } from '../nameservice/whois'
+import { Whois, Params } from '../nameservice/whois'
 import { Writer, Reader } from 'protobufjs/minimal'
 
 export const protobufPackage = 'cosmonaut.nameservice.nameservice'
 
-/** GenesisState defines the nameservice module's genesis state. */
 export interface GenesisState {
   /** this line is used by starport scaffolding # genesis/proto/state */
   whoisList: Whois[]
+  Params: Params | undefined
 }
 
 const baseGenesisState: object = {}
@@ -16,6 +16,9 @@ export const GenesisState = {
   encode(message: GenesisState, writer: Writer = Writer.create()): Writer {
     for (const v of message.whoisList) {
       Whois.encode(v!, writer.uint32(10).fork()).ldelim()
+    }
+    if (message.Params !== undefined) {
+      Params.encode(message.Params, writer.uint32(18).fork()).ldelim()
     }
     return writer
   },
@@ -30,6 +33,9 @@ export const GenesisState = {
       switch (tag >>> 3) {
         case 1:
           message.whoisList.push(Whois.decode(reader, reader.uint32()))
+          break
+        case 2:
+          message.Params = Params.decode(reader, reader.uint32())
           break
         default:
           reader.skipType(tag & 7)
@@ -47,6 +53,11 @@ export const GenesisState = {
         message.whoisList.push(Whois.fromJSON(e))
       }
     }
+    if (object.Params !== undefined && object.Params !== null) {
+      message.Params = Params.fromJSON(object.Params)
+    } else {
+      message.Params = undefined
+    }
     return message
   },
 
@@ -57,6 +68,7 @@ export const GenesisState = {
     } else {
       obj.whoisList = []
     }
+    message.Params !== undefined && (obj.Params = message.Params ? Params.toJSON(message.Params) : undefined)
     return obj
   },
 
@@ -67,6 +79,11 @@ export const GenesisState = {
       for (const e of object.whoisList) {
         message.whoisList.push(Whois.fromPartial(e))
       }
+    }
+    if (object.Params !== undefined && object.Params !== null) {
+      message.Params = Params.fromPartial(object.Params)
+    } else {
+      message.Params = undefined
     }
     return message
   }

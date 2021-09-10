@@ -23,8 +23,14 @@ func (k msgServer) BuyName(goCtx context.Context, msg *types.MsgBuyName) (*types
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "buy-name failed: name already owned")
 	}
 
-	// TODO: Replace this with min-price from genesis.json
 	minPrice := sdk.Coins{sdk.NewInt64Coin("token", 10)}
+
+	minFromGenesis := types.Params{MinPrice: 0}
+	k.Keeper.ParamSubspace.GetIfExists(ctx, []byte("min-price"), &minFromGenesis)
+	if minFromGenesis.MinPrice > 0 {
+		minPrice = sdk.Coins{sdk.NewInt64Coin("token", minFromGenesis.MinPrice)}
+	}
+
 	bid, err := sdk.ParseCoinsNormalized(msg.Bid)
 
 	if err != nil {
@@ -44,6 +50,7 @@ func (k msgServer) BuyName(goCtx context.Context, msg *types.MsgBuyName) (*types
 
 	// Sending Coin to Module Account
 	sdkError := k.bankKeeper.SendCoins(ctx, buyer, moduleAcct, bid)
+	// k.bankKeeper.SendCoinsFromAccountToModule()
 	if sdkError != nil {
 		return nil, sdkError
 	}
