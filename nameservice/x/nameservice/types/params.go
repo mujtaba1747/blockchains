@@ -11,7 +11,7 @@ const (
 )
 
 var (
-	KeyMinPrice = []byte("min-price")
+	KeyMinPrice = []byte("minprice")
 )
 
 var _ paramtypes.ParamSet = &Params{}

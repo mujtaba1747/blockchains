@@ -31,15 +31,20 @@ func NewKeeper(
 	// this line is used by starport scaffolding # ibc/keeper/parameter
 	bankKeeper types.BankKeeper,
 
-	paramSubspace paramtypes.Subspace,
+	paramStore paramtypes.Subspace,
 ) *Keeper {
+	// set KeyTable if it has not already been set
+	if !paramStore.HasKeyTable() {
+		paramStore = paramStore.WithKeyTable(types.ParamKeyTable())
+	}
+
 	return &Keeper{
 		cdc:      cdc,
 		storeKey: storeKey,
 		memKey:   memKey,
 		// this line is used by starport scaffolding # ibc/keeper/return
 		bankKeeper:    bankKeeper,
-		ParamSubspace: paramSubspace,
+		ParamSubspace: paramStore,
 	}
 }
 

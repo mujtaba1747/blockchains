@@ -26,7 +26,10 @@ func (k msgServer) BuyName(goCtx context.Context, msg *types.MsgBuyName) (*types
 	minPrice := sdk.Coins{sdk.NewInt64Coin("token", 10)}
 
 	minFromGenesis := types.Params{MinPrice: 0}
-	k.Keeper.ParamSubspace.GetIfExists(ctx, []byte("min-price"), &minFromGenesis)
+	// k.Keeper.ParamSubspace.GetIfExists(ctx, []byte("min-price"), &minFromGenesis)
+
+	k.Keeper.ParamSubspace.GetParamSet(ctx, &minFromGenesis)
+
 	if minFromGenesis.MinPrice > 0 {
 		minPrice = sdk.Coins{sdk.NewInt64Coin("token", minFromGenesis.MinPrice)}
 	}

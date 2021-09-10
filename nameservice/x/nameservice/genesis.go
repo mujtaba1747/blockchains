@@ -15,7 +15,8 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		k.SetWhois(ctx, *elem)
 	}
 
-	k.ParamSubspace.Set(ctx, []byte("min-price"), genState.Params)
+	// k.ParamSubspace.Set(ctx, []byte("min-price"), genState.Params)
+	k.ParamSubspace.SetParamSet(ctx, genState.Params)
 	// this line is used by starport scaffolding # ibc/genesis/init
 }
 
