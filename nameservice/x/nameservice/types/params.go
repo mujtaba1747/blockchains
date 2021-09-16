@@ -46,7 +46,7 @@ func validateMinPrice(i interface{}) error {
 	}
 
 	if minPrice <= 0 {
-		return fmt.Errorf("imvalid minPrice: price set to non-positive: %d", minPrice)
+		return fmt.Errorf("invalid minPrice: price set to non-positive: %d", minPrice)
 	}
 
 	return nil
