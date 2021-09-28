@@ -34,11 +34,16 @@
 
 ## Interesting features
 
-- During Ethereum -> Cosmos transfer. When more than 66% (by voting power) of validators claim to have observed a particular transfer (let's say A->B), the assets are sent to the Cosmos Address
+- During Ethereum -> Cosmos transfer. When more than 66% (by voting power) of validators claim to have observed a particular transfer (let's say `A` -> `B` ), the assets are sent to the Cosmos Address (`B` in our case). All validators run `Oracle` to watch for such events on the `Ethereum` chain
 
 - Cosmos -> Ethereum transfers are batched due to high Gas on the mainnet. Transfers of the same token are picked from a `pool` of transactions and then `relayers` relay them to Ethereum for a reward
 
+- When are tokens minted in Cosmos? :- Consider a Ethereum -> Cosmos transfer in which the Cosmos Tokens didn't originate on Cosmos (this can be checked). In this case, tokens are minted and sent. In case the tokens originated on Cosmos, then they are transferred from the Gravity Module account to the cosmos address (receipent) because at some point they were transferred to the module account during a Cosmos->Ethereum transfer
 
 - Rewards are paid on Ethereum side to make relaying competitive. Also, the reward has to be paid in the same ERC20 token that is being transferred to Ethereum
 
 - Malicious users can spam the cosmos network with request to transfer assets with too less fees. The relayers may not pick them due to unprofitability. Hence, they would just congest the network. To avoid this, Transaction Batching is done in this [way](https://github.com/althea-net/cosmos-gravity-bridge/blob/main/docs/design/ethereum-signing.md)
+
+- What is `voucher`: Represents a bridged ETH token on the Cosmos side. Their denom is has a gravity prefix and a hash that is build from contract address and contract token. The denom is considered unique within the system.
+
+
